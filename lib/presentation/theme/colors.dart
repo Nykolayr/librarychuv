@@ -13,4 +13,5 @@ class AppColor {
   static const Color greyAppBar = Color(0xFFDCDCDC);
   static const Color greyDivider = Color(0xFFF0F0F0);
   static const Color white = Color(0xFFFFFFFF);
+  static const Color fon = Color(0xFFF9F5F2);
 }

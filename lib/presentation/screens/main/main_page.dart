@@ -11,6 +11,6 @@ class MainPage extends StatefulWidget {
 class MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
-    throw UnimplementedError();
+    return widget.widget;
   }
 }
