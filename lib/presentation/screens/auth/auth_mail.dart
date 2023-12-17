@@ -7,8 +7,8 @@ import 'package:librarychuv/presentation/theme/text.dart';
 import 'package:librarychuv/presentation/widgets/app.dart';
 import 'package:librarychuv/presentation/widgets/buttons.dart';
 
-class AuthPage extends StatelessWidget {
-  const AuthPage({super.key});
+class AuthMailPage extends StatelessWidget {
+  const AuthMailPage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -38,6 +38,7 @@ final GoRouter router = GoRouter(
           child: const AuthPage(),
         ),
       ),
+      routes: [],
     ),
     GoRoute(
       name: 'Главная',
@@ -47,8 +48,8 @@ final GoRouter router = GoRouter(
         context: context,
         state: state,
         child: MainPage(widget: Container()),
-      ),  redirect: (context, state) {},
-      routes: [],
+      ),
+      redirect: (context, state) {},
     ),
   ],
 );

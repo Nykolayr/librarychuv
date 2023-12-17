@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:librarychuv/domain/repository/user_repository.dart';
 import 'package:librarychuv/domain/routers/routers.dart';
 import 'package:librarychuv/presentation/theme/colors.dart';
@@ -29,13 +31,19 @@ class MyApp extends StatelessWidget {
       routeInformationParser: router.routeInformationParser,
       routerDelegate: router.routerDelegate,
       theme: ThemeData(
-        appBarTheme: const AppBarTheme(
-          color: AppColor.white,
-        ),
-        canvasColor: AppColor.white,
-        scaffoldBackgroundColor: AppColor.white,
-        dialogBackgroundColor: Colors.white,
-      ),
+          scaffoldBackgroundColor: AppColor.fon,
+          useMaterial3: false,
+          textTheme: GoogleFonts.cormorantTextTheme(),
+          fontFamily: GoogleFonts.cormorant().fontFamily,
+          appBarTheme: const AppBarTheme(color: AppColor.white),
+          canvasColor: AppColor.fon,
+          dialogBackgroundColor: Colors.white),
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
+      supportedLocales: const [
+        Locale('en', ''),
+        Locale('ru', ''),
+      ],
+      locale: const Locale('ru', ''),
       builder: (context, child) {
         // добавил логирование для отладки
         Logger.addStrategy(DebugLogStrategy());

@@ -11,6 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations: 
+    sdk: flutter    
 
 
   surf_lint_rules: ^3.0.0 #https://pub.dev/packages/surf_lint_rules
@@ -38,6 +40,11 @@ dependencies:
   #responsive_builder: ^0.7.0 #https://pub.dev/packages/responsive_builder
   gap: ^3.0.1  #https://pub.dev/packages/gap
   #extended_image: ^8.2.0 #https://pub.dev/packages/extended_image
+  google_fonts: ^6.1.0 #https://pub.dev/packages/google_fonts
+  calendar_date_picker2: ^0.5.3 #https://pub.dev/packages/calendar_date_picker2
+  intl: ^0.18.1
+  
+  
 
 dev_dependencies:
   flutter_test:
