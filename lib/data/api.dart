@@ -11,10 +11,10 @@ class Api {
     // contentType: ContentType.json.toString(),
   ));
 
-  /// загрузка  списка подразделений,
+  /// загрузка  списка рекомендаций,
   /// если ошибки нет возвращается  map для user
-  Future<List<Map<dynamic, dynamic>>> getDivisition() async {
-    const path = '/div/';
+  Future<List<Map<String, dynamic>>> loadRecomend() async {
+    const path = '/recomend/';
     Response<dynamic> response;
     try {
       response = await dio.get(path);
@@ -34,10 +34,10 @@ class Api {
     }
   }
 
-  /// загрузка  списка организаций,
+  /// загрузка  списка новостей,
   /// если ошибки нет возвращается  map для user
-  Future<List<Map<String, dynamic>>> getOrganitation() async {
-    const path = '/org/';
+  Future<List<Map<String, dynamic>>> getNews() async {
+    const path = '/news/';
     Response<dynamic> response;
     try {
       response = await dio.get(path);
@@ -95,21 +95,11 @@ void logDioException(DioException e, String path) {
     Logger.e('Error DioException path: $path headers: ${e.response!.headers}');
     Logger.e(
         'Error DioException path: $path requestOptions: ${e.response!.requestOptions.data}');
-    // fToast.showToast(
-    //   child: Text('Ошибка path: $path  ${e.response!.data}'),
-    //   gravity: ToastGravity.BOTTOM,
-    //   toastDuration: const Duration(seconds: 10),
-    // );
-
-    // Get.dialog(Text('Ошибка path: $path  ${e.response!.data}'));
-    // Get.snackbar('Ошибка path: $path', '${e.response!.data}');
   } else {
     error = 'request path: $path data:  ${e.message}';
     Logger.e('Error DioException request ${e.message}');
     Logger.e('Error DioException  path ${e.requestOptions.path}');
     Logger.e('Error DioException  path: $path data: ${e.requestOptions.data}');
-    // Get.dialog(Text('Ошибка path: $path  ${e.message}'));
-    // Get.snackbar('Ошибка path: $path', e.message ?? 'нераспознанная ошибка');
   }
   if (error.isNotEmpty && context != null) {
     if (error.contains('Token is invalid')) {

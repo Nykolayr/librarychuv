@@ -3,7 +3,7 @@
 import 'package:get/get.dart';
 import 'package:librarychuv/data/api.dart';
 import 'package:librarychuv/data/local_data.dart';
-import 'package:librarychuv/data/user_mock.dart';
+import 'package:librarychuv/data/mock/user_mock.dart';
 import 'package:librarychuv/domain/models/user.dart';
 import 'package:librarychuv/main.dart';
 

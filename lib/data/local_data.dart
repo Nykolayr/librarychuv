@@ -53,4 +53,6 @@ class LocalData {
 
 enum LocalDataKey {
   user,
+  news,
+  recomend,
 }

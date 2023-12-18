@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:librarychuv/presentation/theme/different.dart';
 import 'package:librarychuv/presentation/widgets/app.dart';
+import 'package:librarychuv/presentation/widgets/fon_picture.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class AuthGosuslugiPage extends StatefulWidget {
@@ -44,13 +43,7 @@ class _AuthGosuslugiPageState extends State<AuthGosuslugiPage> {
       child: Scaffold(
         appBar: const AppBarWithBackButton(),
         body: Stack(alignment: AlignmentDirectional.topCenter, children: [
-          Positioned(
-            bottom: 0,
-            child: SvgPicture.asset(
-              'assets/svg/fon.svg',
-              width: context.mediaQuerySize.width,
-            ),
-          ),
+          const FonPicture(),
           Container(
             width: context.mediaQuerySize.width,
             height: context.mediaQuerySize.height,

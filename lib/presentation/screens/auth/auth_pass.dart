@@ -10,6 +10,7 @@ import 'package:librarychuv/presentation/theme/colors.dart';
 import 'package:librarychuv/presentation/theme/text.dart';
 import 'package:librarychuv/presentation/widgets/app.dart';
 import 'package:librarychuv/presentation/widgets/buttons.dart';
+import 'package:librarychuv/presentation/widgets/fon_picture.dart';
 import 'package:librarychuv/presentation/widgets/textfields.dart';
 
 class AuthPassPage extends StatefulWidget {
@@ -46,11 +47,7 @@ class _AuthPassPageState extends State<AuthPassPage> {
               return Stack(
                 alignment: AlignmentDirectional.topCenter,
                 children: [
-                  Positioned(
-                    bottom: 0,
-                    child: SvgPicture.asset('assets/svg/fon.svg',
-                        width: context.mediaQuerySize.width),
-                  ),
+                  const FonPicture(),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 25),
                     width: context.mediaQuerySize.width,

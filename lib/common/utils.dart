@@ -1,12 +1,23 @@
 // import 'dart:convert';
 // import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class Utils {
   // static String hashPassword(String password) {
   //   var bin = utf8.encode(password);
   //   return sha256.convert(bin).toString();
   // }
+
+  static String getFormatDate(DateTime date) {
+    final DateFormat formatter = DateFormat('dd.MM.yyyy');
+    return formatter.format(date);
+  }
+
+  static String getFormatDateFull(DateTime date) {
+    final DateFormat formatter = DateFormat('dd MMMM yyyy г.', 'ru');
+    return formatter.format(date);
+  }
 
   static String? validatePassword(String? password) {
     if (password == null || password.isEmpty) {

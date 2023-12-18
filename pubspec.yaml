@@ -1,8 +1,16 @@
 name: librarychuv
-description: "Библиотека Чувашии"
+description: "Библиотеки чувашской республики"
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
+# изменить имя
+# AndroidManifest.xml (located at android/app/src/main
+# <application android:label="App Name" ...> 
+# info.plist (located at ios/Runner)
+# <key>CFBundleDisplayName</key>
+# <string>App Name</string>
+
+
 
 environment:
   sdk: '>=3.2.3 <4.0.0'
@@ -44,6 +52,9 @@ dependencies:
   calendar_date_picker2: ^0.5.3 #https://pub.dev/packages/calendar_date_picker2
   intl: ^0.18.1
   webview_flutter: ^4.4.2 #https://pub.dev/packages/webview_flutter
+  carousel_slider: ^4.2.1 #https://pub.dev/packages/carousel_slider
+  dots_indicator: ^3.0.0 #https://pub.dev/packages/dots_indicator
+  flutter_dash: ^1.0.0 #https://pub.dev/packages/flutter_dash
   
   
 
@@ -72,4 +83,6 @@ flutter:
    - assets/
    - assets/icons/
    - assets/images/
+   - assets/images/news/
+   - assets/images/books/
    - assets/svg/  

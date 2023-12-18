@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dash/flutter_dash.dart';
+import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:librarychuv/presentation/theme/colors.dart';
 
@@ -9,7 +11,7 @@ class AppText {
     fontSize: 36,
   );
   static TextStyle text24rCom = GoogleFonts.cormorant(
-    color: AppColor.redMain,
+    color: AppColor.redMain, 
     fontWeight: FontWeight.w700,
     fontSize: 24,
   );
@@ -68,10 +70,16 @@ class AppText {
     fontWeight: FontWeight.w400,
     fontSize: 12,
   );
+
   static TextStyle text10r = GoogleFonts.roboto(
     color: AppColor.redMain,
     fontWeight: FontWeight.w400,
     fontSize: 10,
+  );
+  static TextStyle text9r = GoogleFonts.roboto(
+    color: AppColor.redMain,
+    fontWeight: FontWeight.w500,
+    fontSize: 9,
   );
   static TextStyle textMed14r = GoogleFonts.roboto(
     color: AppColor.redMain,
@@ -93,4 +101,22 @@ class AppText {
     fontWeight: FontWeight.w300,
     fontSize: 14,
   );
+
+  static Widget TextUnder(String text) {
+    return Column(
+      children: [
+        Text(
+          text,
+          style: AppText.text12r,
+        ),
+        const Gap(1),
+        const Dash(
+          direction: Axis.horizontal,
+          length: 60,
+          dashLength: 4,
+          dashColor: AppColor.redMain,
+        )
+      ],
+    );
+  }
 }

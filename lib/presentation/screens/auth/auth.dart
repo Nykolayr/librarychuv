@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:librarychuv/presentation/theme/text.dart';
 import 'package:librarychuv/presentation/widgets/app.dart';
 import 'package:librarychuv/presentation/widgets/buttons.dart';
+import 'package:librarychuv/presentation/widgets/fon_picture.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
@@ -18,13 +19,7 @@ class AuthPage extends StatelessWidget {
         body: Stack(
           alignment: AlignmentDirectional.topCenter,
           children: [
-            Positioned(
-              bottom: 0,
-              child: SvgPicture.asset(
-                'assets/svg/fon.svg',
-                width: context.mediaQuerySize.width,
-              ),
-            ),
+            const FonPicture(),
             Container(
               padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 25),
               width: context.mediaQuerySize.width,
