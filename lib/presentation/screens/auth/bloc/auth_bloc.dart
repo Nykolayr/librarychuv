@@ -14,19 +14,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<void> _onAuthLoginEvent(
       AuthLoginEvent event, Emitter<AuthState> emit) async {
-    emit(state.copyWith(login: event.login));
+    emit(state.copyWith(login: event.login, error: ''));
   }
 
   Future<void> _onPassEvent(
       AuthPassEvent event, Emitter<AuthState> emit) async {
-    emit(state.copyWith(isLoading: true));
+    emit(state.copyWith(isLoading: true, error: ''));
     final answer = await Get.find<UserRepository>()
-        .authUser(login: state.login, pass: event.pass);
-    emit(state.copyWith(isLoading: false));
-
-    if (answer) {
+        .authUser(email: state.login, password: event.pass);
+    emit(state.copyWith(
+      isLoading: false,
+    ));
+    if (answer.isEmpty) {
       emit(state.copyWith(isSucsess: true));
+    } else {
+      emit(state.copyWith(error: answer));
     }
-    emit(state.copyWith(isSucsess: false));
   }
 }

@@ -11,8 +11,55 @@ class Api {
     // contentType: ContentType.json.toString(),
   ));
 
-  /// авторизация по логину и паролю
-  Future<Map<dynamic, dynamic>?> postAuthUser(
+  /// загрузка  списка подразделений,
+  /// если ошибки нет возвращается  map для user
+  Future<List<Map<dynamic, dynamic>>> getDivisition() async {
+    const path = '/div/';
+    Response<dynamic> response;
+    try {
+      response = await dio.get(path);
+      final body = response.data;
+      Logger.w('body $path ==  $body');
+      return body;
+    } on DioException catch (e) {
+      logDioException(e, path);
+      return [
+        {'error': '$e'}
+      ];
+    } on Exception catch (e) {
+      logSimpleError(e, path);
+      return [
+        {'error': '$e'}
+      ];
+    }
+  }
+
+  /// загрузка  списка организаций,
+  /// если ошибки нет возвращается  map для user
+  Future<List<Map<String, dynamic>>> getOrganitation() async {
+    const path = '/org/';
+    Response<dynamic> response;
+    try {
+      response = await dio.get(path);
+      final body = response.data;
+      Logger.w('body $path ==  $body');
+      return body;
+    } on DioException catch (e) {
+      logDioException(e, path);
+      return [
+        {'error': '$e'}
+      ];
+    } on Exception catch (e) {
+      logSimpleError(e, path);
+      return [
+        {'error': '$e'}
+      ];
+    }
+  }
+
+  /// авторизация по логину и паролю, возвращает map ошибки,
+  /// если ошибки нет возвращается  map для user
+  Future<Map<String, dynamic>> authUser(
       {required String login, required String pass}) async {
     const path = '/login/';
     Response<dynamic> response;
@@ -23,13 +70,14 @@ class Api {
       });
       final body = response.data;
       Logger.w('body $path ==  $body');
-      return body as Map<dynamic, dynamic>;
+      return body as Map<String, dynamic>;
     } on DioException catch (e) {
       logDioException(e, path);
+      return {'error': '$e'};
     } on Exception catch (e) {
       logSimpleError(e, path);
+      return {'error': '$e'};
     }
-    return null;
   }
 }
 

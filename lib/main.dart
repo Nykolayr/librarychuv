@@ -10,6 +10,7 @@ import 'package:librarychuv/domain/routers/routers.dart';
 import 'package:librarychuv/presentation/theme/colors.dart';
 import 'package:surf_logger/surf_logger.dart';
 
+bool isMock = true;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initMaint();

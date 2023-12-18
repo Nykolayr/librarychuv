@@ -1,104 +1,69 @@
 class User {
   String id;
-  String phone;
   String email;
   String password;
   String token;
-  String refresh;
-  bool isConfirmed;
-  bool isActive;
-  bool isSuperUser;
-  int smsCountCheck;
-  DateTime nextSmsAt;
+  String firstName;
+  String lastName;
+  String pathImage;
+  DateTime birthDate;
+  String role;
+  String ticket;
 
   User({
     required this.id,
-    required this.phone,
     required this.email,
     required this.password,
-    required this.isConfirmed,
-    required this.isActive,
-    required this.isSuperUser,
     required this.token,
-    required this.refresh,
-    required this.smsCountCheck,
-    required this.nextSmsAt,
+    required this.firstName,
+    required this.lastName,
+    required this.pathImage,
+    required this.birthDate,
+    required this.role,
+    required this.ticket,
   });
   factory User.fromJson(Map<String, dynamic> data) {
     return User(
       id: data['id'] as String,
-      phone: data['phone'] as String,
       email: data['email'] as String,
       password: data['password'] as String,
       token: data['token'] as String,
-      isConfirmed: data['isConfirmed'] as bool,
-      isActive: data['isActive'] as bool,
-      isSuperUser: data['isSuperUser'] as bool,
-      refresh: data['refresh'] as String,
-      smsCountCheck: data['sms_count_check'] as int,
-      nextSmsAt: data['next_sms_at'] != null
-          ? DateTime.parse(data['next_sms_at'] as String)
-          : DateTime.now(),
-    );
-  }
-
-  User copyWith({
-    String? id,
-    String? phone,
-    String? email,
-    String? password,
-    String? token,
-    String? refresh,
-    bool? isConfirmed,
-    bool? isActive,
-    bool? isSuperUser,
-    int? smsCountCheck,
-    DateTime? nextSmsAt,
-  }) {
-    return User(
-      id: id ?? this.id,
-      phone: phone ?? this.phone,
-      email: email ?? this.email,
-      password: password ?? this.password,
-      token: token ?? this.token,
-      isConfirmed: isConfirmed ?? this.isConfirmed,
-      isActive: isActive ?? this.isActive,
-      isSuperUser: isSuperUser ?? this.isSuperUser,
-      refresh: refresh ?? this.refresh,
-      smsCountCheck: smsCountCheck ?? this.smsCountCheck,
-      nextSmsAt: nextSmsAt ?? this.nextSmsAt,
+      firstName: data['firstName'] as String,
+      lastName: data['lastName'] as String,
+      pathImage: data['pathImage'] as String,
+      birthDate: DateTime.parse(data['birthDate'] as String),
+      role: data['role'] as String,
+      ticket: data['ticket'] as String,
     );
   }
 
   factory User.initial() {
     return User(
       id: '',
-      phone: '',
       email: '',
       password: '',
-      isConfirmed: false,
-      isActive: false,
-      isSuperUser: false,
       token: '',
-      refresh: '',
-      smsCountCheck: 0,
-      nextSmsAt: DateTime.now(),
+      firstName: '',
+      lastName: '',
+      pathImage: '',
+      birthDate: DateTime.now(),
+      role: '',
+      ticket: '',
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'phone': phone,
       'email': email,
       'password': password,
-      'isConfirmed': isConfirmed,
-      'isActive': isActive,
-      'isSuperUser': isSuperUser,
       'token': token,
-      'refresh': refresh,
-      'sms_count_check': smsCountCheck,
-      'next_sms_at': nextSmsAt.toIso8601String(),
+      'firstName': firstName,
+      'lastName': lastName,
+      'pathImage': pathImage,
+      'birthDate': birthDate.toIso8601String(),
+      'role': role,
+      'ticket': ticket,
     };
   }
 }

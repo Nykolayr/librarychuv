@@ -6,6 +6,7 @@ import 'package:librarychuv/presentation/screens/auth/bloc/auth_bloc.dart';
 Future initMaint() async {
   await Get.putAsync(() async {
     final userRepository = UserRepository();
+    userRepository.init();
     return userRepository;
   });
   Get.put<AuthBloc>(AuthBloc());

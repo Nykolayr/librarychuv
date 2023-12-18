@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:librarychuv/common/utils.dart';
 import 'package:librarychuv/presentation/screens/auth/bloc/auth_bloc.dart';
+import 'package:librarychuv/presentation/theme/colors.dart';
 import 'package:librarychuv/presentation/theme/text.dart';
 import 'package:librarychuv/presentation/widgets/app.dart';
 import 'package:librarychuv/presentation/widgets/buttons.dart';
@@ -69,6 +70,7 @@ class _AuthPassPageState extends State<AuthPassPage> {
                             LibFormField(
                               controller: passController,
                               hint: 'пароль',
+                              obscureText: true,
                               onChanged: (value) => () {},
                               validator: (value) => Utils.validateNotEmpty(
                                   value, 'Введите пароль'),
@@ -80,16 +82,14 @@ class _AuthPassPageState extends State<AuthPassPage> {
                                   if (formKey.currentState!.validate()) {
                                     authBloc.add(AuthPassEvent(
                                         pass: passController.text));
-                                    context.goNamed('Авторизация пароль');
+                                    context.goNamed('Главная');
                                   }
                                 },
                                 text: 'Продолжить'),
                             const Gap(70),
-                            GestureDetector(
-                              onTap: () {},
-                              child: Text('Неверный логин или пароль',
+                            if (state.error.isNotEmpty)
+                              Text('Неверный логин или пароль',
                                   style: AppText.text16r),
-                            ),
                             const Gap(40),
                           ],
                         ),
@@ -97,7 +97,10 @@ class _AuthPassPageState extends State<AuthPassPage> {
                     ),
                   ),
                   if (state.isLoading)
-                    const Center(child: CircularProgressIndicator.adaptive())
+                    const Center(
+                        child: CircularProgressIndicator.adaptive(
+                            valueColor:
+                                AlwaysStoppedAnimation(AppColor.redMain))),
                 ],
               );
             }),

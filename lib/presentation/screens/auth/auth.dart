@@ -42,7 +42,7 @@ class AuthPage extends StatelessWidget {
                   Buttons.buttonOut(onPressed: () {}, text: 'Регистрация'),
                   const Gap(20),
                   GestureDetector(
-                    onTap: () => context.goNamed('d'),
+                    onTap: () => context.goNamed('Авторизация госуслуги'),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [

@@ -3,6 +3,7 @@ part of 'auth_bloc.dart';
 class AuthState {
   final String pass;
   final String login;
+  final String error;
   final bool isSucsess;
   final bool isLoading;
 
@@ -10,6 +11,7 @@ class AuthState {
     required this.pass,
     required this.isSucsess,
     required this.isLoading,
+    required this.error,
     required this.login,
   });
 
@@ -18,18 +20,21 @@ class AuthState {
         isSucsess: false,
         isLoading: false,
         login: '',
+        error: '',
       );
   AuthState copyWith({
     String? pass,
     String? login,
     bool? isSucsess,
     bool? isLoading,
+    String? error,
   }) {
     return AuthState(
       pass: pass ?? this.pass,
       login: login ?? this.login,
       isSucsess: isSucsess ?? this.isSucsess,
       isLoading: isLoading ?? this.isLoading,
+      error: error ?? this.error,
     );
   }
 }

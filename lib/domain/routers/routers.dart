@@ -6,6 +6,7 @@ import 'package:librarychuv/domain/repository/user_repository.dart';
 import 'package:librarychuv/presentation/screens/auth/auth.dart';
 import 'package:librarychuv/presentation/screens/auth/auth_mail.dart';
 import 'package:librarychuv/presentation/screens/auth/auth_pass.dart';
+import 'package:librarychuv/presentation/screens/auth/gosuslugi.dart';
 import 'package:librarychuv/presentation/screens/main/main_page.dart';
 import 'package:librarychuv/presentation/screens/main/splash.dart';
 import 'package:page_transition/page_transition.dart';
@@ -37,6 +38,16 @@ final GoRouter router = GoRouter(
       ),
       routes: [
         GoRoute(
+          name: 'Авторизация госуслуги',
+          path: 'authgosuslugi',
+          pageBuilder: (context, state) => buildPageWithDefaultTransition(
+            type: PageTransitionType.rightToLeft,
+            context: context,
+            state: state,
+            child: const AuthGosuslugiPage(),
+          ),
+        ),
+        GoRoute(
           name: 'Авторизация почта',
           path: 'authmail',
           pageBuilder: (context, state) => buildPageWithDefaultTransition(
@@ -67,7 +78,7 @@ final GoRouter router = GoRouter(
         type: PageTransitionType.fade,
         context: context,
         state: state,
-        child: MainPage(widget: Container()),
+        child: MainPage(widget: Text('ssss')),
       ),
     ),
   ],
