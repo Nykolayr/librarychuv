@@ -2,19 +2,17 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:get/get.dart';
+
 import 'package:google_fonts/google_fonts.dart';
-import 'package:librarychuv/domain/repository/user_repository.dart';
+import 'package:librarychuv/domain/injects.dart';
+
 import 'package:librarychuv/domain/routers/routers.dart';
 import 'package:librarychuv/presentation/theme/colors.dart';
 import 'package:surf_logger/surf_logger.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Get.putAsync(() async {
-    final userRepository = UserRepository();
-    return userRepository;
-  });
+  await initMaint();
   HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
 }
@@ -33,8 +31,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           scaffoldBackgroundColor: AppColor.fon,
           useMaterial3: false,
-          textTheme: GoogleFonts.cormorantTextTheme(),
-          fontFamily: GoogleFonts.cormorant().fontFamily,
+          textTheme: GoogleFonts.robotoTextTheme(),
+          fontFamily: GoogleFonts.roboto().fontFamily,
           appBarTheme: const AppBarTheme(color: AppColor.white),
           canvasColor: AppColor.fon,
           dialogBackgroundColor: Colors.white),

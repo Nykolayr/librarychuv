@@ -8,21 +8,25 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthState.initial()) {
-    on<AuthUserEvent>(_onAuthEvent);
+    on<AuthLoginEvent>(_onAuthLoginEvent);
+    on<AuthPassEvent>(_onPassEvent);
   }
 
-  Future<void> _onAuthEvent(
-      AuthUserEvent event, Emitter<AuthState> emit) async {
-    emit(state.copyWith(
-      isLoading: true,
-    ));
+  Future<void> _onAuthLoginEvent(
+      AuthLoginEvent event, Emitter<AuthState> emit) async {
+    emit(state.copyWith(login: event.login));
+  }
+
+  Future<void> _onPassEvent(
+      AuthPassEvent event, Emitter<AuthState> emit) async {
+    emit(state.copyWith(isLoading: true));
     final answer = await Get.find<UserRepository>()
-        .authUser(login: event.login, pass: event.pass);
+        .authUser(login: state.login, pass: event.pass);
     emit(state.copyWith(isLoading: false));
 
     if (answer) {
-      emit(state.copyWith(isAuth: true));
+      emit(state.copyWith(isSucsess: true));
     }
-    emit(state.copyWith(isAuth: false));
+    emit(state.copyWith(isSucsess: false));
   }
 }

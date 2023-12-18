@@ -3,27 +3,27 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:librarychuv/presentation/theme/colors.dart';
 
 class AppText {
-  static const TextStyle captionText36Com = TextStyle(
+  static TextStyle captionText36Com = GoogleFonts.cormorant(
     color: AppColor.redMain,
     fontWeight: FontWeight.w700,
     fontSize: 36,
   );
-  static const TextStyle text24rCom = TextStyle(
+  static TextStyle text24rCom = GoogleFonts.cormorant(
     color: AppColor.redMain,
     fontWeight: FontWeight.w700,
     fontSize: 24,
   );
-  static const TextStyle text14bCom = TextStyle(
+  static TextStyle text14bCom = GoogleFonts.cormorant(
     color: AppColor.blackText,
     fontWeight: FontWeight.w400,
     fontSize: 14,
   );
-  static const TextStyle text16gCom = TextStyle(
+  static TextStyle text16gCom = GoogleFonts.cormorant(
     color: AppColor.greyText2,
     fontWeight: FontWeight.w700,
     fontSize: 16,
   );
-  static const TextStyle text12gCom = TextStyle(
+  static TextStyle text12gCom = GoogleFonts.cormorant(
     color: AppColor.greyText2,
     fontWeight: FontWeight.w400,
     fontSize: 12,

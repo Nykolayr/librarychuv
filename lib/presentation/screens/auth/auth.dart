@@ -14,14 +14,16 @@ class AuthPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBarWithBackButton(),
+        appBar: const AppBarWithBackButton(isShow: false),
         body: Stack(
           alignment: AlignmentDirectional.topCenter,
           children: [
             Positioned(
               bottom: 0,
-              child: SvgPicture.asset('assets/svg/fon.svg',
-                  width: context.mediaQuerySize.width),
+              child: SvgPicture.asset(
+                'assets/svg/fon.svg',
+                width: context.mediaQuerySize.width,
+              ),
             ),
             Container(
               padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 25),
@@ -31,14 +33,13 @@ class AuthPage extends StatelessWidget {
                 children: [
                   SvgPicture.asset('assets/svg/logo.svg', width: 118),
                   const Gap(120),
-                  const Text('Авторизация', style: AppText.captionText36Com),
+                  Text('Авторизация', style: AppText.captionText36Com),
                   const Gap(36),
                   Buttons.buttonFull(
-                      onPressed: () => context.goNamed('d'), text: 'Войти'),
+                      onPressed: () => context.goNamed('Авторизация почта'),
+                      text: 'Войти'),
                   const Gap(14),
-                  Buttons.buttonOut(
-                      onPressed: () => context.goNamed('d'),
-                      text: 'Регистрация'),
+                  Buttons.buttonOut(onPressed: () {}, text: 'Регистрация'),
                   const Gap(20),
                   GestureDetector(
                     onTap: () => context.goNamed('d'),

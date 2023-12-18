@@ -1,65 +1,35 @@
 part of 'auth_bloc.dart';
 
 class AuthState {
-  final String phone;
   final String pass;
-  final String code;
-  final String error;
-  final String id;
-  final DateTime next;
+  final String login;
   final bool isSucsess;
-  final bool isRecovery;
-  final bool isAuth;
   final bool isLoading;
 
   const AuthState({
-    required this.phone,
     required this.pass,
-    required this.code,
-    required this.error,
-    required this.id,
-    required this.next,
     required this.isSucsess,
-    required this.isRecovery,
     required this.isLoading,
-    required this.isAuth,
+    required this.login,
   });
 
-  factory AuthState.initial() => AuthState(
-        phone: '',
+  factory AuthState.initial() => const AuthState(
         pass: '',
-        code: '',
-        error: '',
-        id: '',
-        next: DateTime.now(),
         isSucsess: false,
-        isRecovery: false,
         isLoading: false,
-        isAuth: false,
+        login: '',
       );
   AuthState copyWith({
-    String? phone,
     String? pass,
-    String? code,
-    String? error,
-    String? id,
-    DateTime? next,
+    String? login,
     bool? isSucsess,
-    bool? isRecovery,
     bool? isLoading,
-    bool? isAuth,
   }) {
     return AuthState(
-      phone: phone ?? this.phone,
       pass: pass ?? this.pass,
-      code: code ?? this.code,
-      error: error ?? this.error,
-      id: id ?? this.id,
-      next: next ?? this.next,
+      login: login ?? this.login,
       isSucsess: isSucsess ?? this.isSucsess,
-      isRecovery: isRecovery ?? this.isRecovery,
       isLoading: isLoading ?? this.isLoading,
-      isAuth: isAuth ?? this.isAuth,
     );
   }
 }

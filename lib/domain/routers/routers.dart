@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:librarychuv/common/function.dart';
 import 'package:librarychuv/domain/repository/user_repository.dart';
 import 'package:librarychuv/presentation/screens/auth/auth.dart';
-import 'package:librarychuv/presentation/screens/auth/bloc/auth_bloc.dart';
+import 'package:librarychuv/presentation/screens/auth/auth_mail.dart';
+import 'package:librarychuv/presentation/screens/auth/auth_pass.dart';
 import 'package:librarychuv/presentation/screens/main/main_page.dart';
 import 'package:librarychuv/presentation/screens/main/splash.dart';
 import 'package:page_transition/page_transition.dart';
@@ -30,15 +30,35 @@ final GoRouter router = GoRouter(
       name: 'Авторизация',
       path: '/auth',
       pageBuilder: (context, state) => buildPageWithDefaultTransition(
-        type: PageTransitionType.fade,
+        type: PageTransitionType.rightToLeft,
         context: context,
         state: state,
-        child: BlocProvider(
-          create: (BuildContext context) => AuthBloc(),
-          child: const AuthPage(),
-        ),
+        child: const AuthPage(),
       ),
-      routes: [],
+      routes: [
+        GoRoute(
+          name: 'Авторизация почта',
+          path: 'authmail',
+          pageBuilder: (context, state) => buildPageWithDefaultTransition(
+            type: PageTransitionType.rightToLeft,
+            context: context,
+            state: state,
+            child: const AuthMailPage(),
+          ),
+          routes: [
+            GoRoute(
+              name: 'Авторизация пароль',
+              path: 'authpass',
+              pageBuilder: (context, state) => buildPageWithDefaultTransition(
+                type: PageTransitionType.rightToLeft,
+                context: context,
+                state: state,
+                child: const AuthPassPage(),
+              ),
+            ),
+          ],
+        ),
+      ],
     ),
     GoRoute(
       name: 'Главная',
@@ -49,7 +69,6 @@ final GoRouter router = GoRouter(
         state: state,
         child: MainPage(widget: Container()),
       ),
-      redirect: (context, state) {},
     ),
   ],
 );

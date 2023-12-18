@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:librarychuv/presentation/theme/colors.dart';
+import 'package:librarychuv/presentation/theme/text.dart';
 
 class AppDif {
   static const Divider divider = Divider(color: AppColor.greyText, height: 1);
@@ -20,15 +21,16 @@ class AppDif {
       errorBorder: getOutlineBorder(color: AppColor.redMain),
       focusedErrorBorder: getOutlineBorder(color: AppColor.redMain),
       filled: true,
-      hintStyle: const TextStyle(color: AppColor.greyText),
+      hintStyle: AppText.textHint16,
       hintText: hint,
-      fillColor: AppColor.redMain,
+      fillColor: AppColor.white,
     );
   }
 
-  static OutlineInputBorder getOutlineBorder({Color color = AppColor.white}) {
+  static OutlineInputBorder getOutlineBorder(
+      {Color color = AppColor.greyText}) {
     return OutlineInputBorder(
-      borderRadius: AppDif.borderRadius20,
+      borderRadius: AppDif.borderRadius10,
       borderSide: BorderSide(
         width: 1,
         style: BorderStyle.solid,

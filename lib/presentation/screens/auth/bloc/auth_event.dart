@@ -7,8 +7,14 @@ class AuthEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class AuthUserEvent extends AuthEvent {
+class AuthLoginEvent extends AuthEvent {
   final String login;
+
+  const AuthLoginEvent({required this.login});
+}
+
+class AuthPassEvent extends AuthEvent {
   final String pass;
-  const AuthUserEvent({required this.login, required this.pass});
+
+  const AuthPassEvent({required this.pass});
 }
