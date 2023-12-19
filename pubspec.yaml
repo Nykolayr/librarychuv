@@ -1,5 +1,5 @@
 name: librarychuv
-description: "Библиотеки чувашской республики"
+description: "Библиотеки Чувашской республики"
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
@@ -55,6 +55,7 @@ dependencies:
   carousel_slider: ^4.2.1 #https://pub.dev/packages/carousel_slider
   dots_indicator: ^3.0.0 #https://pub.dev/packages/dots_indicator
   flutter_dash: ^1.0.0 #https://pub.dev/packages/flutter_dash
+  yandex_mapkit: ^3.3.3 #https://pub.dev/packages/yandex_mapkit
   
   
 

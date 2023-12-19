@@ -1,9 +1,11 @@
 import 'package:go_router/go_router.dart';
 import 'package:librarychuv/common/function.dart';
+import 'package:librarychuv/presentation/screens/ads/ads_page.dart';
 import 'package:librarychuv/presentation/screens/auth/auth.dart';
 import 'package:librarychuv/presentation/screens/auth/auth_mail.dart';
 import 'package:librarychuv/presentation/screens/auth/auth_pass.dart';
 import 'package:librarychuv/presentation/screens/auth/gosuslugi.dart';
+import 'package:librarychuv/presentation/screens/libriry/libriry_map.dart';
 import 'package:librarychuv/presentation/screens/main/main_page.dart';
 import 'package:librarychuv/presentation/screens/main/splash.dart';
 import 'package:page_transition/page_transition.dart';
@@ -69,14 +71,35 @@ final GoRouter router = GoRouter(
       ],
     ),
     GoRoute(
-      name: 'Главная',
-      path: '/main',
-      pageBuilder: (context, state) => buildPageWithDefaultTransition(
-        type: PageTransitionType.fade,
-        context: context,
-        state: state,
-        child: const MainPage(),
-      ),
-    ),
+        name: 'Основная',
+        path: '/basic',
+        pageBuilder: (context, state) => buildPageWithDefaultTransition(
+              type: PageTransitionType.fade,
+              context: context,
+              state: state,
+              child: const MainPage(),
+            ),
+        routes: [
+          GoRoute(
+            name: 'Библиотеки на карте',
+            path: 'library',
+            pageBuilder: (context, state) => buildPageWithDefaultTransition(
+              type: PageTransitionType.fade,
+              context: context,
+              state: state,
+              child: const LybraryPage(),
+            ),
+          ),
+          GoRoute(
+            name: 'Объявления',
+            path: 'ads',
+            pageBuilder: (context, state) => buildPageWithDefaultTransition(
+              type: PageTransitionType.fade,
+              context: context,
+              state: state,
+              child: const AdsPage(),
+            ),
+          ),
+        ]),
   ],
 );

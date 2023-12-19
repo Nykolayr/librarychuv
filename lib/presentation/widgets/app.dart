@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
+import 'package:librarychuv/presentation/screens/main/bloc/main_bloc.dart';
 import 'package:librarychuv/presentation/theme/colors.dart';
 import 'package:librarychuv/presentation/theme/text.dart';
 import 'package:go_router/go_router.dart';
@@ -20,9 +22,15 @@ class AppBarWithBackButton extends StatelessWidget
       backgroundColor: AppColor.fon,
       elevation: 0,
       automaticallyImplyLeading: false,
-      title: isShow
+      title: Get.find<MainBloc>().state.isPage
           ? GestureDetector(
-              onTap: () => context.pop(),
+              onTap: () {
+                if (Get.find<MainBloc>().state.isPage) {
+                  Get.find<MainBloc>().add(const ClearPageEvent());
+                } else {
+                  context.pop();
+                }
+              },
               child: Row(
                 children: [
                   SvgPicture.asset('assets/svg/left.svg', width: 15),
@@ -31,7 +39,7 @@ class AppBarWithBackButton extends StatelessWidget
                 ],
               ),
             )
-          : const SizedBox.shrink(),
+          : Text(title, style: AppText.text24rCom),
     );
   }
 

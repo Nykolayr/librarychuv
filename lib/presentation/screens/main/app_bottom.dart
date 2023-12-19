@@ -9,9 +9,7 @@ import 'package:librarychuv/presentation/theme/text.dart';
 
 class AppBottom extends StatelessWidget {
   final TabController tabController;
-  final PageController pageController;
-  const AppBottom(
-      {required this.tabController, required this.pageController, super.key});
+  const AppBottom({required this.tabController, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,13 +36,6 @@ class AppBottom extends StatelessWidget {
         children: [
           TabBar(
             indicatorColor: Colors.transparent,
-            onTap: (index) {
-              pageController.animateToPage(
-                index,
-                duration: const Duration(milliseconds: 500),
-                curve: Curves.easeInOut,
-              );
-            },
             controller: tabController,
             unselectedLabelColor: AppColor.greyText3,
             labelColor: AppColor.redMain,

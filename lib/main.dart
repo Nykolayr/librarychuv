@@ -13,7 +13,7 @@ import 'package:surf_logger/surf_logger.dart';
 bool isMock = true;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await initMaint();
+  await initMain();
   HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
 }

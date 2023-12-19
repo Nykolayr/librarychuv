@@ -14,7 +14,7 @@ class SplashPage extends StatelessWidget {
     Future.delayed(const Duration(seconds: 4), () {
       context.goNamed(Get.find<UserRepository>().user.token.isEmpty
           ? 'Авторизация'
-          : 'Главная');
+          : 'Основная');
     });
     return Scaffold(
       backgroundColor: AppColor.fon,

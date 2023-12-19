@@ -4,15 +4,17 @@ import 'package:get/get.dart';
 import 'package:librarychuv/domain/models/books.dart';
 import 'package:librarychuv/domain/models/news.dart';
 import 'package:librarychuv/domain/repository/main_repository.dart';
+import 'package:librarychuv/presentation/screens/ads/ads_page.dart';
 import 'package:librarychuv/presentation/screens/books/item_book.dart';
+import 'package:librarychuv/presentation/screens/libriry/libriry_map.dart';
+import 'package:librarychuv/presentation/screens/main/bloc/main_bloc.dart';
 import 'package:librarychuv/presentation/theme/text.dart';
 import 'package:librarychuv/presentation/widgets/buttons.dart';
 import 'package:librarychuv/presentation/widgets/carusel.dart';
 
 /// контент главной страницы
 class MainContent extends StatefulWidget {
-  const MainContent({Key? key}) : super(key: key);
-
+  const MainContent({super.key});
   @override
   State<MainContent> createState() => _MainContentState();
 }
@@ -23,6 +25,7 @@ class _MainContentState extends State<MainContent> {
   List<News> news = [];
   List<Book> recommendationsAll = Get.find<MainRepository>().recommendations;
   List<Book> recommendations = [];
+  MainBloc bloc = Get.find<MainBloc>();
 
   @override
   initState() {
@@ -35,44 +38,48 @@ class _MainContentState extends State<MainContent> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-      Carusel(items: news),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Рекомендации',
-              style: AppText.text24rCom,
-            ),
-            GestureDetector(
-              onTap: () {},
-              child: AppText.TextUnder('Подробнее'),
-            ),
-          ],
-        ),
-      ),
-      SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: List.generate(
-            recommendations.length,
-            (index) => BookItem(book: recommendations[index]),
+    return SingleChildScrollView(
+      child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+        Carusel(items: news),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Рекомендации',
+                style: AppText.text24rCom,
+              ),
+              GestureDetector(
+                onTap: () {},
+                child: AppText.TextUnder('Подробнее'),
+              ),
+            ],
           ),
         ),
-      ),
-      const Gap(15),
-      Buttons.buttonFullWitImage(
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: List.generate(
+              recommendations.length,
+              (index) => BookItem(book: recommendations[index]),
+            ),
+          ),
+        ),
+        const Gap(15),
+        Buttons.buttonFullWitImage(
           text: 'Библиотеки на карте',
           pathImage: 'assets/svg/map_sign.svg',
-          onPressed: () {}),
-      const Gap(15),
-      Buttons.buttonFullWitImage(
+          onPressed: () => bloc.add(const AddPageEvent(page: LybraryPage())),
+        ),
+        const Gap(15),
+        Buttons.buttonFullWitImage(
           text: 'Объявления',
           pathImage: 'assets/svg/ads.svg',
-          onPressed: () {}),
-      const Gap(90),
-    ]);
+          onPressed: () => bloc.add(const AddPageEvent(page: AdsPage())),
+        ),
+        const Gap(90),
+      ]),
+    );
   }
 }

@@ -79,7 +79,7 @@ class _AuthPassPageState extends State<AuthPassPage> {
                                   if (formKey.currentState!.validate()) {
                                     authBloc.add(AuthPassEvent(
                                         pass: passController.text));
-                                    context.goNamed('Главная');
+                                    context.goNamed('Основная');
                                   }
                                 },
                                 text: 'Продолжить'),
