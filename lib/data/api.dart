@@ -11,6 +11,52 @@ class Api {
     // contentType: ContentType.json.toString(),
   ));
 
+  /// загрузка  списка регион,
+  /// если ошибки нет возвращается  map для user
+  Future<List<Map<String, dynamic>>> loadRegions() async {
+    const path = '/regions/';
+    Response<dynamic> response;
+    try {
+      response = await dio.get(path);
+      final body = response.data;
+      Logger.w('body $path ==  $body');
+      return body;
+    } on DioException catch (e) {
+      logDioException(e, path);
+      return [
+        {'error': '$e'}
+      ];
+    } on Exception catch (e) {
+      logSimpleError(e, path);
+      return [
+        {'error': '$e'}
+      ];
+    }
+  }
+
+  /// загрузка  списка библиотек,
+  /// если ошибки нет возвращается  map для user
+  Future<List<Map<String, dynamic>>> loadLibriries() async {
+    const path = '/libriries/';
+    Response<dynamic> response;
+    try {
+      response = await dio.get(path);
+      final body = response.data;
+      Logger.w('body $path ==  $body');
+      return body;
+    } on DioException catch (e) {
+      logDioException(e, path);
+      return [
+        {'error': '$e'}
+      ];
+    } on Exception catch (e) {
+      logSimpleError(e, path);
+      return [
+        {'error': '$e'}
+      ];
+    }
+  }
+
   /// загрузка  списка рекомендаций,
   /// если ошибки нет возвращается  map для user
   Future<List<Map<String, dynamic>>> loadRecomend() async {

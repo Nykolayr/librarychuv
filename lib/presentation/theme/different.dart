@@ -48,4 +48,17 @@ class AppDif {
       ),
     );
   }
+
+  static BoxDecoration getBoxDecoration({bool isWhite = true}) => BoxDecoration(
+        color: isWhite ? AppColor.white : AppColor.fon,
+        borderRadius: AppDif.borderRadius10,
+        boxShadow: [
+          BoxShadow(
+            color: AppColor.blackText.withOpacity(0.2),
+            spreadRadius: 2,
+            blurRadius: 4,
+            offset: const Offset(0, 0),
+          ),
+        ],
+      );
 }

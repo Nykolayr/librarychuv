@@ -90,6 +90,7 @@ class MainPageState extends State<MainPage>
             child: DefaultTabController(
               length: MainPageType.values.length,
               child: Scaffold(
+                resizeToAvoidBottomInset: false,
                 appBar: AppBarWithBackButton(
                     isShow: state.isPage, title: type.pageName),
                 bottomSheet: AppBottom(

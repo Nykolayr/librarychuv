@@ -55,4 +55,6 @@ enum LocalDataKey {
   user,
   news,
   recomend,
+  libriry,
+  regionies,
 }

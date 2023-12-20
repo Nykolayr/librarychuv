@@ -94,12 +94,14 @@ class Buttons {
   }
 
   /// кнопка входа в приложение
-  static Widget buttonFullWitImage(
-      {required void Function() onPressed,
-      required String text,
-      required String pathImage}) {
+  static Widget buttonFullWitImage({
+    required void Function() onPressed,
+    required String text,
+    required String pathImage,
+    bool isPadding = true,
+  }) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: EdgeInsets.symmetric(horizontal: isPadding ? 10 : 0),
       child: ButtonSelf(
         text: text,
         onPressed: onPressed,

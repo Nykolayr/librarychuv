@@ -11,7 +11,7 @@ class AppText {
     fontSize: 36,
   );
   static TextStyle text24rCom = GoogleFonts.cormorant(
-    color: AppColor.redMain, 
+    color: AppColor.redMain,
     fontWeight: FontWeight.w700,
     fontSize: 24,
   );
@@ -89,6 +89,11 @@ class AppText {
   static TextStyle text14r = GoogleFonts.roboto(
     color: AppColor.redMain,
     fontWeight: FontWeight.w400,
+    fontSize: 14,
+  );
+  static TextStyle captionText14r = GoogleFonts.roboto(
+    color: AppColor.redMain,
+    fontWeight: FontWeight.w600,
     fontSize: 14,
   );
   static TextStyle text14g = GoogleFonts.roboto(

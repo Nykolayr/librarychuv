@@ -8,14 +8,15 @@ import 'package:librarychuv/presentation/screens/main/bloc/main_bloc.dart';
 Future initMain() async {
   await Get.putAsync(() async {
     final userRepository = UserRepository();
-    userRepository.init();
+    await userRepository.init();
     return userRepository;
   });
   await Get.putAsync(() async {
     final mainRepository = MainRepository();
-    mainRepository.init();
+    await mainRepository.init();
     return mainRepository;
   });
-  Get.put<AuthBloc>(AuthBloc());
+
   Get.put<MainBloc>(MainBloc());
+  Get.put<AuthBloc>(AuthBloc());
 }
