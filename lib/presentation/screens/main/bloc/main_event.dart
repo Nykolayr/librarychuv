@@ -9,11 +9,12 @@ sealed class MainEvent extends Equatable {
 
 class AddPageEvent extends MainEvent {
   final Widget page;
-  const AddPageEvent({required this.page});
+  final String appBarTitle;
+  const AddPageEvent({required this.page, required this.appBarTitle});
 }
 
-class ClearPageEvent extends MainEvent {
-  const ClearPageEvent();
+class DeletePageEvent extends MainEvent {
+  const DeletePageEvent();
 }
 
 class AddDropEvent extends MainEvent {

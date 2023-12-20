@@ -26,7 +26,7 @@ class MainPageState extends State<MainPage>
         TabController(vsync: this, length: MainPageType.values.length);
 
     tabController.addListener(() {
-      Get.find<MainBloc>().add(const ClearPageEvent());
+      Get.find<MainBloc>().add(const DeletePageEvent());
       type = MainPageType.values[tabController.index];
 
       setState(() {});
@@ -77,8 +77,8 @@ class MainPageState extends State<MainPage>
               if (didPop) {
                 return;
               }
-              if (state.isPage) {
-                bloc.add(const ClearPageEvent());
+              if (state.pages.isNotEmpty) {
+                bloc.add(const DeletePageEvent());
                 return;
               }
               final NavigatorState navigator = Navigator.of(context);
@@ -92,7 +92,10 @@ class MainPageState extends State<MainPage>
               child: Scaffold(
                 resizeToAvoidBottomInset: false,
                 appBar: AppBarWithBackButton(
-                    isShow: state.isPage, title: type.pageName),
+                    isShow: state.pages.isNotEmpty,
+                    title: state.appBarTitle.isNotEmpty
+                        ? state.appBarTitle
+                        : type.pageName),
                 bottomSheet: AppBottom(
                   tabController: tabController,
                 ),
@@ -106,9 +109,9 @@ class MainPageState extends State<MainPage>
                         }).toList(),
                       ),
                       Visibility(
-                        visible: state.isPage,
-                        child: state.isPage
-                            ? state.page!
+                        visible: state.pages.isNotEmpty,
+                        child: state.pages.isNotEmpty
+                            ? state.pages.last
                             : const SizedBox.shrink(),
                       ),
                     ],

@@ -8,6 +8,7 @@ import 'package:librarychuv/presentation/screens/ads/ads_page.dart';
 import 'package:librarychuv/presentation/screens/books/item_book.dart';
 import 'package:librarychuv/presentation/screens/libriry/libriry_map.dart';
 import 'package:librarychuv/presentation/screens/main/bloc/main_bloc.dart';
+import 'package:librarychuv/presentation/screens/recommend/recommend_page.dart';
 import 'package:librarychuv/presentation/theme/text.dart';
 import 'package:librarychuv/presentation/widgets/buttons.dart';
 import 'package:librarychuv/presentation/widgets/carusel.dart';
@@ -51,7 +52,8 @@ class _MainContentState extends State<MainContent> {
                 style: AppText.text24rCom,
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () => bloc.add(const AddPageEvent(
+                    page: RecommendPage(), appBarTitle: 'Рекомендации')),
                 child: AppText.TextUnder('Подробнее'),
               ),
             ],
@@ -70,13 +72,15 @@ class _MainContentState extends State<MainContent> {
         Buttons.buttonFullWitImage(
           text: 'Библиотеки на карте',
           pathImage: 'assets/svg/map_sign.svg',
-          onPressed: () => bloc.add(const AddPageEvent(page: LybraryPage())),
+          onPressed: () => bloc.add(
+              const AddPageEvent(page: LybraryPage(), appBarTitle: 'Назад')),
         ),
         const Gap(15),
         Buttons.buttonFullWitImage(
           text: 'Объявления',
           pathImage: 'assets/svg/ads.svg',
-          onPressed: () => bloc.add(const AddPageEvent(page: AdsPage())),
+          onPressed: () => bloc.add(
+              const AddPageEvent(page: AdsPage(), appBarTitle: 'Объявления')),
         ),
         const Gap(90),
       ]),

@@ -12,7 +12,7 @@ part 'main_state.dart';
 class MainBloc extends Bloc<MainEvent, MainState> {
   MainBloc() : super(MainState.initial()) {
     on<AddPageEvent>(_onAddPageEvent);
-    on<ClearPageEvent>(_onClearPageEvent);
+    on<DeletePageEvent>(_onDeletePageEvent);
     on<AddDropEvent>(_onAddDropEvent);
     on<AddSearchEvent>(_onAddSearchEvent);
     on<AddIsSearchEvent>(_onAddIsSearchEvent);
@@ -67,14 +67,19 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     ));
   }
 
-  Future<void> _onClearPageEvent(
-      ClearPageEvent event, Emitter<MainState> emit) async {
-    emit(state.copyWith(page: null, isPage: false));
+  Future<void> _onDeletePageEvent(
+      DeletePageEvent event, Emitter<MainState> emit) async {
+    List<Widget> pages = state.pages;
+    pages.removeLast();
+    emit(state.copyWith(pages: pages, appBarTitle: ''));
   }
 
   Future<void> _onAddPageEvent(
       AddPageEvent event, Emitter<MainState> emit) async {
-    emit(state.copyWith(page: event.page, isPage: true));
+    List<Widget> pages = state.pages;
+    pages.add(event.page);
+
+    emit(state.copyWith(pages: pages, appBarTitle: event.appBarTitle));
   }
 
   Future<void> _onAddDropEvent(

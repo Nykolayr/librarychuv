@@ -22,11 +22,11 @@ class AppBarWithBackButton extends StatelessWidget
       backgroundColor: AppColor.fon,
       elevation: 0,
       automaticallyImplyLeading: false,
-      title: Get.find<MainBloc>().state.isPage
+      title: Get.find<MainBloc>().state.pages.isNotEmpty
           ? GestureDetector(
               onTap: () {
-                if (Get.find<MainBloc>().state.isPage) {
-                  Get.find<MainBloc>().add(const ClearPageEvent());
+                if (Get.find<MainBloc>().state.pages.isNotEmpty) {
+                  Get.find<MainBloc>().add(const DeletePageEvent());
                 } else {
                   context.pop();
                 }
