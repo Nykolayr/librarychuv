@@ -4,11 +4,9 @@ import 'package:get/get.dart';
 import 'package:librarychuv/domain/models/books.dart';
 import 'package:librarychuv/domain/models/news.dart';
 import 'package:librarychuv/domain/repository/main_repository.dart';
-import 'package:librarychuv/presentation/screens/ads/ads_page.dart';
 import 'package:librarychuv/presentation/screens/books/item_book.dart';
-import 'package:librarychuv/presentation/screens/libriry/libriry_map.dart';
 import 'package:librarychuv/presentation/screens/main/bloc/main_bloc.dart';
-import 'package:librarychuv/presentation/screens/recommend/recommend_page.dart';
+import 'package:librarychuv/presentation/screens/main/pages.dart';
 import 'package:librarychuv/presentation/theme/text.dart';
 import 'package:librarychuv/presentation/widgets/buttons.dart';
 import 'package:librarychuv/presentation/widgets/carusel.dart';
@@ -52,9 +50,10 @@ class _MainContentState extends State<MainContent> {
                 style: AppText.text24rCom,
               ),
               GestureDetector(
-                onTap: () => bloc.add(const AddPageEvent(
-                    page: RecommendPage(), appBarTitle: 'Рекомендации')),
-                child: AppText.TextUnder('Подробнее'),
+                onTap: () => bloc.add(
+                  const AddPageEvent(typePage: SecondPageType.recomend),
+                ),
+                child: AppText.textUnder('Подробнее'),
               ),
             ],
           ),
@@ -72,15 +71,15 @@ class _MainContentState extends State<MainContent> {
         Buttons.buttonFullWitImage(
           text: 'Библиотеки на карте',
           pathImage: 'assets/svg/map_sign.svg',
-          onPressed: () => bloc.add(
-              const AddPageEvent(page: LybraryPage(), appBarTitle: 'Назад')),
+          onPressed: () =>
+              bloc.add(const AddPageEvent(typePage: SecondPageType.mapLibriry)),
         ),
         const Gap(15),
         Buttons.buttonFullWitImage(
           text: 'Объявления',
           pathImage: 'assets/svg/ads.svg',
-          onPressed: () => bloc.add(
-              const AddPageEvent(page: AdsPage(), appBarTitle: 'Объявления')),
+          onPressed: () =>
+              bloc.add(const AddPageEvent(typePage: SecondPageType.mapLibriry)),
         ),
         const Gap(90),
       ]),

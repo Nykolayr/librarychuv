@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:librarychuv/domain/models/region.dart';
 import 'package:librarychuv/domain/models/libriry.dart';
 import 'package:librarychuv/domain/repository/main_repository.dart';
+import 'package:librarychuv/presentation/screens/main/pages.dart';
 
 part 'main_event.dart';
 part 'main_state.dart';
@@ -69,17 +69,16 @@ class MainBloc extends Bloc<MainEvent, MainState> {
 
   Future<void> _onDeletePageEvent(
       DeletePageEvent event, Emitter<MainState> emit) async {
-    List<Widget> pages = state.pages;
-    pages.removeLast();
-    emit(state.copyWith(pages: pages, appBarTitle: ''));
+    List<SecondPageType> typePages = state.typePages;
+    typePages.removeLast();
+    emit(state.copyWith(typePages: typePages, appBarTitle: ''));
   }
 
   Future<void> _onAddPageEvent(
       AddPageEvent event, Emitter<MainState> emit) async {
-    List<Widget> pages = state.pages;
-    pages.add(event.page);
-
-    emit(state.copyWith(pages: pages, appBarTitle: event.appBarTitle));
+    List<SecondPageType> typePages = state.typePages;
+    typePages.add(event.typePage);
+    emit(state.copyWith(typePages: typePages));
   }
 
   Future<void> _onAddDropEvent(

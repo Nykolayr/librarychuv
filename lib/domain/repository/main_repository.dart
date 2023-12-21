@@ -38,8 +38,6 @@ class MainRepository extends GetxController {
     await loadListApi(LocalDataKey.libriry); // загрузка библиотек
     await loadListApi(LocalDataKey.regionies); // загрузка регионов
     await loadListApi(LocalDataKey.ads); // загрузка объявлений
-    print(
-        'p== ${news.length} ${recommendations.length} ${libriries.length} ${regionies.length}');
   }
 
   Future<void> loadListApi(LocalDataKey key) async {
@@ -47,7 +45,6 @@ class MainRepository extends GetxController {
       List<Map<String, dynamic>> mock,
       Function(List<Map<String, dynamic>> data) getList,
     ) async {
-      print('mok == $mock');
       List<Map<String, dynamic>> answer = [{}];
       if (isMock) {
         getList(mock);

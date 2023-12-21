@@ -12,35 +12,38 @@ class AppBarWithBackButton extends StatelessWidget
     implements PreferredSizeWidget {
   final String title;
   final bool isShow;
-
+  final Function()? onSearch;
   const AppBarWithBackButton(
-      {super.key, this.isShow = true, this.title = 'Назад'});
+      {super.key, this.isShow = true, this.title = 'Назад', this.onSearch});
 
   @override
   Widget build(BuildContext context) {
+    MainBloc bloc = Get.find<MainBloc>();
     return AppBar(
-      backgroundColor: AppColor.fon,
-      elevation: 0,
-      automaticallyImplyLeading: false,
-      title: Get.find<MainBloc>().state.pages.isNotEmpty
-          ? GestureDetector(
-              onTap: () {
-                if (Get.find<MainBloc>().state.pages.isNotEmpty) {
-                  Get.find<MainBloc>().add(const DeletePageEvent());
-                } else {
-                  context.pop();
-                }
-              },
-              child: Row(
-                children: [
-                  SvgPicture.asset('assets/svg/left.svg', width: 15),
-                  const Gap(7),
-                  Text(title, style: AppText.text24rCom),
-                ],
-              ),
-            )
-          : Text(title, style: AppText.text24rCom),
-    );
+        backgroundColor: AppColor.fon,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        title: Get.find<MainBloc>().state.isSecondPage
+            ? GestureDetector(
+                onTap: () {
+                  if (bloc.state.isSecondPage) {
+                    bloc.add(DeletePageEvent());
+                  } else {
+                    context.pop();
+                  }
+                },
+                child: Row(
+                  children: [
+                    SvgPicture.asset('assets/svg/left.svg', width: 15),
+                    const Gap(7),
+                    Text(title, style: AppText.text24rCom),
+                  ],
+                ),
+              )
+            : Text(title, style: AppText.text24rCom),
+        actions: bloc.state.isSecondPage
+            ? bloc.state.typePages.last.page.actions
+            : []);
   }
 
   @override

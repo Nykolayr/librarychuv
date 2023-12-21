@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:librarychuv/presentation/screens/account/account_page.dart';
+import 'package:librarychuv/presentation/screens/ads/ads_page.dart';
 import 'package:librarychuv/presentation/screens/books/books_page.dart';
 import 'package:librarychuv/presentation/screens/events_pages/events_page.dart';
+import 'package:librarychuv/presentation/screens/libriry/libriry_map.dart';
 import 'package:librarychuv/presentation/screens/main/main_content.dart';
 import 'package:librarychuv/presentation/screens/news/news_page.dart';
+import 'package:librarychuv/presentation/screens/recommend/recommend_page.dart';
 
 /// Виджеты главной страницы
 /// [ChoosePage] - страница выбора дальнейших действий
@@ -51,4 +54,41 @@ enum MainPageType {
         return const AccountPage();
     }
   }
+}
+
+/// все вторичные страницы
+enum SecondPageType {
+  mapLibriry,
+  adsAll,
+  ads,
+  searchAds,
+  recomend;
+
+  ChoosePage get page {
+    switch (this) {
+      case SecondPageType.mapLibriry:
+        return ChoosePage(page: const LybraryPage(), appBarTitle: 'Назад');
+      case SecondPageType.adsAll:
+        return ChoosePage(
+            page: const RecommendPage(), appBarTitle: 'Объявления');
+      case SecondPageType.ads:
+        return ChoosePage(page: const AdsPage(), appBarTitle: 'Рекомендации');
+      case SecondPageType.searchAds:
+        return ChoosePage(
+            page: const RecommendPage(), appBarTitle: 'Рекомендации');
+      case SecondPageType.recomend:
+        return ChoosePage(
+            page: const RecommendPage(), appBarTitle: 'Рекомендации');
+    }
+  }
+}
+
+/// вторичные страницы
+class ChoosePage {
+  Widget page;
+  String appBarTitle;
+  List<Widget> actions;
+
+  ChoosePage(
+      {required this.page, required this.appBarTitle, this.actions = const []});
 }

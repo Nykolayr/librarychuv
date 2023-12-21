@@ -107,7 +107,7 @@ class AppText {
     fontSize: 14,
   );
 
-  static Widget TextUnder(String text) {
+  static Widget textUnder(String text) {
     return Column(
       children: [
         Text(

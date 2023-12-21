@@ -1,9 +1,8 @@
 part of 'main_bloc.dart';
 
 class MainState {
-  final List<Widget> pages;
+  final List<SecondPageType> typePages;
   final String error;
-  final String appBarTitle;
   final bool isSucsess;
   final bool isLoading;
   final bool isSearch;
@@ -12,7 +11,7 @@ class MainState {
   final int curLibriryId;
 
   const MainState({
-    required this.pages,
+    required this.typePages,
     required this.error,
     required this.isSucsess,
     required this.isLoading,
@@ -20,15 +19,16 @@ class MainState {
     required this.searchLibriryItems,
     required this.isSearch,
     required this.curLibriryId,
-    required this.appBarTitle,
   });
+
+  bool get isSecondPage => typePages.isEmpty;
 
   factory MainState.initial() {
     List<Region> regions = Get.find<MainRepository>().regionies;
     List<Libriry> libriries = Get.find<MainRepository>().libriries;
     List<String> regionsNames = regions.map((e) => e.name).toList();
     return MainState(
-      pages: [],
+      typePages: [],
       error: '',
       isSucsess: false,
       isLoading: false,
@@ -36,12 +36,11 @@ class MainState {
       searchLibriryItems: libriries,
       isSearch: false,
       curLibriryId: -1,
-      appBarTitle: '',
     );
   }
 
   MainState copyWith({
-    List<Widget>? pages,
+    List<SecondPageType>? typePages,
     String? error,
     bool? isSucsess,
     bool? isLoading,
@@ -52,7 +51,7 @@ class MainState {
     String? appBarTitle,
   }) {
     return MainState(
-      pages: pages ?? this.pages,
+      typePages: typePages ?? this.typePages,
       error: error ?? this.error,
       isSucsess: isSucsess ?? this.isSucsess,
       isLoading: isLoading ?? this.isLoading,
@@ -60,7 +59,6 @@ class MainState {
       searchLibriryItems: searchLibriryItems ?? this.searchLibriryItems,
       isSearch: isSearch ?? this.isSearch,
       curLibriryId: curLibriryId ?? this.curLibriryId,
-      appBarTitle: appBarTitle ?? this.appBarTitle,
     );
   }
 }

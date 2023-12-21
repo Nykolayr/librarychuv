@@ -8,14 +8,14 @@ sealed class MainEvent extends Equatable {
 }
 
 class AddPageEvent extends MainEvent {
-  final Widget page;
-  final String appBarTitle;
-  const AddPageEvent({required this.page, required this.appBarTitle});
+  final SecondPageType typePage;
+
+  const AddPageEvent({
+    required this.typePage,
+  });
 }
 
-class DeletePageEvent extends MainEvent {
-  const DeletePageEvent();
-}
+class DeletePageEvent extends MainEvent {}
 
 class AddDropEvent extends MainEvent {
   final List<String> dropItems;

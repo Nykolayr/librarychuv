@@ -26,7 +26,7 @@ class MainPageState extends State<MainPage>
         TabController(vsync: this, length: MainPageType.values.length);
 
     tabController.addListener(() {
-      Get.find<MainBloc>().add(const DeletePageEvent());
+      Get.find<MainBloc>().add(DeletePageEvent());
       type = MainPageType.values[tabController.index];
 
       setState(() {});
@@ -77,8 +77,8 @@ class MainPageState extends State<MainPage>
               if (didPop) {
                 return;
               }
-              if (state.pages.isNotEmpty) {
-                bloc.add(const DeletePageEvent());
+              if (state.isSecondPage) {
+                bloc.add(DeletePageEvent());
                 return;
               }
               final NavigatorState navigator = Navigator.of(context);
@@ -92,10 +92,11 @@ class MainPageState extends State<MainPage>
               child: Scaffold(
                 resizeToAvoidBottomInset: false,
                 appBar: AppBarWithBackButton(
-                    isShow: state.pages.isNotEmpty,
-                    title: state.appBarTitle.isNotEmpty
-                        ? state.appBarTitle
-                        : type.pageName),
+                  isShow: state.isSecondPage,
+                  title: state.isSecondPage
+                      ? state.typePages.last.page.appBarTitle
+                      : type.pageName,
+                ),
                 bottomSheet: AppBottom(
                   tabController: tabController,
                 ),
@@ -109,9 +110,9 @@ class MainPageState extends State<MainPage>
                         }).toList(),
                       ),
                       Visibility(
-                        visible: state.pages.isNotEmpty,
-                        child: state.pages.isNotEmpty
-                            ? state.pages.last
+                        visible: state.isSecondPage,
+                        child: state.isSecondPage
+                            ? state.typePages.last.page.page
                             : const SizedBox.shrink(),
                       ),
                     ],
