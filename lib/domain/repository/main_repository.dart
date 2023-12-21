@@ -3,22 +3,26 @@
 import 'package:get/get.dart';
 import 'package:librarychuv/data/api.dart';
 import 'package:librarychuv/data/local_data.dart';
+import 'package:librarychuv/data/mock/ads_mock.dart';
 import 'package:librarychuv/data/mock/book_mock.dart';
 import 'package:librarychuv/data/mock/librires_mock.dart';
 import 'package:librarychuv/data/mock/news_mock.dart';
 import 'package:librarychuv/data/mock/region_mock.dart';
+import 'package:librarychuv/domain/models/abstract.dart';
+import 'package:librarychuv/domain/models/ads.dart';
 import 'package:librarychuv/domain/models/books.dart';
 import 'package:librarychuv/domain/models/gerion.dart';
 import 'package:librarychuv/domain/models/libriry.dart';
 import 'package:librarychuv/domain/models/news.dart';
 import 'package:librarychuv/main.dart';
 
-/// репо для юзера
+/// репо для различных сущностей
 class MainRepository extends GetxController {
   List<News> news = [];
   List<Book> recommendations = [];
   List<Libriry> libriries = [];
   List<Region> regionies = [];
+  List<Ads> ads = [];
 
   static final MainRepository _instance = MainRepository._internal();
 
@@ -29,144 +33,108 @@ class MainRepository extends GetxController {
   /// Начальная загрузка данных из Api или локальных данных
 
   Future init() async {
-    await loadNewsApi();
-    await loadRecomendApi();
-    await loadLibriryApi();
-    await loadRegionApi();
+    loadListApi(LocalDataKey.news); // загрузка новостей
+    loadListApi(LocalDataKey.recomend); // загрузка рекомендованных
+    loadListApi(LocalDataKey.libriry); // загрузка библиотек
+    loadListApi(LocalDataKey.regionies); // загрузка регионов
+    loadListApi(LocalDataKey.ads); // загрузка объявлений
   }
 
-  Future<void> loadRegionApi() async {
-    List<Map<String, dynamic>> answer = [{}];
-    if (isMock) {
-      await Future.delayed(const Duration(seconds: 1));
-      regionies = regionsMock.map((item) => Region.fromJson(item)).toList();
-      await saveNewsToLocal();
-    } else {
-      answer = await Api().loadRegions();
-      if (answer.first['error'] != null) {
-        regionies = answer.map((item) => Region.fromJson(item)).toList();
-        await saveRegionToLocal();
+  Future<void> loadListApi(LocalDataKey key) async {
+    Future<void> loadApi(
+        List<Map<String, dynamic>> mock, List<ParentModels> list) async {
+      List<Map<String, dynamic>> answer = [{}];
+      if (isMock) {
+        list = mock.map((org) => News.fromJson(org)).toList();
+        await saveListToLocal(key);
       } else {
-        await loadNewsFromLocal();
+        answer = await Api().getListMainRepository(key);
+        if (answer.first['error'] != null) {
+          list = answer.map((item) => News.fromJson(item)).toList();
+          await saveListToLocal(key);
+        } else {
+          await loadListFromLocal(key);
+        }
       }
     }
-  }
 
-  Future<void> loadRegionFromLocal() async {
-    final List<Map<String, dynamic>> data =
-        await LocalData.loadListJson(key: LocalDataKey.regionies);
-    if (data.first['error'] != null) {
-      regionies = data.map((item) => Region.fromJson(item)).toList();
-    } else {
-      await saveRegionToLocal();
+    switch (key) {
+      case LocalDataKey.user:
+        break;
+      case LocalDataKey.news:
+        await loadApi(newsMock, news);
+        break;
+      case LocalDataKey.recomend:
+        await loadApi(recommendationsMock, recommendations);
+        break;
+      case LocalDataKey.libriry:
+        await loadApi(libririesMock, libriries);
+        break;
+      case LocalDataKey.regionies:
+        await loadApi(regionsMock, regionies);
+        break;
+      case LocalDataKey.ads:
+        await loadApi(adsMock, ads);
+        break;
     }
   }
 
-  Future<void> saveRegionToLocal() async {
-    await LocalData.saveListJson(
-        json: regionies.map((item) => item.toJson()).toList(),
-        key: LocalDataKey.regionies);
-  }
-
-  Future<void> loadLibriryApi() async {
-    List<Map<String, dynamic>> answer = [{}];
-    if (isMock) {
-      await Future.delayed(const Duration(seconds: 1));
-      libriries = libririesMock.map((org) => Libriry.fromJson(org)).toList();
-      await saveNewsToLocal();
-    } else {
-      answer = await Api().loadLibriries();
-      if (answer.first['error'] != null) {
-        libriries = answer.map((item) => Libriry.fromJson(item)).toList();
-        await saveLibriryToLocal();
+  Future<void> loadListFromLocal(LocalDataKey key) async {
+    Future loadListJson(List<ParentModels> list) async {
+      final List<Map<String, dynamic>> data =
+          await LocalData.loadListJson(key: LocalDataKey.news);
+      if (data.first['error'] != null) {
+        list = data.map((item) => News.fromJson(item)).toList();
       } else {
-        await loadLibriryFromLocal();
+        await saveListToLocal(key);
       }
     }
-  }
 
-  Future<void> loadLibriryFromLocal() async {
-    final List<Map<String, dynamic>> data =
-        await LocalData.loadListJson(key: LocalDataKey.libriry);
-    if (data.first['error'] != null) {
-      libriries = data.map((item) => Libriry.fromJson(item)).toList();
-    } else {
-      await saveLibriryToLocal();
+    switch (key) {
+      case LocalDataKey.user:
+        break;
+      case LocalDataKey.news:
+        await loadListJson(news);
+        break;
+      case LocalDataKey.recomend:
+        await loadListJson(recommendations);
+        break;
+      case LocalDataKey.libriry:
+        await loadListJson(libriries);
+        break;
+      case LocalDataKey.regionies:
+        await loadListJson(regionies);
+        break;
+      case LocalDataKey.ads:
+        await loadListJson(ads);
+        break;
     }
   }
 
-  Future<void> saveLibriryToLocal() async {
-    await LocalData.saveListJson(
-        json: libriries.map((item) => item.toJson()).toList(),
-        key: LocalDataKey.libriry);
-  }
-
-  Future<void> loadRecomendApi() async {
-    List<Map<String, dynamic>> answer = [{}];
-    if (isMock) {
-      await Future.delayed(const Duration(seconds: 1));
-      recommendations =
-          recommendationsMock.map((org) => Book.fromJson(org)).toList();
-      await saveNewsToLocal();
-    } else {
-      answer = await Api().loadRecomend();
-      if (answer.first['error'] != null) {
-        recommendations =
-            answer.map((itemRecomend) => Book.fromJson(itemRecomend)).toList();
-        await saveRecomendsToLocal();
-      } else {
-        await loadRecomendFromLocal();
-      }
+  Future<void> saveListToLocal(LocalDataKey key) async {
+    Future saveListJson(List<ParentModels> list) async {
+      await LocalData.saveListJson(
+          json: list.map((item) => item.toJson()).toList(), key: key);
     }
-  }
 
-  Future<void> loadRecomendFromLocal() async {
-    final List<Map<String, dynamic>> data =
-        await LocalData.loadListJson(key: LocalDataKey.recomend);
-    if (data.first['error'] != null) {
-      recommendations =
-          data.map((itemRecomend) => Book.fromJson(itemRecomend)).toList();
-    } else {
-      await saveRecomendsToLocal();
+    switch (key) {
+      case LocalDataKey.user:
+        break;
+      case LocalDataKey.news:
+        await saveListJson(news);
+        break;
+      case LocalDataKey.recomend:
+        await saveListJson(recommendations);
+        break;
+      case LocalDataKey.libriry:
+        await saveListJson(libriries);
+        break;
+      case LocalDataKey.regionies:
+        await saveListJson(regionies);
+        break;
+      case LocalDataKey.ads:
+        await saveListJson(ads);
+        break;
     }
-  }
-
-  Future<void> saveRecomendsToLocal() async {
-    await LocalData.saveListJson(
-        json: recommendations.map((itemRecom) => itemRecom.toJson()).toList(),
-        key: LocalDataKey.recomend);
-  }
-
-  Future<void> loadNewsApi() async {
-    List<Map<String, dynamic>> answer = [{}];
-    if (isMock) {
-      await Future.delayed(const Duration(seconds: 1));
-      news = newsMock.map((org) => News.fromJson(org)).toList();
-      await saveNewsToLocal();
-    } else {
-      answer = await Api().getNews();
-      if (answer.first['error'] != null) {
-        news = answer.map((itemNews) => News.fromJson(itemNews)).toList();
-        await saveNewsToLocal();
-      } else {
-        await loadNewsFromLocal();
-      }
-    }
-  }
-
-  Future<void> loadNewsFromLocal() async {
-    final List<Map<String, dynamic>> data =
-        await LocalData.loadListJson(key: LocalDataKey.news);
-    if (data.first['error'] != null) {
-      news = data.map((itemNews) => News.fromJson(itemNews)).toList();
-    } else {
-      await saveNewsToLocal();
-    }
-  }
-
-  Future<void> saveNewsToLocal() async {
-    await LocalData.saveListJson(
-        json: news.map((itemNews) => itemNews.toJson()).toList(),
-        key: LocalDataKey.news);
   }
 }

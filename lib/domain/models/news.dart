@@ -1,31 +1,27 @@
-class News {
-  int id;
-  String title;
-  String description;
-  String pathImage;
-  DateTime date;
+import 'package:librarychuv/domain/models/abstract.dart';
 
+class News extends AllModels {
   News(
-      {required this.id,
-      required this.title,
-      required this.description,
-      required this.pathImage,
-      required this.date});
+      {required super.id,
+      required super.name,
+      required super.description,
+      required super.pathImage,
+      required super.date});
 
   factory News.fromJson(Map<String, dynamic> data) {
     return News(
       id: data['id'] as int,
-      title: data['title'] as String,
+      name: data['name'] as String,
       description: data['description'] as String,
       pathImage: data['pathImage'] as String,
       date: DateTime.parse(data['date'] as String),
     );
   }
-
+  @override
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'title': title,
+      'name': name,
       'description': description,
       'pathImage': pathImage,
       'date': date.toIso8601String(),
@@ -35,7 +31,7 @@ class News {
   factory News.initial() {
     return News(
       id: 0,
-      title: '',
+      name: '',
       description: '',
       pathImage: '',
       date: DateTime.now(),

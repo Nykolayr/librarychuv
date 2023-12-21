@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:librarychuv/presentation/screens/account/account_page.dart';
 import 'package:librarychuv/presentation/screens/books/books_page.dart';
-import 'package:librarychuv/presentation/screens/events/events_page.dart';
+import 'package:librarychuv/presentation/screens/events_pages/events_page.dart';
 import 'package:librarychuv/presentation/screens/main/main_content.dart';
 import 'package:librarychuv/presentation/screens/news/news_page.dart';
 

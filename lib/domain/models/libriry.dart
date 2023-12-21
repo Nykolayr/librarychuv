@@ -1,7 +1,8 @@
+import 'package:librarychuv/domain/models/abstract.dart';
+
 /// класс библиотек
-class Libriry {
-  int id;
-  String name;
+
+class Libriry extends ParentModels {
   String address;
   String phone;
   String region;
@@ -9,8 +10,8 @@ class Libriry {
   double latitude;
 
   Libriry({
-    required this.id,
-    required this.name,
+    required super.id,
+    required super.name,
     required this.address,
     required this.phone,
     required this.longitude,
@@ -29,6 +30,7 @@ class Libriry {
       region: data['region'] as String,
     );
   }
+  @override
   Map<String, dynamic> toJson() {
     return {
       'id': id,

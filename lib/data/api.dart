@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide FormData, Response;
 import 'package:librarychuv/common/constants.dart';
+import 'package:librarychuv/data/local_data.dart';
 import 'package:librarychuv/domain/routers/routers.dart';
 import 'package:surf_logger/surf_logger.dart';
 
@@ -11,79 +12,11 @@ class Api {
     // contentType: ContentType.json.toString(),
   ));
 
-  /// загрузка  списка регион,
+  /// загрузка  списка для MainRepository,
   /// если ошибки нет возвращается  map для user
-  Future<List<Map<String, dynamic>>> loadRegions() async {
-    const path = '/regions/';
-    Response<dynamic> response;
-    try {
-      response = await dio.get(path);
-      final body = response.data;
-      Logger.w('body $path ==  $body');
-      return body;
-    } on DioException catch (e) {
-      logDioException(e, path);
-      return [
-        {'error': '$e'}
-      ];
-    } on Exception catch (e) {
-      logSimpleError(e, path);
-      return [
-        {'error': '$e'}
-      ];
-    }
-  }
-
-  /// загрузка  списка библиотек,
-  /// если ошибки нет возвращается  map для user
-  Future<List<Map<String, dynamic>>> loadLibriries() async {
-    const path = '/libriries/';
-    Response<dynamic> response;
-    try {
-      response = await dio.get(path);
-      final body = response.data;
-      Logger.w('body $path ==  $body');
-      return body;
-    } on DioException catch (e) {
-      logDioException(e, path);
-      return [
-        {'error': '$e'}
-      ];
-    } on Exception catch (e) {
-      logSimpleError(e, path);
-      return [
-        {'error': '$e'}
-      ];
-    }
-  }
-
-  /// загрузка  списка рекомендаций,
-  /// если ошибки нет возвращается  map для user
-  Future<List<Map<String, dynamic>>> loadRecomend() async {
-    const path = '/recomend/';
-    Response<dynamic> response;
-    try {
-      response = await dio.get(path);
-      final body = response.data;
-      Logger.w('body $path ==  $body');
-      return body;
-    } on DioException catch (e) {
-      logDioException(e, path);
-      return [
-        {'error': '$e'}
-      ];
-    } on Exception catch (e) {
-      logSimpleError(e, path);
-      return [
-        {'error': '$e'}
-      ];
-    }
-  }
-
-  /// загрузка  списка новостей,
-  /// если ошибки нет возвращается  map для user
-  Future<List<Map<String, dynamic>>> getNews() async {
-    const path = '/news/';
+  Future<List<Map<String, dynamic>>> getListMainRepository(
+      LocalDataKey key) async {
+    final path = '/${key.name}/';
     Response<dynamic> response;
     try {
       response = await dio.get(path);

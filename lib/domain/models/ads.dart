@@ -1,26 +1,23 @@
 import 'package:librarychuv/domain/models/abstract.dart';
 
-class Book extends AllModels {
-  String url;
-
-  Book(
-      {required this.url,
-      required super.id,
+class Ads extends AllModels {
+  Ads(
+      {required super.id,
       required super.name,
       required super.description,
       required super.pathImage,
       required super.date});
 
-  factory Book.fromJson(Map<String, dynamic> data) {
-    return Book(
+  factory Ads.fromJson(Map<String, dynamic> data) {
+    return Ads(
       id: data['id'] as int,
       name: data['name'] as String,
       description: data['description'] as String,
       pathImage: data['pathImage'] as String,
       date: DateTime.parse(data['date'] as String),
-      url: data['url'] as String,
     );
   }
+
   @override
   Map<String, dynamic> toJson() {
     return {
@@ -29,18 +26,16 @@ class Book extends AllModels {
       'description': description,
       'pathImage': pathImage,
       'date': date.toIso8601String(),
-      'url': url
     };
   }
 
-  factory Book.initial() {
-    return Book(
+  factory Ads.initial() {
+    return Ads(
       id: 0,
       name: '',
       description: '',
       pathImage: '',
       date: DateTime.now(),
-      url: '',
     );
   }
 }

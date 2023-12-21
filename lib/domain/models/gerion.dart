@@ -1,8 +1,7 @@
-class Region {
-  int id;
-  String name;
+import 'package:librarychuv/domain/models/abstract.dart';
 
-  Region({required this.id, required this.name});
+class Region extends ParentModels {
+  Region({required super.id, required super.name});
 
   factory Region.fromJson(Map<String, dynamic> data) {
     return Region(
@@ -10,6 +9,7 @@ class Region {
       name: data['name'] as String,
     );
   }
+  @override
   Map<String, dynamic> toJson() {
     return {'id': id, 'name': name};
   }

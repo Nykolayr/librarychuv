@@ -57,4 +57,5 @@ enum LocalDataKey {
   recomend,
   libriry,
   regionies,
+  ads,
 }
