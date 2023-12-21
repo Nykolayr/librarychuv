@@ -10,17 +10,15 @@ class Book extends AllModels {
       required super.description,
       required super.pathImage,
       required super.date});
+  factory Book.fromJson(Map<String, dynamic> data) => Book(
+        id: data['id'] as int,
+        name: data['name'] as String,
+        description: data['description'] as String,
+        pathImage: data['pathImage'] as String,
+        date: DateTime.parse(data['date'] as String),
+        url: data['url'] as String,
+      );
 
-  factory Book.fromJson(Map<String, dynamic> data) {
-    return Book(
-      id: data['id'] as int,
-      name: data['name'] as String,
-      description: data['description'] as String,
-      pathImage: data['pathImage'] as String,
-      date: DateTime.parse(data['date'] as String),
-      url: data['url'] as String,
-    );
-  }
   @override
   Map<String, dynamic> toJson() {
     return {

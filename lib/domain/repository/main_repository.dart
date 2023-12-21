@@ -11,7 +11,7 @@ import 'package:librarychuv/data/mock/region_mock.dart';
 import 'package:librarychuv/domain/models/abstract.dart';
 import 'package:librarychuv/domain/models/ads.dart';
 import 'package:librarychuv/domain/models/books.dart';
-import 'package:librarychuv/domain/models/gerion.dart';
+import 'package:librarychuv/domain/models/region.dart';
 import 'package:librarychuv/domain/models/libriry.dart';
 import 'package:librarychuv/domain/models/news.dart';
 import 'package:librarychuv/main.dart';
@@ -33,24 +33,29 @@ class MainRepository extends GetxController {
   /// Начальная загрузка данных из Api или локальных данных
 
   Future init() async {
-    loadListApi(LocalDataKey.news); // загрузка новостей
-    loadListApi(LocalDataKey.recomend); // загрузка рекомендованных
-    loadListApi(LocalDataKey.libriry); // загрузка библиотек
-    loadListApi(LocalDataKey.regionies); // загрузка регионов
-    loadListApi(LocalDataKey.ads); // загрузка объявлений
+    await loadListApi(LocalDataKey.news); // загрузка новостей
+    await loadListApi(LocalDataKey.recomend); // загрузка рекомендованных
+    await loadListApi(LocalDataKey.libriry); // загрузка библиотек
+    await loadListApi(LocalDataKey.regionies); // загрузка регионов
+    await loadListApi(LocalDataKey.ads); // загрузка объявлений
+    print(
+        'p== ${news.length} ${recommendations.length} ${libriries.length} ${regionies.length}');
   }
 
   Future<void> loadListApi(LocalDataKey key) async {
     Future<void> loadApi(
-        List<Map<String, dynamic>> mock, List<ParentModels> list) async {
+      List<Map<String, dynamic>> mock,
+      Function(List<Map<String, dynamic>> data) getList,
+    ) async {
+      print('mok == $mock');
       List<Map<String, dynamic>> answer = [{}];
       if (isMock) {
-        list = mock.map((org) => News.fromJson(org)).toList();
+        getList(mock);
         await saveListToLocal(key);
       } else {
         answer = await Api().getListMainRepository(key);
         if (answer.first['error'] != null) {
-          list = answer.map((item) => News.fromJson(item)).toList();
+          getList(answer);
           await saveListToLocal(key);
         } else {
           await loadListFromLocal(key);
@@ -62,19 +67,29 @@ class MainRepository extends GetxController {
       case LocalDataKey.user:
         break;
       case LocalDataKey.news:
-        await loadApi(newsMock, news);
+        await loadApi(newsMock, (data) {
+          news = data.map((item) => News.fromJson(item)).toList();
+        });
         break;
       case LocalDataKey.recomend:
-        await loadApi(recommendationsMock, recommendations);
+        await loadApi(recommendationsMock, (data) {
+          recommendations = data.map((item) => Book.fromJson(item)).toList();
+        });
         break;
       case LocalDataKey.libriry:
-        await loadApi(libririesMock, libriries);
+        await loadApi(libririesMock, (data) {
+          libriries = data.map((item) => Libriry.fromJson(item)).toList();
+        });
         break;
       case LocalDataKey.regionies:
-        await loadApi(regionsMock, regionies);
+        await loadApi(regionsMock, (data) {
+          regionies = data.map((item) => Region.fromJson(item)).toList();
+        });
         break;
       case LocalDataKey.ads:
-        await loadApi(adsMock, ads);
+        await loadApi(adsMock, (data) {
+          ads = data.map((item) => Ads.fromJson(item)).toList();
+        });
         break;
     }
   }

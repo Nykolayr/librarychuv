@@ -39,7 +39,7 @@ class BookItem extends StatelessWidget {
             height: 40,
             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5),
             child: Text(
-              book.title,
+              book.name,
               maxLines: 2,
               style: AppText.text12r.copyWith(color: AppColor.blackText),
             ),

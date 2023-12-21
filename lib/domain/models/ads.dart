@@ -8,15 +8,13 @@ class Ads extends AllModels {
       required super.pathImage,
       required super.date});
 
-  factory Ads.fromJson(Map<String, dynamic> data) {
-    return Ads(
-      id: data['id'] as int,
-      name: data['name'] as String,
-      description: data['description'] as String,
-      pathImage: data['pathImage'] as String,
-      date: DateTime.parse(data['date'] as String),
-    );
-  }
+  factory Ads.fromJson(Map<String, dynamic> data) => Ads(
+        id: data['id'] as int,
+        name: data['name'] as String,
+        description: data['description'] as String,
+        pathImage: data['pathImage'] as String,
+        date: DateTime.parse(data['date'] as String),
+      );
 
   @override
   Map<String, dynamic> toJson() {

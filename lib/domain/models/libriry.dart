@@ -19,17 +19,16 @@ class Libriry extends ParentModels {
     required this.region,
   });
 
-  factory Libriry.fromJson(Map<String, dynamic> data) {
-    return Libriry(
-      id: data['id'] as int,
-      name: data['name'] as String,
-      address: data['adress'] as String,
-      phone: data['phone'] as String,
-      longitude: data['longitude'] as double,
-      latitude: data['latitude'] as double,
-      region: data['region'] as String,
-    );
-  }
+  factory Libriry.fromJson(Map<String, dynamic> data) => Libriry(
+        id: data['id'] as int,
+        name: data['name'] as String,
+        address: data['adress'] as String,
+        phone: data['phone'] as String,
+        longitude: data['longitude'] as double,
+        latitude: data['latitude'] as double,
+        region: data['region'] as String,
+      );
+
   @override
   Map<String, dynamic> toJson() {
     return {

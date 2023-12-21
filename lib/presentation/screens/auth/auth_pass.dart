@@ -43,6 +43,11 @@ class _AuthPassPageState extends State<AuthPassPage> {
         appBar: const AppBarWithBackButton(),
         body: BlocBuilder<AuthBloc, AuthState>(
             bloc: authBloc,
+            buildWhen: (previous, current) {
+              if (current.isSucsess) context.goNamed('Основная');
+
+              return true;
+            },
             builder: (context, state) {
               return Stack(
                 alignment: AlignmentDirectional.topCenter,
@@ -79,7 +84,6 @@ class _AuthPassPageState extends State<AuthPassPage> {
                                   if (formKey.currentState!.validate()) {
                                     authBloc.add(AuthPassEvent(
                                         pass: passController.text));
-                                    context.goNamed('Основная');
                                   }
                                 },
                                 text: 'Продолжить'),

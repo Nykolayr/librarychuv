@@ -8,15 +8,14 @@ class News extends AllModels {
       required super.pathImage,
       required super.date});
 
-  factory News.fromJson(Map<String, dynamic> data) {
-    return News(
-      id: data['id'] as int,
-      name: data['name'] as String,
-      description: data['description'] as String,
-      pathImage: data['pathImage'] as String,
-      date: DateTime.parse(data['date'] as String),
-    );
-  }
+  factory News.fromJson(Map<String, dynamic> data) => News(
+        id: data['id'] as int,
+        name: data['name'] as String,
+        description: data['description'] as String,
+        pathImage: data['pathImage'] as String,
+        date: DateTime.parse(data['date'] as String),
+      );
+
   @override
   Map<String, dynamic> toJson() {
     return {

@@ -68,7 +68,7 @@ class _CaruselState extends State<Carusel> {
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 7),
                                   child: Text(
-                                    item.title,
+                                    item.name,
                                     style: AppText.text14b,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
@@ -105,6 +105,3 @@ class _CaruselState extends State<Carusel> {
     );
   }
 }
-
-
-

@@ -14,9 +14,11 @@ class AdsPage extends StatelessWidget {
       height: context.mediaQuerySize.height - 120,
       padding: const EdgeInsets.symmetric(horizontal: 10),
       color: AppColor.fon,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [],
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [],
+        ),
       ),
     );
   }
