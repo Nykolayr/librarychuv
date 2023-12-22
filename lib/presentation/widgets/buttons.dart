@@ -81,12 +81,16 @@ class ButtonPink extends StatelessWidget {
 /// класс с прессетами кнопок приложения
 class Buttons {
   /// кнопка розовая
-  static ButtonPink buttonPink(
-      {required void Function() onPressed, required String text}) {
+  static ButtonPink buttonPink({
+    required void Function() onPressed,
+    required String text,
+    required double width,
+    bool isWide = false,
+  }) {
     return ButtonPink(
       text: text,
       onPressed: onPressed,
-      width: 138,
+      width: width,
       height: 28,
     );
   }

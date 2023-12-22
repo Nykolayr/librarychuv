@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:librarychuv/presentation/screens/main/bloc/main_bloc.dart';
-import 'package:librarychuv/presentation/theme/different.dart';
-import 'package:librarychuv/presentation/theme/text.dart';
 import 'package:librarychuv/presentation/theme/theme.dart';
 
 class SearchField extends StatefulWidget {

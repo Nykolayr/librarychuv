@@ -9,7 +9,6 @@ class AdsResultSearchPage extends StatelessWidget {
   const AdsResultSearchPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    print('item = ${Get.find<MainBloc>().state.items.length}');
     return Container(
       width: context.mediaQuerySize.width,
       height: context.mediaQuerySize.height - 120,
