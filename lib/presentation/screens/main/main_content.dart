@@ -79,7 +79,7 @@ class _MainContentState extends State<MainContent> {
           text: 'Объявления',
           pathImage: 'assets/svg/ads.svg',
           onPressed: () =>
-              bloc.add(const AddPageEvent(typePage: SecondPageType.mapLibriry)),
+              bloc.add(const AddPageEvent(typePage: SecondPageType.adsAll)),
         ),
         const Gap(90),
       ]),

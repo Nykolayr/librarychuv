@@ -9,6 +9,7 @@ class MainState {
   final List<String> dropItems;
   final List<Libriry> searchLibriryItems;
   final int curLibriryId;
+  final List<AllModels> items;
 
   const MainState({
     required this.typePages,
@@ -19,9 +20,10 @@ class MainState {
     required this.searchLibriryItems,
     required this.isSearch,
     required this.curLibriryId,
+    required this.items,
   });
 
-  bool get isSecondPage => typePages.isEmpty;
+  bool get isSecondPage => typePages.isNotEmpty;
 
   factory MainState.initial() {
     List<Region> regions = Get.find<MainRepository>().regionies;
@@ -36,6 +38,7 @@ class MainState {
       searchLibriryItems: libriries,
       isSearch: false,
       curLibriryId: -1,
+      items: [],
     );
   }
 
@@ -49,6 +52,7 @@ class MainState {
     bool? isSearch,
     int? curLibriryId,
     String? appBarTitle,
+    List<AllModels>? items,
   }) {
     return MainState(
       typePages: typePages ?? this.typePages,
@@ -59,6 +63,7 @@ class MainState {
       searchLibriryItems: searchLibriryItems ?? this.searchLibriryItems,
       isSearch: isSearch ?? this.isSearch,
       curLibriryId: curLibriryId ?? this.curLibriryId,
+      items: items ?? this.items,
     );
   }
 }

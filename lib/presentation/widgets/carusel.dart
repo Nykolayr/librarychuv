@@ -3,9 +3,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:librarychuv/common/utils.dart';
-import 'package:librarychuv/presentation/theme/colors.dart';
-import 'package:librarychuv/presentation/theme/different.dart';
-import 'package:librarychuv/presentation/theme/text.dart';
+import 'package:librarychuv/presentation/theme/theme.dart';
 
 class Carusel extends StatefulWidget {
   final List items;

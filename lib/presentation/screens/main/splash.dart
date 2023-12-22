@@ -4,7 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:librarychuv/domain/repository/user_repository.dart';
-import 'package:librarychuv/presentation/theme/colors.dart';
+import 'package:librarychuv/presentation/theme/theme.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});

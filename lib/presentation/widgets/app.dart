@@ -3,9 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:librarychuv/presentation/screens/main/bloc/main_bloc.dart';
-import 'package:librarychuv/presentation/theme/colors.dart';
-import 'package:librarychuv/presentation/theme/text.dart';
+
 import 'package:go_router/go_router.dart';
+import 'package:librarychuv/presentation/theme/theme.dart';
 
 /// общий класс для AppBar
 class AppBarWithBackButton extends StatelessWidget
@@ -41,9 +41,11 @@ class AppBarWithBackButton extends StatelessWidget
                 ),
               )
             : Text(title, style: AppText.text24rCom),
-        actions: bloc.state.isSecondPage
-            ? bloc.state.typePages.last.page.actions
-            : []);
+        actions: [
+          if (bloc.state.isSecondPage)
+            ...bloc.state.typePages.last.page.actions,
+          const Gap(2),
+        ]);
   }
 
   @override

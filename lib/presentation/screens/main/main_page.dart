@@ -106,15 +106,17 @@ class MainPageState extends State<MainPage>
                       TabBarView(
                         controller: tabController,
                         children: MainPageType.values.map((type) {
-                          return type.getPage;
+                          return state.isSecondPage
+                              ? state.typePages.last.page.page
+                              : type.getPage;
                         }).toList(),
                       ),
-                      Visibility(
-                        visible: state.isSecondPage,
-                        child: state.isSecondPage
-                            ? state.typePages.last.page.page
-                            : const SizedBox.shrink(),
-                      ),
+                      // Visibility(
+                      //   visible: state.isSecondPage,
+                      //   child: state.isSecondPage
+                      //       ? state.typePages.last.page.page
+                      //       : const SizedBox.shrink(),
+                      // ),
                     ],
                   ),
                 ),

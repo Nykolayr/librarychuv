@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:librarychuv/domain/repository/main_repository.dart';
 import 'package:librarychuv/presentation/screens/ads/ads.dart';
-import 'package:librarychuv/presentation/screens/main/bloc/main_bloc.dart';
 import 'package:librarychuv/presentation/theme/theme.dart';
 
-/// страница одного объявления
-class AdsPage extends StatelessWidget {
-  const AdsPage({Key? key}) : super(key: key);
+/// страница объявлений
+class AdsAllPage extends StatelessWidget {
+  const AdsAllPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,8 +15,17 @@ class AdsPage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10),
       color: AppColor.fon,
       child: SingleChildScrollView(
-        child:
-            AdsItem(item: Get.find<MainBloc>().state.items.first, isOne: true),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ...Get.find<MainRepository>()
+                .ads
+                .map(
+                  (item) => AdsItem(item: item),
+                )
+                .toList()
+          ],
+        ),
       ),
     );
   }

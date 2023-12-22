@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:librarychuv/presentation/theme/colors.dart';
-import 'package:librarychuv/presentation/theme/text.dart';
+import 'package:librarychuv/presentation/theme/theme.dart';
 
 /// страница библиотек на карте
 class RecommendPage extends StatelessWidget {

@@ -9,9 +9,10 @@ sealed class MainEvent extends Equatable {
 
 class AddPageEvent extends MainEvent {
   final SecondPageType typePage;
-
+  final List<AllModels>? items;
   const AddPageEvent({
     required this.typePage,
+    this.items,
   });
 }
 

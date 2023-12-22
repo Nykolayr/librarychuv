@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:librarychuv/presentation/screens/account/account_page.dart';
+import 'package:librarychuv/presentation/screens/ads/ads_all.dart';
 import 'package:librarychuv/presentation/screens/ads/ads_page.dart';
+import 'package:librarychuv/presentation/screens/ads/ads_result.dart';
+import 'package:librarychuv/presentation/screens/ads/ads_search.dart';
 import 'package:librarychuv/presentation/screens/books/books_page.dart';
 import 'package:librarychuv/presentation/screens/events_pages/events_page.dart';
 import 'package:librarychuv/presentation/screens/libriry/libriry_map.dart';
 import 'package:librarychuv/presentation/screens/main/main_content.dart';
 import 'package:librarychuv/presentation/screens/news/news_page.dart';
 import 'package:librarychuv/presentation/screens/recommend/recommend_page.dart';
+
+import 'bloc/main_bloc.dart';
 
 /// Виджеты главной страницы
 /// [ChoosePage] - страница выбора дальнейших действий
@@ -59,28 +66,51 @@ enum MainPageType {
 /// все вторичные страницы
 enum SecondPageType {
   mapLibriry,
+  recomend,
   adsAll,
   ads,
-  searchAds,
-  recomend;
+  adsSearch,
+  resultSearchAds;
 
   ChoosePage get page {
     switch (this) {
       case SecondPageType.mapLibriry:
         return ChoosePage(page: const LybraryPage(), appBarTitle: 'Назад');
-      case SecondPageType.adsAll:
-        return ChoosePage(
-            page: const RecommendPage(), appBarTitle: 'Объявления');
-      case SecondPageType.ads:
-        return ChoosePage(page: const AdsPage(), appBarTitle: 'Рекомендации');
-      case SecondPageType.searchAds:
-        return ChoosePage(
-            page: const RecommendPage(), appBarTitle: 'Рекомендации');
       case SecondPageType.recomend:
         return ChoosePage(
             page: const RecommendPage(), appBarTitle: 'Рекомендации');
+      case SecondPageType.adsAll:
+        return ChoosePage(
+            page: const AdsAllPage(),
+            appBarTitle: 'Объявления',
+            actions: [
+              iconButtonActions(
+                'assets/svg/search.svg',
+                () => Get.find<MainBloc>().add(
+                    const AddPageEvent(typePage: SecondPageType.adsSearch)),
+              ),
+            ]);
+      case SecondPageType.ads:
+        return ChoosePage(page: const AdsPage(), appBarTitle: 'Назад');
+
+      case SecondPageType.adsSearch:
+        return ChoosePage(page: const AdsSearchPage(), appBarTitle: 'Назад');
+      case SecondPageType.resultSearchAds:
+        return ChoosePage(
+            page: const AdsResultSearchPage(), appBarTitle: 'Результат поиска');
     }
   }
+}
+
+///  иконки для AppBar
+Widget iconButtonActions(String path, VoidCallback? onTap) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+    child: GestureDetector(
+      onTap: onTap,
+      child: SvgPicture.asset(path),
+    ),
+  );
 }
 
 /// вторичные страницы

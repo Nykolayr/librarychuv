@@ -36,6 +36,24 @@ class LocalData {
     await prefs.setStringList(key.name, list);
   }
 
+  static Future<void> saveListString(
+      {required List<String> list, required LocalDataKey key}) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList(key.name, list);
+  }
+
+  static Future<List<String>> loadListString(
+      {required LocalDataKey key}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final List<String>? list = prefs.getStringList(key.name);
+    if (list != null) {
+      return list;
+    } else {
+      Logger.e('нет данных для ${key.name}');
+      return [];
+    }
+  }
+
   static Future<List<Map<String, dynamic>>> loadListJson(
       {required LocalDataKey key}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -58,4 +76,5 @@ enum LocalDataKey {
   libriry,
   regionies,
   ads,
+  hystoryZapAds,
 }

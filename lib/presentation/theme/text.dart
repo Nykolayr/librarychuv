@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dash/flutter_dash.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:librarychuv/presentation/theme/colors.dart';
+import 'package:librarychuv/presentation/theme/theme.dart';
 
 class AppText {
   static TextStyle captionText36Com = GoogleFonts.cormorant(
@@ -60,6 +60,11 @@ class AppText {
     fontWeight: FontWeight.w400,
     fontSize: 14,
   );
+  static TextStyle text12b = GoogleFonts.roboto(
+    color: AppColor.blackText,
+    fontWeight: FontWeight.w400,
+    fontSize: 12,
+  );
   static TextStyle text12g = GoogleFonts.roboto(
     color: AppColor.greyText2,
     fontWeight: FontWeight.w400,
@@ -96,6 +101,11 @@ class AppText {
     fontWeight: FontWeight.w600,
     fontSize: 14,
   );
+  static TextStyle captionText14b = GoogleFonts.roboto(
+    color: AppColor.blackText,
+    fontWeight: FontWeight.w600,
+    fontSize: 14,
+  );
   static TextStyle text14g = GoogleFonts.roboto(
     color: AppColor.greyText3,
     fontWeight: FontWeight.w400,
@@ -107,21 +117,25 @@ class AppText {
     fontSize: 14,
   );
 
-  static Widget textUnder(String text) {
-    return Column(
-      children: [
-        Text(
-          text,
-          style: AppText.text12r,
-        ),
-        const Gap(1),
-        const Dash(
-          direction: Axis.horizontal,
-          length: 60,
-          dashLength: 4,
-          dashColor: AppColor.redMain,
-        )
-      ],
+  /// устанавливает подчеркивание под текстом на удаление от текста
+  static Widget textUnder(String text, {isSearch = false}) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 5, bottom: 5, left: 5),
+      child: Column(
+        children: [
+          Text(
+            text,
+            style: AppText.text12r,
+          ),
+          const Gap(1),
+          Dash(
+            direction: Axis.horizontal,
+            length: isSearch ? 150 : 60,
+            dashLength: 4,
+            dashColor: AppColor.redMain,
+          )
+        ],
+      ),
     );
   }
 }

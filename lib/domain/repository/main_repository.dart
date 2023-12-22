@@ -23,6 +23,8 @@ class MainRepository extends GetxController {
   List<Libriry> libriries = [];
   List<Region> regionies = [];
   List<Ads> ads = [];
+  // TODO: убрать моковые данные из запросов
+  List<String> hystoryZapAds = ['В библиотеку', 'по русскому языку'];
 
   static final MainRepository _instance = MainRepository._internal();
 
@@ -38,6 +40,8 @@ class MainRepository extends GetxController {
     await loadListApi(LocalDataKey.libriry); // загрузка библиотек
     await loadListApi(LocalDataKey.regionies); // загрузка регионов
     await loadListApi(LocalDataKey.ads); // загрузка объявлений
+    await loadListFromLocal(
+        LocalDataKey.hystoryZapAds); // загрузка истории запросов
   }
 
   Future<void> loadListApi(LocalDataKey key) async {
@@ -88,37 +92,64 @@ class MainRepository extends GetxController {
           ads = data.map((item) => Ads.fromJson(item)).toList();
         });
         break;
+      case LocalDataKey.hystoryZapAds:
+        await loadApi(adsMock, (data) {
+          ads = data.map((item) => Ads.fromJson(item)).toList();
+        });
+        break;
     }
   }
 
   Future<void> loadListFromLocal(LocalDataKey key) async {
-    Future loadListJson(List<ParentModels> list) async {
+    Future loadListJson(
+      List<ParentModels> list,
+      Function(List<Map<String, dynamic>> data) getList,
+    ) async {
       final List<Map<String, dynamic>> data =
-          await LocalData.loadListJson(key: LocalDataKey.news);
+          await LocalData.loadListJson(key: key);
       if (data.first['error'] != null) {
-        list = data.map((item) => News.fromJson(item)).toList();
+        list = getList(data);
       } else {
         await saveListToLocal(key);
       }
+    }
+
+    Future loadListString(List<String> list) async {
+      final List<String> data =
+          await LocalData.loadListString(key: LocalDataKey.news);
+      list = data;
     }
 
     switch (key) {
       case LocalDataKey.user:
         break;
       case LocalDataKey.news:
-        await loadListJson(news);
+        await loadListJson(news, (data) {
+          ads = data.map((item) => Ads.fromJson(item)).toList();
+        });
         break;
       case LocalDataKey.recomend:
-        await loadListJson(recommendations);
+        await loadListJson(recommendations, (data) {
+          ads = data.map((item) => Ads.fromJson(item)).toList();
+        });
         break;
       case LocalDataKey.libriry:
-        await loadListJson(libriries);
+        await loadListJson(libriries, (data) {
+          ads = data.map((item) => Ads.fromJson(item)).toList();
+        });
         break;
       case LocalDataKey.regionies:
-        await loadListJson(regionies);
+        await loadListJson(regionies, (data) {
+          ads = data.map((item) => Ads.fromJson(item)).toList();
+        });
         break;
       case LocalDataKey.ads:
-        await loadListJson(ads);
+        await loadListJson(ads, (data) {
+          ads = data.map((item) => Ads.fromJson(item)).toList();
+        });
+        break;
+      case LocalDataKey.hystoryZapAds:
+        await loadListString(hystoryZapAds);
         break;
     }
   }
@@ -127,6 +158,10 @@ class MainRepository extends GetxController {
     Future saveListJson(List<ParentModels> list) async {
       await LocalData.saveListJson(
           json: list.map((item) => item.toJson()).toList(), key: key);
+    }
+
+    Future saveListString(List<String> list) async {
+      await LocalData.saveListString(list: list, key: key);
     }
 
     switch (key) {
@@ -146,6 +181,9 @@ class MainRepository extends GetxController {
         break;
       case LocalDataKey.ads:
         await saveListJson(ads);
+        break;
+      case LocalDataKey.hystoryZapAds:
+        await saveListString(hystoryZapAds);
         break;
     }
   }

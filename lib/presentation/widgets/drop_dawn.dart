@@ -3,9 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:librarychuv/presentation/screens/main/bloc/main_bloc.dart';
-import 'package:librarychuv/presentation/theme/colors.dart';
-import 'package:librarychuv/presentation/theme/different.dart';
-import 'package:librarychuv/presentation/theme/text.dart';
+import 'package:librarychuv/presentation/theme/theme.dart';
 
 class DropdownButtons extends StatefulWidget {
   const DropdownButtons({super.key});

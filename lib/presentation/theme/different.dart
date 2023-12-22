@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:librarychuv/presentation/theme/colors.dart';
-import 'package:librarychuv/presentation/theme/text.dart';
+import 'package:librarychuv/presentation/theme/theme.dart';
 
 class AppDif {
   static const Divider divider = Divider(color: AppColor.greyText, height: 1);
@@ -11,6 +10,7 @@ class AppDif {
   static const BorderRadius borderRadius10 = BorderRadius.all(radius10);
   static const BorderRadius borderRadius5 = BorderRadius.all(radius5);
   static Border borderButton = Border.all(color: AppColor.redMain, width: 1.0);
+  static Border borderSearcch = Border.all(color: AppColor.stroke, width: 1.0);
   static BoxBorder borderCarusel =
       Border.all(color: AppColor.stroke, width: 1.0);
   static BoxShadow boxShadowCarusel = BoxShadow(

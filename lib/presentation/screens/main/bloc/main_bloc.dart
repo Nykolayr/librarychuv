@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:get/get.dart';
+import 'package:librarychuv/domain/models/abstract.dart';
 import 'package:librarychuv/domain/models/region.dart';
 import 'package:librarychuv/domain/models/libriry.dart';
 import 'package:librarychuv/domain/repository/main_repository.dart';
@@ -78,7 +79,7 @@ class MainBloc extends Bloc<MainEvent, MainState> {
       AddPageEvent event, Emitter<MainState> emit) async {
     List<SecondPageType> typePages = state.typePages;
     typePages.add(event.typePage);
-    emit(state.copyWith(typePages: typePages));
+    emit(state.copyWith(typePages: typePages, items: event.items));
   }
 
   Future<void> _onAddDropEvent(

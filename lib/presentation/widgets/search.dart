@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:librarychuv/presentation/screens/main/bloc/main_bloc.dart';
 import 'package:librarychuv/presentation/theme/different.dart';
 import 'package:librarychuv/presentation/theme/text.dart';
+import 'package:librarychuv/presentation/theme/theme.dart';
 
 class SearchField extends StatefulWidget {
   final TextEditingController searchController;
@@ -48,6 +49,44 @@ class _SearchFieldState extends State<SearchField> {
           suffixIcon: Transform.scale(
             scale: 0.5,
             child: SvgPicture.asset('assets/svg/search.svg'),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// простая поисковая строка
+class SearchFieldSimple extends StatelessWidget {
+  final TextEditingController searchController;
+
+  const SearchFieldSimple({required this.searchController, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 41,
+      padding: const EdgeInsets.only(left: 7),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: AppDif.borderRadius10,
+        border: AppDif.borderSearcch,
+      ),
+      child: TextField(
+        controller: searchController,
+        style: AppText.captionText14b.copyWith(height: 1.4),
+        decoration: InputDecoration(
+          hintStyle: AppText.captionText14r
+              .copyWith(height: 1.4, color: AppColor.stroke),
+          hintText: 'Поиск',
+          border: InputBorder.none,
+          suffixIcon: Transform.scale(
+            scale: 0.5,
+            child: SvgPicture.asset(
+              'assets/svg/search.svg',
+              colorFilter:
+                  const ColorFilter.mode(AppColor.stroke, BlendMode.srcIn),
+            ),
           ),
         ),
       ),

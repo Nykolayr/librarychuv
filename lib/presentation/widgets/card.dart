@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:librarychuv/presentation/theme/colors.dart';
-import 'package:librarychuv/presentation/theme/different.dart';
+import 'package:librarychuv/presentation/theme/theme.dart';
 
 class RoundedCardWidget extends StatelessWidget {
   final Widget child;
   final Widget? subChild;
+  final bool isFix;
 
-  const RoundedCardWidget({required this.child, this.subChild, super.key});
+  const RoundedCardWidget(
+      {required this.child, this.subChild, this.isFix = true, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+      padding: EdgeInsets.symmetric(vertical: isFix ? 15 : 10, horizontal: 10),
       width: double.infinity,
-      height: 240,
+      height: isFix ? 240 : null,
       decoration: BoxDecoration(
         color: AppColor.white,
         borderRadius: AppDif.borderRadius10,
