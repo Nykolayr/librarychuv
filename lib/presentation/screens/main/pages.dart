@@ -11,6 +11,9 @@ import 'package:librarychuv/presentation/screens/events_pages/events_page.dart';
 import 'package:librarychuv/presentation/screens/libriry/libriry_map.dart';
 import 'package:librarychuv/presentation/screens/main/main_content.dart';
 import 'package:librarychuv/presentation/screens/news/news_page.dart';
+import 'package:librarychuv/presentation/screens/news/news_result.dart';
+import 'package:librarychuv/presentation/screens/news/news_search.dart';
+import 'package:librarychuv/presentation/screens/news/subscribe_news.dart';
 import 'package:librarychuv/presentation/screens/recommend/recommend_page.dart';
 
 import 'bloc/main_bloc.dart';
@@ -61,6 +64,32 @@ enum MainPageType {
         return const AccountPage();
     }
   }
+
+  List<Widget> get actions {
+    switch (this) {
+      case MainPageType.main:
+        return [];
+      case MainPageType.news:
+        return [
+          iconButtonActions(
+            'assets/svg/mail_plus.svg',
+            () => Get.find<MainBloc>().add(
+                const AddPageEvent(typePage: SecondPageType.subscribeNews)),
+          ),
+          iconButtonActions(
+            'assets/svg/search.svg',
+            () => Get.find<MainBloc>()
+                .add(const AddPageEvent(typePage: SecondPageType.newsSearch)),
+          ),
+        ];
+      case MainPageType.events:
+        return [];
+      case MainPageType.books:
+        return [];
+      case MainPageType.account:
+        return [];
+    }
+  }
 }
 
 /// все вторичные страницы
@@ -69,8 +98,12 @@ enum SecondPageType {
   recomend,
   adsAll,
   ads,
+  news,
   adsSearch,
-  resultSearchAds;
+  newsSearch,
+  resultSearchAds,
+  resultSearchNews,
+  subscribeNews;
 
   ChoosePage get page {
     switch (this) {
@@ -98,6 +131,18 @@ enum SecondPageType {
       case SecondPageType.resultSearchAds:
         return ChoosePage(
             page: const AdsResultSearchPage(), appBarTitle: 'Результат поиска');
+      case SecondPageType.news:
+        return ChoosePage(page: const AdsPage(), appBarTitle: 'Назад');
+      case SecondPageType.newsSearch:
+        return ChoosePage(page: const NewsSearchPage(), appBarTitle: 'Назад');
+      case SecondPageType.resultSearchNews:
+        return ChoosePage(
+            page: const NewsResultSearchPage(),
+            appBarTitle: 'Результат поиска');
+
+      case SecondPageType.subscribeNews:
+        return ChoosePage(
+            page: const NewsSubscribePage(), appBarTitle: 'Назад');
     }
   }
 }

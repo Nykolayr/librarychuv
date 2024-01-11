@@ -30,6 +30,11 @@ class AppText {
     fontWeight: FontWeight.w400,
     fontSize: 12,
   );
+  static TextStyle button15b = GoogleFonts.roboto(
+    color: AppColor.blackText,
+    fontWeight: FontWeight.w500,
+    fontSize: 15,
+  );
   static TextStyle button16w = GoogleFonts.roboto(
     color: AppColor.white,
     fontWeight: FontWeight.w600,
@@ -101,6 +106,7 @@ class AppText {
     fontWeight: FontWeight.w600,
     fontSize: 14,
   );
+
   static TextStyle captionText14b = GoogleFonts.roboto(
     color: AppColor.blackText,
     fontWeight: FontWeight.w600,

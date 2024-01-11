@@ -8,6 +8,7 @@ import 'package:librarychuv/data/mock/book_mock.dart';
 import 'package:librarychuv/data/mock/librires_mock.dart';
 import 'package:librarychuv/data/mock/news_mock.dart';
 import 'package:librarychuv/data/mock/region_mock.dart';
+import 'package:librarychuv/data/mock/subjectnews_mock.dart';
 import 'package:librarychuv/domain/models/abstract.dart';
 import 'package:librarychuv/domain/models/ads.dart';
 import 'package:librarychuv/domain/models/books.dart';
@@ -23,8 +24,11 @@ class MainRepository extends GetxController {
   List<Libriry> libriries = [];
   List<Region> regionies = [];
   List<Ads> ads = [];
+  List<SubjectNews> subjectNews = [];
+
   // TODO: убрать моковые данные из запросов
   List<String> hystoryZapAds = ['В библиотеку', 'по русскому языку'];
+  List<String> hystoryZapNews = ['В библиотеку', 'по русскому языку'];
 
   static final MainRepository _instance = MainRepository._internal();
 
@@ -40,8 +44,11 @@ class MainRepository extends GetxController {
     await loadListApi(LocalDataKey.libriry); // загрузка библиотек
     await loadListApi(LocalDataKey.regionies); // загрузка регионов
     await loadListApi(LocalDataKey.ads); // загрузка объявлений
+    await loadListApi(LocalDataKey.subjectNews); // загрузка тематик новостей
     await loadListFromLocal(
-        LocalDataKey.hystoryZapAds); // загрузка истории запросов
+        LocalDataKey.hystoryZapAds); // загрузка истории запросов объявлений
+    await loadListFromLocal(
+        LocalDataKey.hystoryZapNews); // загрузка истории запросов новостей
   }
 
   Future<void> loadListApi(LocalDataKey key) async {
@@ -97,6 +104,15 @@ class MainRepository extends GetxController {
           ads = data.map((item) => Ads.fromJson(item)).toList();
         });
         break;
+      case LocalDataKey.hystoryZapNews:
+        await loadApi(newsMock, (data) {
+          news = data.map((item) => News.fromJson(item)).toList();
+        });
+        break;
+      case LocalDataKey.subjectNews:
+        await loadApi(subjectNewsMock, (data) {
+          subjectNews = data.map((item) => SubjectNews.fromJson(item)).toList();
+        });
     }
   }
 
@@ -151,6 +167,14 @@ class MainRepository extends GetxController {
       case LocalDataKey.hystoryZapAds:
         await loadListString(hystoryZapAds);
         break;
+      case LocalDataKey.hystoryZapNews:
+        await loadListString(hystoryZapNews);
+        break;
+      case LocalDataKey.subjectNews:
+        await loadListJson(subjectNews, (data) {
+          subjectNews = data.map((item) => SubjectNews.fromJson(item)).toList();
+        });
+        break;
     }
   }
 
@@ -184,6 +208,12 @@ class MainRepository extends GetxController {
         break;
       case LocalDataKey.hystoryZapAds:
         await saveListString(hystoryZapAds);
+        break;
+      case LocalDataKey.hystoryZapNews:
+        await saveListString(hystoryZapNews);
+        break;
+      case LocalDataKey.subjectNews:
+        await saveListJson(subjectNews);
         break;
     }
   }

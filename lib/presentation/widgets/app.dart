@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:librarychuv/presentation/screens/main/bloc/main_bloc.dart';
 
 import 'package:go_router/go_router.dart';
+import 'package:librarychuv/presentation/screens/main/pages.dart';
 import 'package:librarychuv/presentation/theme/theme.dart';
 
 /// общий класс для AppBar
@@ -12,9 +13,14 @@ class AppBarWithBackButton extends StatelessWidget
     implements PreferredSizeWidget {
   final String title;
   final bool isShow;
+  final MainPageType? typePage;
   final Function()? onSearch;
   const AppBarWithBackButton(
-      {super.key, this.isShow = true, this.title = 'Назад', this.onSearch});
+      {super.key,
+      this.isShow = true,
+      this.title = 'Назад',
+      this.onSearch,
+      this.typePage});
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +48,14 @@ class AppBarWithBackButton extends StatelessWidget
               )
             : Text(title, style: AppText.text24rCom),
         actions: [
-          if (bloc.state.isSecondPage)
+          if (bloc.state.isSecondPage) ...[
             ...bloc.state.typePages.last.page.actions,
-          const Gap(2),
+            const Gap(2),
+          ],
+          if (typePage != null) ...[
+            ...typePage!.actions,
+            const Gap(2),
+          ],
         ]);
   }
 

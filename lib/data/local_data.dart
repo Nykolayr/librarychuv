@@ -77,4 +77,6 @@ enum LocalDataKey {
   regionies,
   ads,
   hystoryZapAds,
+  hystoryZapNews,
+  subjectNews,
 }

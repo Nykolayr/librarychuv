@@ -96,6 +96,7 @@ class MainPageState extends State<MainPage>
                   title: state.isSecondPage
                       ? state.typePages.last.page.appBarTitle
                       : type.pageName,
+                  typePage: state.isSecondPage ? null : type,
                 ),
                 bottomSheet: AppBottom(
                   tabController: tabController,

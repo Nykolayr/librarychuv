@@ -9,6 +9,7 @@ import 'package:librarychuv/presentation/theme/theme.dart';
 import 'package:librarychuv/presentation/widgets/buttons.dart';
 import 'package:librarychuv/presentation/widgets/card.dart';
 import 'package:librarychuv/presentation/widgets/drop_dawn.dart';
+import 'package:librarychuv/presentation/widgets/lines_dot.dart';
 import 'package:librarychuv/presentation/widgets/search.dart';
 
 /// страница библиотек на карте apiKeyYandex
@@ -128,20 +129,6 @@ Widget getLinesLibrary(Libriry libriry) {
     onTap: () {
       Get.find<MainBloc>().add(ShooseLibriryEvent(index: libriry.id));
     },
-    child: Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12),
-      child: Row(
-        children: [
-          const Icon(Icons.circle, size: 6, color: AppColor.redMain),
-          const Gap(10),
-          Expanded(
-            child: Text(
-              libriry.name,
-              style: AppText.text14r,
-            ),
-          ),
-        ],
-      ),
-    ),
+    child: LinesWithDot(text: libriry.name),
   );
 }

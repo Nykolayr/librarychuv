@@ -38,7 +38,7 @@ class AppDif {
   }
 
   static OutlineInputBorder getOutlineBorder(
-      {Color color = AppColor.greyText}) {
+      {Color color = AppColor.greyCircle}) {
     return OutlineInputBorder(
       borderRadius: AppDif.borderRadius10,
       borderSide: BorderSide(

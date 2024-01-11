@@ -71,7 +71,7 @@ class MainBloc extends Bloc<MainEvent, MainState> {
   Future<void> _onDeletePageEvent(
       DeletePageEvent event, Emitter<MainState> emit) async {
     List<SecondPageType> typePages = state.typePages;
-    typePages.removeLast();
+    if (typePages.isNotEmpty) typePages.removeLast();
     emit(state.copyWith(typePages: typePages, appBarTitle: ''));
   }
 

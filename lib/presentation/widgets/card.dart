@@ -6,24 +6,27 @@ class RoundedCardWidget extends StatelessWidget {
   final Widget child;
   final Widget? subChild;
   final bool isFix;
-
+  final String pathImage;
   const RoundedCardWidget(
-      {required this.child, this.subChild, this.isFix = true, super.key});
+      {required this.child,
+      this.subChild,
+      this.isFix = true,
+      super.key,
+      this.pathImage = ''});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: isFix ? 15 : 10, horizontal: 10),
-      width: double.infinity,
+      width: context.mediaQuery.size.width - 20,
       height: isFix ? 240 : null,
       decoration: BoxDecoration(
         color: AppColor.white,
         borderRadius: AppDif.borderRadius10,
         boxShadow: [
           BoxShadow(
-            color: AppColor.blackText.withOpacity(0.2),
-            spreadRadius: 2,
-            blurRadius: 4,
+            color: AppColor.blackText.withOpacity(0.1),
+            spreadRadius: 1,
+            blurRadius: 2,
             offset: const Offset(0, 0),
           ),
         ],
@@ -31,7 +34,24 @@ class RoundedCardWidget extends StatelessWidget {
       child: Stack(
         children: [
           SingleChildScrollView(
-            child: child,
+            child: Column(
+              children: [
+                if (pathImage.isNotEmpty)
+                  ClipRRect(
+                    borderRadius: AppDif.borderRadius10,
+                    child: Image.asset(
+                      pathImage,
+                      width: context.mediaQuery.size.width - 20,
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      vertical: isFix ? 15 : 10, horizontal: 10),
+                  child: child,
+                ),
+              ],
+            ),
           ),
           Positioned(
             bottom: 0,

@@ -39,7 +39,7 @@ class _MainContentState extends State<MainContent> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-        Carusel(items: news),
+        Carusel(items: news),  
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Row(

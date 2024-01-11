@@ -3,7 +3,7 @@ import 'package:gap/gap.dart';
 
 import 'package:get/get.dart';
 import 'package:librarychuv/data/local_data.dart';
-import 'package:librarychuv/domain/models/ads.dart';
+import 'package:librarychuv/domain/models/news.dart';
 import 'package:librarychuv/domain/repository/main_repository.dart';
 import 'package:librarychuv/presentation/screens/main/bloc/main_bloc.dart';
 import 'package:librarychuv/presentation/screens/main/pages.dart';
@@ -11,37 +11,37 @@ import 'package:librarychuv/presentation/theme/theme.dart';
 import 'package:librarychuv/presentation/widgets/buttons.dart';
 import 'package:librarychuv/presentation/widgets/search.dart';
 
-/// страница объявлений
-class AdsSearchPage extends StatefulWidget {
-  const AdsSearchPage({Key? key}) : super(key: key);
+/// страница поиска новостей
+class NewsSearchPage extends StatefulWidget {
+  const NewsSearchPage({Key? key}) : super(key: key);
 
   @override
-  State<AdsSearchPage> createState() => _AdsSearchPageState();
+  State<NewsSearchPage> createState() => _NewsSearchPageState();
 }
 
-class _AdsSearchPageState extends State<AdsSearchPage> {
+class _NewsSearchPageState extends State<NewsSearchPage> {
   TextEditingController searchController = TextEditingController();
   MainBloc bloc = Get.find<MainBloc>();
-  List<String> hystoryZapAds = Get.find<MainRepository>().hystoryZapAds;
-  List<Ads> ads = Get.find<MainRepository>().ads;
-  List<Ads> adsSearch = [];
+  List<String> hystoryZapNews = Get.find<MainRepository>().hystoryZapNews;
+  List<News> news = Get.find<MainRepository>().news;
+  List<News> newsSearch = [];
   bool isNotSearch = false;
 
   goSearch(String text, isSearch) {
-    adsSearch = ads
+    newsSearch = news
         .where((item) => item.name.toLowerCase().contains(text.toLowerCase()))
         .toList();
-    if (adsSearch.isNotEmpty) {
+    if (newsSearch.isNotEmpty) {
       isNotSearch = false;
       if (isSearch) {
-        hystoryZapAds.add(searchController.text);
+        hystoryZapNews.add(searchController.text);
         Get.find<MainRepository>().saveListToLocal(
-          LocalDataKey.hystoryZapAds,
+          LocalDataKey.hystoryZapNews,
         );
         searchController.text = '';
       }
       Get.find<MainBloc>().add(AddPageEvent(
-          typePage: SecondPageType.resultSearchAds, items: adsSearch));
+          typePage: SecondPageType.resultSearchNews, items: newsSearch));
     } else {
       isNotSearch = true;
     }
@@ -89,12 +89,12 @@ class _AdsSearchPageState extends State<AdsSearchPage> {
                     goSearch(searchController.text, true);
                   }
                 },
-                text: 'Искать объявление'),
+                text: 'Искать новость'),
             const Gap(20),
-            if (hystoryZapAds.isNotEmpty)
+            if (hystoryZapNews.isNotEmpty)
               Text('История запросов:', style: AppText.text12b),
             const Gap(20),
-            ...hystoryZapAds
+            ...hystoryZapNews
                 .map(
                   (item) => GestureDetector(
                     onTap: () => goSearch(item, false),
@@ -111,13 +111,13 @@ class _AdsSearchPageState extends State<AdsSearchPage> {
                 )
                 .toList(),
             const Gap(10),
-            if (hystoryZapAds.isNotEmpty)
+            if (hystoryZapNews.isNotEmpty)
               GestureDetector(
                 onTap: () {
-                  hystoryZapAds = [];
-                  Get.find<MainRepository>().hystoryZapAds = [];
+                  hystoryZapNews = [];
+                  Get.find<MainRepository>().hystoryZapNews = [];
                   Get.find<MainRepository>().saveListToLocal(
-                    LocalDataKey.hystoryZapAds,
+                    LocalDataKey.hystoryZapNews,
                   );
                   setState(() {});
                 },
