@@ -8,7 +8,7 @@ import 'package:librarychuv/data/mock/book_mock.dart';
 import 'package:librarychuv/data/mock/librires_mock.dart';
 import 'package:librarychuv/data/mock/news_mock.dart';
 import 'package:librarychuv/data/mock/region_mock.dart';
-import 'package:librarychuv/data/mock/subjectnews_mock.dart';
+import 'package:librarychuv/data/mock/subject_mock.dart';
 import 'package:librarychuv/domain/models/abstract.dart';
 import 'package:librarychuv/domain/models/ads.dart';
 import 'package:librarychuv/domain/models/books.dart';

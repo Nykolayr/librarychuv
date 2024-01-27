@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:librarychuv/common/utils.dart';
 import 'package:librarychuv/domain/models/news.dart';
 import 'package:librarychuv/domain/repository/main_repository.dart';
