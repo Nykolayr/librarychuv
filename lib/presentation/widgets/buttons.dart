@@ -6,21 +6,32 @@ import 'package:librarychuv/presentation/theme/theme.dart';
 class ButtonSelf extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
-  final double width;
+  final double? width;
   final double height;
   final bool isWhite;
   final String pathImage;
+  final bool isTransporant;
   const ButtonSelf(
       {required this.text,
       required this.width,
       required this.height,
       required this.onPressed,
       this.isWhite = false,
+      this.isTransporant = false,
       this.pathImage = '',
       super.key});
 
   @override
   Widget build(BuildContext context) {
+    Color color = AppColor.redMain;
+    Color textColor = AppColor.white;
+    if (isTransporant) {
+      color = Colors.transparent;
+      textColor = AppColor.blackText;
+    } else if (isWhite) {
+      color = AppColor.white;
+      textColor = AppColor.redMain;
+    }
     return GestureDetector(
       onTap: onPressed,
       child: Container(
@@ -28,7 +39,7 @@ class ButtonSelf extends StatelessWidget {
           height: height,
           padding: const EdgeInsets.all(10.0),
           decoration: BoxDecoration(
-              color: isWhite ? AppColor.white : AppColor.redMain,
+              color: color,
               borderRadius: AppDif.borderRadius10,
               border: AppDif.borderButton),
           child: Row(
@@ -36,8 +47,7 @@ class ButtonSelf extends StatelessWidget {
                   ? MainAxisAlignment.center
                   : MainAxisAlignment.spaceBetween,
               children: [
-                Text(text,
-                    style: isWhite ? AppText.button16r : AppText.button16w),
+                Text(text, style: AppText.button16r.copyWith(color: textColor)),
                 if (pathImage.isNotEmpty)
                   SvgPicture.asset(pathImage, height: 17),
               ])),
@@ -133,6 +143,42 @@ class Buttons {
       width: double.infinity,
       height: 40,
       isWhite: true,
+    );
+  }
+}
+
+/// общий класс для розовых кнопок приложения
+class ButtonRow extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressed;
+  final double height;
+  final bool isTransporant;
+
+  const ButtonRow(
+      {required this.text,
+      this.height = 30,
+      required this.onPressed,
+      this.isTransporant = false,
+      super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+        height: height,
+        decoration: BoxDecoration(
+          color: isTransporant ? Colors.transparent : AppColor.redMain,
+          borderRadius: AppDif.borderRadius20,
+        ),
+        child: Center(
+          child: Text(text,
+              style: AppText.textMed14r.copyWith(
+                  fontSize: 13,
+                  color: isTransporant ? AppColor.greyText : AppColor.white)),
+        ),
+      ),
     );
   }
 }

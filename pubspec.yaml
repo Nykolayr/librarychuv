@@ -56,7 +56,7 @@ dependencies:
   dots_indicator: ^3.0.0 #https://pub.dev/packages/dots_indicator
   flutter_dash: ^1.0.0 #https://pub.dev/packages/flutter_dash
   yandex_mapkit: ^3.3.3 #https://pub.dev/packages/yandex_mapkit
-  
+  # loop_page_view: ^1.2.5 #https://pub.dev/packages/loop_page_view
    
   
 
@@ -87,4 +87,5 @@ flutter:
    - assets/images/
    - assets/images/news/
    - assets/images/books/
+   - assets/images/events/
    - assets/svg/  

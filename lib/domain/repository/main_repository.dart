@@ -5,6 +5,7 @@ import 'package:librarychuv/data/api.dart';
 import 'package:librarychuv/data/local_data.dart';
 import 'package:librarychuv/data/mock/ads_mock.dart';
 import 'package:librarychuv/data/mock/book_mock.dart';
+import 'package:librarychuv/data/mock/events_mock.dart';
 import 'package:librarychuv/data/mock/librires_mock.dart';
 import 'package:librarychuv/data/mock/news_mock.dart';
 import 'package:librarychuv/data/mock/region_mock.dart';
@@ -12,6 +13,7 @@ import 'package:librarychuv/data/mock/subject_mock.dart';
 import 'package:librarychuv/domain/models/abstract.dart';
 import 'package:librarychuv/domain/models/ads.dart';
 import 'package:librarychuv/domain/models/books.dart';
+import 'package:librarychuv/domain/models/events.dart';
 import 'package:librarychuv/domain/models/region.dart';
 import 'package:librarychuv/domain/models/libriry.dart';
 import 'package:librarychuv/domain/models/news.dart';
@@ -25,6 +27,7 @@ class MainRepository extends GetxController {
   List<Region> regionies = [];
   List<Ads> ads = [];
   List<SubjectNews> subjectNews = [];
+  List<EventsLib> events = [];
 
   // TODO: убрать моковые данные из запросов
   List<String> hystoryZapAds = ['В библиотеку', 'по русскому языку'];
@@ -49,6 +52,7 @@ class MainRepository extends GetxController {
         LocalDataKey.hystoryZapAds); // загрузка истории запросов объявлений
     await loadListFromLocal(
         LocalDataKey.hystoryZapNews); // загрузка истории запросов новостей
+    await loadListApi(LocalDataKey.events); // загрузка событий
   }
 
   Future<void> loadListApi(LocalDataKey key) async {
@@ -113,6 +117,11 @@ class MainRepository extends GetxController {
         await loadApi(subjectNewsMock, (data) {
           subjectNews = data.map((item) => SubjectNews.fromJson(item)).toList();
         });
+        break;
+      case LocalDataKey.events:
+        await loadApi(eventsMock, (data) {
+          events = data.map((item) => EventsLib.fromJson(item)).toList();
+        });
     }
   }
 
@@ -175,6 +184,11 @@ class MainRepository extends GetxController {
           subjectNews = data.map((item) => SubjectNews.fromJson(item)).toList();
         });
         break;
+      case LocalDataKey.events:
+        await loadListJson(events, (data) {
+          events = data.map((item) => EventsLib.fromJson(item)).toList();
+        });
+        break;
     }
   }
 
@@ -214,6 +228,9 @@ class MainRepository extends GetxController {
         break;
       case LocalDataKey.subjectNews:
         await saveListJson(subjectNews);
+        break;
+      case LocalDataKey.events:
+        await saveListJson(events);
         break;
     }
   }

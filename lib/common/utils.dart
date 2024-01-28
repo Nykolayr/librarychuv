@@ -19,6 +19,11 @@ class Utils {
     return formatter.format(date);
   }
 
+  static String getFormatDateFullWithHour(DateTime date) {
+    final DateFormat formatter = DateFormat('dd MMMM yyyy г.  HH:mm', 'ru');
+    return formatter.format(date);
+  }
+
   static String? validatePassword(String? password) {
     if (password == null || password.isEmpty) {
       return 'Поле не может быть пустым';

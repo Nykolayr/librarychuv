@@ -83,7 +83,13 @@ enum MainPageType {
           ),
         ];
       case MainPageType.events:
-        return [];
+        return [
+          iconButtonActions(
+            'assets/svg/search.svg',
+            () => Get.find<MainBloc>()
+                .add(const AddPageEvent(typePage: SecondPageType.newsSearch)),
+          ),
+        ];
       case MainPageType.books:
         return [];
       case MainPageType.account:
