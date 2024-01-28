@@ -1,7 +1,9 @@
 import 'package:librarychuv/domain/models/abstract.dart';
 
+/// класс событий
 class EventsLib extends AllModels {
   TypeEvents type;
+  String adress;
   EventsLib({
     required super.id,
     required super.name,
@@ -9,6 +11,7 @@ class EventsLib extends AllModels {
     required super.pathImage,
     required super.date,
     required this.type,
+    required this.adress,
   });
 
   factory EventsLib.fromJson(Map<String, dynamic> data) => EventsLib(
@@ -19,6 +22,7 @@ class EventsLib extends AllModels {
         date: DateTime.parse(data['date'] as String),
         type: TypeEvents.values
             .firstWhere((element) => element.name == (data['type'] as String)),
+        adress: data['adress'] as String,
       );
 
   @override
@@ -30,6 +34,7 @@ class EventsLib extends AllModels {
       'pathImage': pathImage,
       'date': date.toIso8601String(),
       'type': type.name,
+      'adress': adress,
     };
   }
 
@@ -41,6 +46,7 @@ class EventsLib extends AllModels {
       pathImage: '',
       date: DateTime.now(),
       type: TypeEvents.presentations,
+      adress: '',
     );
   }
 }

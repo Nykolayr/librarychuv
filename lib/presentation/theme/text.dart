@@ -25,6 +25,11 @@ class AppText {
     fontWeight: FontWeight.w700,
     fontSize: 16,
   );
+  static TextStyle text16rCom = GoogleFonts.cormorant(
+    color: AppColor.redMain,
+    fontWeight: FontWeight.w700,
+    fontSize: 16,
+  );
   static TextStyle text12gCom = GoogleFonts.cormorant(
     color: AppColor.greyText2,
     fontWeight: FontWeight.w400,

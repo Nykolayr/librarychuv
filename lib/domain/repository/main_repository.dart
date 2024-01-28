@@ -14,6 +14,7 @@ import 'package:librarychuv/domain/models/abstract.dart';
 import 'package:librarychuv/domain/models/ads.dart';
 import 'package:librarychuv/domain/models/books.dart';
 import 'package:librarychuv/domain/models/events.dart';
+import 'package:librarychuv/domain/models/my_events.dart';
 import 'package:librarychuv/domain/models/region.dart';
 import 'package:librarychuv/domain/models/libriry.dart';
 import 'package:librarychuv/domain/models/news.dart';
@@ -28,6 +29,7 @@ class MainRepository extends GetxController {
   List<Ads> ads = [];
   List<SubjectNews> subjectNews = [];
   List<EventsLib> events = [];
+  List<MyEvents> myEvents = [];
 
   // TODO: убрать моковые данные из запросов
   List<String> hystoryZapAds = ['В библиотеку', 'по русскому языку'];
@@ -56,6 +58,14 @@ class MainRepository extends GetxController {
     await loadListApi(LocalDataKey.events); // загрузка событий
     await loadListFromLocal(
         LocalDataKey.hystoryZapEvents); // загрузка истории запросов событий
+    await loadListFromLocal(LocalDataKey.myEvents);
+  }
+
+  /// добавление
+  Future<void> AddMyEvents(EventsLib item) async {
+    myEvents
+        .add(MyEvents(id: myEvents.length + 1, name: item.name, event: item));
+    await saveListToLocal(LocalDataKey.myEvents);
   }
 
   Future<void> loadListApi(LocalDataKey key) async {
@@ -131,6 +141,11 @@ class MainRepository extends GetxController {
           events = data.map((item) => EventsLib.fromJson(item)).toList();
         });
         break;
+      case LocalDataKey.myEvents:
+        await loadApi([], (data) {
+          myEvents = data.map((item) => MyEvents.fromJson(item)).toList();
+        });
+        break;
     }
   }
 
@@ -201,6 +216,11 @@ class MainRepository extends GetxController {
       case LocalDataKey.hystoryZapEvents:
         await loadListString(hystoryZapEvents);
         break;
+      case LocalDataKey.myEvents:
+        await loadListJson(myEvents, (data) {
+          myEvents = data.map((item) => MyEvents.fromJson(item)).toList();
+        });
+        break;
     }
   }
 
@@ -246,6 +266,9 @@ class MainRepository extends GetxController {
         break;
       case LocalDataKey.hystoryZapEvents:
         await saveListString(hystoryZapEvents);
+        break;
+      case LocalDataKey.myEvents:
+        await saveListJson(myEvents);
         break;
     }
   }

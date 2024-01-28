@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:librarychuv/common/utils.dart';
@@ -31,14 +32,36 @@ class EventItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     Utils.getFormatDateFullWithHour(item.date),
-                    style: AppText.text16gCom,
+                    style: isOne ? AppText.text16rCom : AppText.text16gCom,
                   ),
-                  ItemEventsType(item: item),
+                  const Gap(10),
+                  isOne
+                      ? Expanded(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SvgPicture.asset('assets/svg/map_point.svg',
+                                  width: 12),
+                              const Gap(5),
+                              Expanded(
+                                child: Text(
+                                  item.adress,
+                                  maxLines: 3,
+                                  softWrap: true,
+                                  style: AppText.text16rCom,
+                                  // overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      : ItemEventsType(item: item),
                 ],
               ),
               const Gap(10),
