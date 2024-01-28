@@ -7,10 +7,13 @@ import 'package:librarychuv/presentation/screens/ads/ads_page.dart';
 import 'package:librarychuv/presentation/screens/ads/ads_result.dart';
 import 'package:librarychuv/presentation/screens/ads/ads_search.dart';
 import 'package:librarychuv/presentation/screens/books/books_page.dart';
+import 'package:librarychuv/presentation/screens/events_pages/event_search.dart';
+import 'package:librarychuv/presentation/screens/events_pages/events_all_page.dart';
 import 'package:librarychuv/presentation/screens/events_pages/events_page.dart';
+import 'package:librarychuv/presentation/screens/events_pages/events_result.dart';
 import 'package:librarychuv/presentation/screens/libriry/libriry_map.dart';
 import 'package:librarychuv/presentation/screens/main/main_content.dart';
-import 'package:librarychuv/presentation/screens/news/news_page.dart';
+import 'package:librarychuv/presentation/screens/news/news_all_page.dart';
 import 'package:librarychuv/presentation/screens/news/news_result.dart';
 import 'package:librarychuv/presentation/screens/news/news_search.dart';
 import 'package:librarychuv/presentation/screens/news/subscribe_news.dart';
@@ -55,9 +58,9 @@ enum MainPageType {
       case MainPageType.main:
         return const MainContent();
       case MainPageType.news:
-        return const NewsPage();
+        return const NewsAllPage();
       case MainPageType.events:
-        return const EventsPage();
+        return const EventsAllPage();
       case MainPageType.books:
         return const BooksPage();
       case MainPageType.account:
@@ -87,7 +90,7 @@ enum MainPageType {
           iconButtonActions(
             'assets/svg/search.svg',
             () => Get.find<MainBloc>()
-                .add(const AddPageEvent(typePage: SecondPageType.newsSearch)),
+                .add(const AddPageEvent(typePage: SecondPageType.eventsSearch)),
           ),
         ];
       case MainPageType.books:
@@ -105,11 +108,15 @@ enum SecondPageType {
   adsAll,
   ads,
   news,
+  events,
   adsSearch,
   newsSearch,
+  eventsSearch,
   resultSearchAds,
   resultSearchNews,
-  subscribeNews;
+  resultSearchEvents,
+  subscribeNews,
+  ;
 
   ChoosePage get page {
     switch (this) {
@@ -145,10 +152,17 @@ enum SecondPageType {
         return ChoosePage(
             page: const NewsResultSearchPage(),
             appBarTitle: 'Результат поиска');
-
       case SecondPageType.subscribeNews:
         return ChoosePage(
             page: const NewsSubscribePage(), appBarTitle: 'Назад');
+      case SecondPageType.events:
+        return ChoosePage(page: const EventsPage(), appBarTitle: 'Назад');
+      case SecondPageType.eventsSearch:
+        return ChoosePage(page: const EventsSearchPage(), appBarTitle: 'Назад');
+      case SecondPageType.resultSearchEvents:
+        return ChoosePage(
+            page: const EventsResultSearchPage(),
+            appBarTitle: 'Результат поиска');
     }
   }
 }

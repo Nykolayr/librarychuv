@@ -21,7 +21,7 @@ class EventItem extends StatelessWidget {
       onTap: () => isOne
           ? null
           : Get.find<MainBloc>().add(
-              AddPageEvent(typePage: SecondPageType.newsSearch, items: [item])),
+              AddPageEvent(typePage: SecondPageType.events, items: [item])),
       child: Padding(
         padding: const EdgeInsets.only(bottom: 13),
         child: RoundedCardWidget(

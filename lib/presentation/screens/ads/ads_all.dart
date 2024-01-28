@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:librarychuv/domain/repository/main_repository.dart';
-import 'package:librarychuv/presentation/screens/ads/ads.dart';
+import 'package:librarychuv/presentation/screens/ads/ads_item.dart';
 import 'package:librarychuv/presentation/theme/theme.dart';
 
 /// страница объявлений

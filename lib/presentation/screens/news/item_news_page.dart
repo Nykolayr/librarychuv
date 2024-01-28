@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:librarychuv/common/utils.dart';
+import 'package:librarychuv/domain/models/abstract.dart';
 import 'package:librarychuv/domain/models/news.dart';
 import 'package:librarychuv/presentation/screens/main/bloc/main_bloc.dart';
 import 'package:librarychuv/presentation/screens/main/pages.dart';
@@ -11,7 +12,7 @@ import 'package:librarychuv/presentation/widgets/card.dart';
 
 /// карточка новости
 class NewsItem extends StatelessWidget {
-  final News item;
+  final AllModels item;
   final bool isOne;
   const NewsItem({required this.item, this.isOne = false, Key? key})
       : super(key: key);
@@ -20,8 +21,8 @@ class NewsItem extends StatelessWidget {
     return GestureDetector(
       onTap: () => isOne
           ? null
-          : Get.find<MainBloc>().add(
-              AddPageEvent(typePage: SecondPageType.newsSearch, items: [item])),
+          : Get.find<MainBloc>()
+              .add(AddPageEvent(typePage: SecondPageType.news, items: [item])),
       child: Padding(
         padding: const EdgeInsets.only(bottom: 13),
         child: RoundedCardWidget(
@@ -37,12 +38,12 @@ class NewsItem extends StatelessWidget {
                     Utils.getFormatDateFull(item.date),
                     style: AppText.text16gCom,
                   ),
-                  if (item.showCount != 0) ...[
+                  if ((item as News).showCount != 0) ...[
                     const Gap(10),
                     SvgPicture.asset('assets/svg/eye.svg', height: 15),
                     const Gap(3),
                     Text(
-                      item.showCount.toString(),
+                      (item as News).showCount.toString(),
                       style: AppText.text16gCom,
                     ),
                   ],
