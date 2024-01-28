@@ -65,6 +65,11 @@ class AppText {
     fontWeight: FontWeight.w500,
     fontSize: 16,
   );
+  static TextStyle text16g = GoogleFonts.roboto(
+    color: AppColor.greyText,
+    fontWeight: FontWeight.w500,
+    fontSize: 16,
+  );
   static TextStyle text14b = GoogleFonts.roboto(
     color: AppColor.blackText,
     fontWeight: FontWeight.w400,

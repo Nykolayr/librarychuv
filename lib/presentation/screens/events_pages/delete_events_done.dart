@@ -7,8 +7,8 @@ import 'package:librarychuv/presentation/widgets/fon_picture.dart';
 import '../../theme/theme.dart';
 
 /// при удачном удаление  события из календаря вызывается этот экран
-class AddEventDone extends StatelessWidget {
-  const AddEventDone({Key? key}) : super(key: key);
+class DeleteEventDone extends StatelessWidget {
+  const DeleteEventDone({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class AddEventDone extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text('Мероприятие \удалено \nиз календаря',
+                  Text('Мероприятие \nудалено \nиз календаря',
                       style: AppText.captionText36Com,
                       textAlign: TextAlign.center),
                   Gap(context.mediaQuery.size.height / 3),

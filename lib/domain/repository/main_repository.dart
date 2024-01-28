@@ -61,10 +61,16 @@ class MainRepository extends GetxController {
     await loadListFromLocal(LocalDataKey.myEvents);
   }
 
-  /// добавление
-  Future<void> AddMyEvents(EventsLib item) async {
+  /// добавление события в календарь
+  Future<void> addMyEvents(EventsLib item) async {
     myEvents
         .add(MyEvents(id: myEvents.length + 1, name: item.name, event: item));
+    await saveListToLocal(LocalDataKey.myEvents);
+  }
+
+  /// удаления события из календарь
+  Future<void> deleteMyEvents(EventsLib item) async {
+    myEvents.removeWhere((element) => element.id == item.id);
     await saveListToLocal(LocalDataKey.myEvents);
   }
 
@@ -156,7 +162,7 @@ class MainRepository extends GetxController {
     ) async {
       final List<Map<String, dynamic>> data =
           await LocalData.loadListJson(key: key);
-      if (data.first['error'] != null) {
+      if (data.first['error'] == null) {
         list = getList(data);
       } else {
         await saveListToLocal(key);
