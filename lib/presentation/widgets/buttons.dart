@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gap/gap.dart';
 import 'package:librarychuv/presentation/theme/theme.dart';
 
 /// общий класс для кнопок приложения
@@ -111,13 +112,14 @@ class Buttons {
     required String text,
     required String pathImage,
     bool isPadding = true,
+    double? width,
   }) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: isPadding ? 10 : 0),
       child: ButtonSelf(
         text: text,
         onPressed: onPressed,
-        width: double.infinity,
+        width: width ?? double.infinity,
         height: 43,
         pathImage: pathImage,
       ),
@@ -179,6 +181,49 @@ class ButtonRow extends StatelessWidget {
                   color: isTransporant ? AppColor.greyText : AppColor.white)),
         ),
       ),
+    );
+  }
+}
+
+/// общий класс для кнопок приложения c иконками
+class ButtonSelfWithIcon extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressed;
+  final double? width;
+  final String pathImage;
+
+  const ButtonSelfWithIcon(
+      {required this.text,
+      required this.onPressed,
+      this.width,
+      this.pathImage = '',
+      super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    Color color = AppColor.redMain;
+    Color textColor = AppColor.white;
+
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+          width: width,
+          height: 40,
+          padding: const EdgeInsets.all(10.0),
+          decoration: BoxDecoration(
+              color: color,
+              borderRadius: AppDif.borderRadius10,
+              border: AppDif.borderButton),
+          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            if (pathImage.isNotEmpty)
+              SvgPicture.asset(
+                pathImage,
+                height: 17,
+              ),
+            const Gap(8),
+            Text(text,
+                style: AppText.captionText14r.copyWith(color: textColor)),
+          ])),
     );
   }
 }

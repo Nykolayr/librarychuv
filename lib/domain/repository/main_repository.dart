@@ -58,7 +58,7 @@ class MainRepository extends GetxController {
     await loadListApi(LocalDataKey.events); // загрузка событий
     await loadListFromLocal(
         LocalDataKey.hystoryZapEvents); // загрузка истории запросов событий
-    await loadListFromLocal(LocalDataKey.myEvents);
+    await loadListFromLocal(LocalDataKey.myEvents); // загрузка  событий
   }
 
   /// добавление события в календарь
@@ -162,8 +162,8 @@ class MainRepository extends GetxController {
     ) async {
       final List<Map<String, dynamic>> data =
           await LocalData.loadListJson(key: key);
-      if (data.first['error'] == null) {
-        list = getList(data);
+      if (data.isNotEmpty && data.first['error'] == null) {
+        getList(data);
       } else {
         await saveListToLocal(key);
       }

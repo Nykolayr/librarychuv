@@ -7,6 +7,12 @@ sealed class MainEvent extends Equatable {
   List<Object> get props => [];
 }
 
+/// если нужно изменить название страницы
+class AddPageNameEvent extends MainEvent {
+  final String tempNamePage;
+  const AddPageNameEvent({required this.tempNamePage});
+}
+
 class AddPageEvent extends MainEvent {
   final SecondPageType typePage;
   final List<AllModels>? items;
@@ -44,6 +50,7 @@ class SortSearchEvent extends MainEvent {
   const SortSearchEvent({required this.item, required this.isSearch});
 }
 
+/// выбор библиотеки
 class ShooseLibriryEvent extends MainEvent {
   final int index;
   const ShooseLibriryEvent({required this.index});

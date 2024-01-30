@@ -20,6 +20,12 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     on<SortDropEvent>(_onSortDropEvent);
     on<SortSearchEvent>(_onSortSearchEvent);
     on<ShooseLibriryEvent>(_onShooseLibriryEvent);
+    on<AddPageNameEvent>(_onAddPageNameEvent);
+  }
+
+  Future<void> _onAddPageNameEvent(
+      AddPageNameEvent event, Emitter<MainState> emit) async {
+    emit(state.copyWith(tempNamePage: event.tempNamePage));
   }
 
   Future<void> _onShooseLibriryEvent(

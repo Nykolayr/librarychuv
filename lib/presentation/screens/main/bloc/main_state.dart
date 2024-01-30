@@ -10,6 +10,7 @@ class MainState {
   final List<Libriry> searchLibriryItems;
   final int curLibriryId;
   final List<AllModels> items;
+  final String tempNamePage;
 
   const MainState({
     required this.typePages,
@@ -21,6 +22,7 @@ class MainState {
     required this.isSearch,
     required this.curLibriryId,
     required this.items,
+    required this.tempNamePage,
   });
 
   bool get isSecondPage => typePages.isNotEmpty;
@@ -39,6 +41,7 @@ class MainState {
       isSearch: false,
       curLibriryId: -1,
       items: [],
+      tempNamePage: '',
     );
   }
 
@@ -53,6 +56,7 @@ class MainState {
     int? curLibriryId,
     String? appBarTitle,
     List<AllModels>? items,
+    String? tempNamePage,
   }) {
     return MainState(
       typePages: typePages ?? this.typePages,
@@ -64,6 +68,7 @@ class MainState {
       isSearch: isSearch ?? this.isSearch,
       curLibriryId: curLibriryId ?? this.curLibriryId,
       items: items ?? this.items,
+      tempNamePage: tempNamePage ?? this.tempNamePage,
     );
   }
 }

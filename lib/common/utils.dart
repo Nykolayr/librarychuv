@@ -24,6 +24,21 @@ class Utils {
     return formatter.format(date);
   }
 
+  static String getDate(DateTime date) {
+    final DateFormat formatter = DateFormat('dd MMMM yyyy', 'ru');
+    return formatter.format(date);
+  }
+
+  static String getHour(DateTime date) {
+    final DateFormat formatter = DateFormat('HH:mm', 'ru');
+    return formatter.format(date);
+  }
+
+  static String getMonthYear(DateTime date) {
+    final DateFormat formatter = DateFormat('MMMM yyyy', 'ru');
+    return formatter.format(date);
+  }
+
   static String? validatePassword(String? password) {
     if (password == null || password.isEmpty) {
       return 'Поле не может быть пустым';

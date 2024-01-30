@@ -13,4 +13,6 @@ class AppColor {
   static const Color fon = Color(0xFFf9f5f2);
   static const Color stroke = Color(0xFFE5E5E5);
   static const Color greyCircle = Color(0xFFCACACA);
+  static const Color creamy = Color(0xFFEED9C8);
+  static const Color green = Color(0xFF1CB358);
 }
