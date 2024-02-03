@@ -23,9 +23,8 @@ class RecommendPage extends StatelessWidget {
         itemCount: recommendationsAll.length,
         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: MediaQuery.of(context).size.width / 2 - 10,
-          crossAxisSpacing: 4.0, // пространство между колонками
-          mainAxisSpacing: 8.0, // пространство между строками
-          // mainAxisExtent: MediaQuery.of(context).size.width / 2 + 70,
+          crossAxisSpacing: 4.0,
+          mainAxisSpacing: 8.0,
           childAspectRatio: 0.61,
         ),
         itemBuilder: (context, index) {

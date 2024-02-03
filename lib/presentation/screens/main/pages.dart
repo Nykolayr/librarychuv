@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:librarychuv/domain/models/books.dart';
 import 'package:librarychuv/presentation/screens/account/account_page.dart';
 import 'package:librarychuv/presentation/screens/ads/ads_all.dart';
 import 'package:librarychuv/presentation/screens/ads/ads_page.dart';
 import 'package:librarychuv/presentation/screens/ads/ads_result.dart';
 import 'package:librarychuv/presentation/screens/ads/ads_search.dart';
+import 'package:librarychuv/presentation/screens/books/book_info.dart';
 import 'package:librarychuv/presentation/screens/books/books_page.dart';
 import 'package:librarychuv/presentation/screens/events_pages/event_search.dart';
 import 'package:librarychuv/presentation/screens/events_pages/events_all_page.dart';
@@ -94,7 +96,13 @@ enum MainPageType {
           ),
         ];
       case MainPageType.books:
-        return [];
+        return [
+          iconButtonActions(
+            'assets/svg/search.svg',
+            () => Get.find<MainBloc>()
+                .add(const AddPageEvent(typePage: SecondPageType.eventsSearch)),
+          ),
+        ];
       case MainPageType.account:
         return [];
     }
@@ -116,6 +124,7 @@ enum SecondPageType {
   resultSearchNews,
   resultSearchEvents,
   subscribeNews,
+  bookInfo,
   ;
 
   ChoosePage get page {
@@ -127,15 +136,16 @@ enum SecondPageType {
             page: const RecommendPage(), appBarTitle: 'Рекомендации');
       case SecondPageType.adsAll:
         return ChoosePage(
-            page: const AdsAllPage(),
-            appBarTitle: 'Объявления',
-            actions: [
-              iconButtonActions(
-                'assets/svg/search.svg',
-                () => Get.find<MainBloc>().add(
-                    const AddPageEvent(typePage: SecondPageType.adsSearch)),
-              ),
-            ]);
+          page: const AdsAllPage(),
+          appBarTitle: 'Объявления',
+          actions: [
+            iconButtonActions(
+              'assets/svg/search.svg',
+              () => Get.find<MainBloc>()
+                  .add(const AddPageEvent(typePage: SecondPageType.adsSearch)),
+            ),
+          ],
+        );
       case SecondPageType.ads:
         return ChoosePage(page: const AdsPage(), appBarTitle: 'Назад');
 
@@ -163,6 +173,20 @@ enum SecondPageType {
         return ChoosePage(
             page: const EventsResultSearchPage(),
             appBarTitle: 'Результат поиска');
+      case SecondPageType.bookInfo:
+        return ChoosePage(
+          page: const BookInfo(),
+          appBarTitle: 'Назад',
+          actions: [
+            iconButtonActions(
+              (Get.find<MainBloc>().state.items.first as Book).isFavorite
+                  ? 'assets/svg/star_fill.svg'
+                  : 'assets/svg/star.svg',
+              () => Get.find<MainBloc>()
+                  .add(const AddPageEvent(typePage: SecondPageType.bookInfo)),
+            ),
+          ],
+        );
     }
   }
 }

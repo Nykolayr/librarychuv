@@ -2,14 +2,18 @@ import 'package:librarychuv/domain/models/abstract.dart';
 
 class Book extends AllModels {
   String url;
-
-  Book(
-      {required this.url,
-      required super.id,
-      required super.name,
-      required super.description,
-      required super.pathImage,
-      required super.date});
+  bool isFavorite;
+  String preface;
+  Book({
+    required this.url,
+    required super.id,
+    required super.name,
+    required super.description,
+    required super.pathImage,
+    required super.date,
+    required this.isFavorite,
+    required this.preface,
+  });
   factory Book.fromJson(Map<String, dynamic> data) => Book(
         id: data['id'] as int,
         name: data['name'] as String,
@@ -17,6 +21,8 @@ class Book extends AllModels {
         pathImage: data['pathImage'] as String,
         date: DateTime.parse(data['date'] as String),
         url: data['url'] as String,
+        isFavorite: data['isFavorite'] as bool,
+        preface: data['preface'] as String,
       );
 
   @override
@@ -27,7 +33,9 @@ class Book extends AllModels {
       'description': description,
       'pathImage': pathImage,
       'date': date.toIso8601String(),
-      'url': url
+      'url': url,
+      'isFavorite': isFavorite,
+      'preface': preface
     };
   }
 
@@ -39,6 +47,8 @@ class Book extends AllModels {
       pathImage: '',
       date: DateTime.now(),
       url: '',
+      isFavorite: false,
+      preface: '',
     );
   }
 }

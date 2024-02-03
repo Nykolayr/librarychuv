@@ -63,7 +63,6 @@ class EventItem extends StatelessWidget {
                                       maxLines: 3,
                                       softWrap: true,
                                       style: AppText.text16rCom,
-                                      // overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
                                 ],

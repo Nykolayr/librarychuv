@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:librarychuv/domain/models/books.dart';
+import 'package:librarychuv/presentation/screens/main/bloc/main_bloc.dart';
+import 'package:librarychuv/presentation/screens/main/pages.dart';
 import 'package:librarychuv/presentation/theme/colors.dart';
 import 'package:librarychuv/presentation/theme/different.dart';
 import 'package:librarychuv/presentation/theme/text.dart';
@@ -73,14 +76,11 @@ class BookItemAll extends StatelessWidget {
             decoration: const BoxDecoration(
               borderRadius: AppDif.borderRadius10,
             ),
-            child: Image.asset(book.pathImage, fit: BoxFit.fitHeight
-                // width: MediaQuery.of(context).size.width / 2 - 50,
-                ),
+            child: Image.asset(book.pathImage, fit: BoxFit.fitHeight),
           ),
         ),
         Container(
           height: 40,
-          // width: MediaQuery.of(context).size.width / 2 - 30,
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5),
           child: Text(
             book.name,
@@ -90,7 +90,10 @@ class BookItemAll extends StatelessWidget {
         ),
         const Gap(10),
         Buttons.buttonPink(
-            onPressed: () {},
+            onPressed: () {
+              Get.find<MainBloc>().add(AddPageEvent(
+                  typePage: SecondPageType.bookInfo, items: [book]));
+            },
             text: 'Посмотреть книгу',
             width: MediaQuery.of(context).size.width / 2 - 30)
       ],

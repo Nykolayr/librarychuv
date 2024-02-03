@@ -128,21 +128,25 @@ class Buttons {
 
   /// кнопка входа в приложение
   static ButtonSelf buttonFull(
-      {required void Function() onPressed, required String text}) {
+      {required void Function() onPressed,
+      required String text,
+      double width = double.infinity}) {
     return ButtonSelf(
       text: text,
       onPressed: onPressed,
-      width: double.infinity,
+      width: width,
       height: 40,
     );
   }
 
   static ButtonSelf buttonOut(
-      {required void Function() onPressed, required String text}) {
+      {required void Function() onPressed,
+      required String text,
+      double width = double.infinity}) {
     return ButtonSelf(
       text: text,
       onPressed: onPressed,
-      width: double.infinity,
+      width: width,
       height: 40,
       isWhite: true,
     );

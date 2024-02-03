@@ -82,4 +82,5 @@ enum LocalDataKey {
   subjectNews,
   events,
   myEvents,
+  books,
 }

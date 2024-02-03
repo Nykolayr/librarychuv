@@ -21,6 +21,14 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     on<SortSearchEvent>(_onSortSearchEvent);
     on<ShooseLibriryEvent>(_onShooseLibriryEvent);
     on<AddPageNameEvent>(_onAddPageNameEvent);
+    on<AddFirstItemEvent>(_onAddFirstItemEvent);
+  }
+
+  Future<void> _onAddFirstItemEvent(
+      AddFirstItemEvent event, Emitter<MainState> emit) async {
+    List<AllModels> items = state.items;
+    items.first = event.item;
+    emit(state.copyWith(items: items));
   }
 
   Future<void> _onAddPageNameEvent(

@@ -122,6 +122,11 @@ class AppText {
     fontWeight: FontWeight.w600,
     fontSize: 14,
   );
+  static TextStyle captionText16b = GoogleFonts.roboto(
+    color: AppColor.blackText,
+    fontWeight: FontWeight.w600,
+    fontSize: 16,
+  );
   static TextStyle text14g = GoogleFonts.roboto(
     color: AppColor.greyText3,
     fontWeight: FontWeight.w400,

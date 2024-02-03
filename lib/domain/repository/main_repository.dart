@@ -24,6 +24,7 @@ import 'package:librarychuv/main.dart';
 class MainRepository extends GetxController {
   List<News> news = [];
   List<Book> recommendations = [];
+  List<Book> books = [];
   List<Libriry> libriries = [];
   List<Region> regionies = [];
   List<Ads> ads = [];
@@ -47,6 +48,7 @@ class MainRepository extends GetxController {
   Future init() async {
     await loadListApi(LocalDataKey.news); // загрузка новостей
     await loadListApi(LocalDataKey.recomend); // загрузка рекомендованных
+    await loadListApi(LocalDataKey.books); // загрузка книг
     await loadListApi(LocalDataKey.libriry); // загрузка библиотек
     await loadListApi(LocalDataKey.regionies); // загрузка регионов
     await loadListApi(LocalDataKey.ads); // загрузка объявлений
@@ -100,6 +102,11 @@ class MainRepository extends GetxController {
       case LocalDataKey.news:
         await loadApi(newsMock, (data) {
           news = data.map((item) => News.fromJson(item)).toList();
+        });
+        break;
+      case LocalDataKey.books:
+        await loadApi(recommendationsMock, (data) {
+          books = data.map((item) => Book.fromJson(item)).toList();
         });
         break;
       case LocalDataKey.recomend:
@@ -180,22 +187,27 @@ class MainRepository extends GetxController {
         break;
       case LocalDataKey.news:
         await loadListJson(news, (data) {
-          ads = data.map((item) => Ads.fromJson(item)).toList();
+          news = data.map((item) => News.fromJson(item)).toList();
         });
         break;
       case LocalDataKey.recomend:
         await loadListJson(recommendations, (data) {
-          ads = data.map((item) => Ads.fromJson(item)).toList();
+          recommendations = data.map((item) => Book.fromJson(item)).toList();
+        });
+        break;
+      case LocalDataKey.books:
+        await loadListJson(books, (data) {
+          books = data.map((item) => Book.fromJson(item)).toList();
         });
         break;
       case LocalDataKey.libriry:
         await loadListJson(libriries, (data) {
-          ads = data.map((item) => Ads.fromJson(item)).toList();
+          libriries = data.map((item) => Libriry.fromJson(item)).toList();
         });
         break;
       case LocalDataKey.regionies:
         await loadListJson(regionies, (data) {
-          ads = data.map((item) => Ads.fromJson(item)).toList();
+          regionies = data.map((item) => Region.fromJson(item)).toList();
         });
         break;
       case LocalDataKey.ads:
@@ -248,6 +260,9 @@ class MainRepository extends GetxController {
         break;
       case LocalDataKey.recomend:
         await saveListJson(recommendations);
+        break;
+      case LocalDataKey.books:
+        await saveListJson(books);
         break;
       case LocalDataKey.libriry:
         await saveListJson(libriries);
