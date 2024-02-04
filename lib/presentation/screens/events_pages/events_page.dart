@@ -14,7 +14,7 @@ class EventsPage extends StatelessWidget {
   const EventsPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    EventsLib item = Get.find<MainBloc>().state.items.first as EventsLib;
+    EventsLib item = Get.find<MainBloc>().state.chooseItem as EventsLib;
     bool isInMyEvents = Get.find<MainRepository>()
             .myEvents
             .firstWhereOrNull((element) => element.id == item.id) !=

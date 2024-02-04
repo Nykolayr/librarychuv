@@ -7,6 +7,7 @@ import 'package:librarychuv/domain/models/books.dart';
 import 'package:librarychuv/domain/repository/main_repository.dart';
 import 'package:librarychuv/presentation/screens/books/text_url_pdf.dart';
 import 'package:librarychuv/presentation/screens/main/bloc/main_bloc.dart';
+import 'package:librarychuv/presentation/screens/main/pages.dart';
 import 'package:librarychuv/presentation/theme/theme.dart';
 import 'package:librarychuv/presentation/widgets/buttons.dart';
 
@@ -34,7 +35,7 @@ class _BookInfoState extends State<BookInfo> {
           return true;
         },
         builder: (context, state) {
-          Book book = bloc.state.items.first as Book;
+          Book book = bloc.state.chooseItem as Book;
           return Container(
             width: context.mediaQuerySize.width,
             height: context.mediaQuerySize.height - 120,
@@ -89,7 +90,7 @@ class _BookInfoState extends State<BookInfo> {
                                       .isFavorite = book.isFavorite;
                                   Get.find<MainRepository>()
                                       .saveListToLocal(LocalDataKey.books);
-                                  bloc.add(AddFirstItemEvent(item: book));
+                                  bloc.add(AddChooseItemEvent(item: book));
                                 },
                                 text: book.isFavorite
                                     ? 'Удалить из избранного'
@@ -103,7 +104,10 @@ class _BookInfoState extends State<BookInfo> {
                         const Gap(10),
                         Buttons.buttonFull(
                             width: context.mediaQuerySize.width - 20,
-                            onPressed: () {},
+                            onPressed: () => Get.find<MainBloc>().add(
+                                AddPageEvent(
+                                    typePage: SecondPageType.bookShow,
+                                    chooseItem: book)),
                             text: 'Открыть книгу'),
                       ],
                     ),

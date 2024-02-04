@@ -8,7 +8,10 @@ import 'package:librarychuv/presentation/screens/ads/ads_page.dart';
 import 'package:librarychuv/presentation/screens/ads/ads_result.dart';
 import 'package:librarychuv/presentation/screens/ads/ads_search.dart';
 import 'package:librarychuv/presentation/screens/books/book_info.dart';
+import 'package:librarychuv/presentation/screens/books/book_show.dart';
 import 'package:librarychuv/presentation/screens/books/books_page.dart';
+import 'package:librarychuv/presentation/screens/books/events_results.dart';
+import 'package:librarychuv/presentation/screens/books/search_book.dart';
 import 'package:librarychuv/presentation/screens/events_pages/event_search.dart';
 import 'package:librarychuv/presentation/screens/events_pages/events_all_page.dart';
 import 'package:librarychuv/presentation/screens/events_pages/events_page.dart';
@@ -100,7 +103,7 @@ enum MainPageType {
           iconButtonActions(
             'assets/svg/search.svg',
             () => Get.find<MainBloc>()
-                .add(const AddPageEvent(typePage: SecondPageType.eventsSearch)),
+                .add(const AddPageEvent(typePage: SecondPageType.bookSearch)),
           ),
         ];
       case MainPageType.account:
@@ -125,6 +128,9 @@ enum SecondPageType {
   resultSearchEvents,
   subscribeNews,
   bookInfo,
+  bookShow,
+  bookSearch,
+  bookResult,
   ;
 
   ChoosePage get page {
@@ -179,7 +185,7 @@ enum SecondPageType {
           appBarTitle: 'Назад',
           actions: [
             iconButtonActions(
-              (Get.find<MainBloc>().state.items.first as Book).isFavorite
+              (Get.find<MainBloc>().state.chooseItem as Book).isFavorite
                   ? 'assets/svg/star_fill.svg'
                   : 'assets/svg/star.svg',
               () => Get.find<MainBloc>()
@@ -187,6 +193,32 @@ enum SecondPageType {
             ),
           ],
         );
+      case SecondPageType.bookShow:
+        return ChoosePage(
+          page: const BookShow(),
+          appBarTitle: 'Назад',
+          actions: [
+            iconButtonActions(
+              'assets/svg/burger.svg',
+              () => {},
+              //  Get.find<MainBloc>()
+              //     .add(const AddPageEvent(typePage: SecondPageType.bookInfo)),
+            ),
+            iconButtonActions(
+              (Get.find<MainBloc>().state.chooseItem as Book).isFavorite
+                  ? 'assets/svg/star_fill.svg'
+                  : 'assets/svg/star.svg',
+              () => Get.find<MainBloc>()
+                  .add(const AddPageEvent(typePage: SecondPageType.bookInfo)),
+            ),
+          ],
+        );
+      case SecondPageType.bookSearch:
+        return ChoosePage(page: const BooksSearchPage(), appBarTitle: 'Назад');
+      case SecondPageType.bookResult:
+        return ChoosePage(
+            page: const BooksResultSearchPage(),
+            appBarTitle: 'Результат поиска');
     }
   }
 }

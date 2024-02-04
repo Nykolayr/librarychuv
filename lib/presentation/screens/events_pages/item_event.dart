@@ -27,7 +27,7 @@ class EventItem extends StatelessWidget {
       onTap: () => isOne
           ? null
           : Get.find<MainBloc>().add(
-              AddPageEvent(typePage: SecondPageType.events, items: [item])),
+              AddPageEvent(typePage: SecondPageType.events, chooseItem: item)),
       child: Padding(
         padding: const EdgeInsets.only(bottom: 13),
         child: Stack(

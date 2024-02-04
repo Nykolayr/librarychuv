@@ -7,10 +7,10 @@ sealed class MainEvent extends Equatable {
   List<Object> get props => [];
 }
 
-/// обновление первого в списке items
-class AddFirstItemEvent extends MainEvent {
+/// обновление chooseItem
+class AddChooseItemEvent extends MainEvent {
   final AllModels item;
-  const AddFirstItemEvent({required this.item});
+  const AddChooseItemEvent({required this.item});
 }
 
 /// если нужно изменить название страницы
@@ -23,9 +23,11 @@ class AddPageNameEvent extends MainEvent {
 class AddPageEvent extends MainEvent {
   final SecondPageType typePage;
   final List<AllModels>? items;
+  final AllModels? chooseItem;
   const AddPageEvent({
     required this.typePage,
     this.items,
+    this.chooseItem,
   });
 }
 

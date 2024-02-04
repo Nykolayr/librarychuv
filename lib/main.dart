@@ -51,12 +51,6 @@ class MyApp extends StatelessWidget {
           textDirection: TextDirection.ltr,
           child: MediaQuery(
             data: mq.copyWith(textScaler: fontScale),
-            // child: MultiBlocProvider(
-            //   providers: [
-            //     BlocProvider(
-            //       create: (_) => AuthBloc(),
-            //     ),
-            //   ],
             child: child!,
           ),
           // ),

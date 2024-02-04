@@ -33,7 +33,7 @@ class _NewsSearchPageState extends State<NewsSearchPage> {
         .toList();
     if (newsSearch.isNotEmpty) {
       isNotSearch = false;
-      if (isSearch) {
+      if (isSearch && !hystoryZapNews.contains(searchController.text)) {
         hystoryZapNews.add(searchController.text);
         Get.find<MainRepository>().saveListToLocal(
           LocalDataKey.hystoryZapNews,

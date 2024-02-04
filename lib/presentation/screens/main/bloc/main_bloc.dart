@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:get/get.dart';
 import 'package:librarychuv/domain/models/abstract.dart';
+import 'package:librarychuv/domain/models/books.dart';
 import 'package:librarychuv/domain/models/region.dart';
 import 'package:librarychuv/domain/models/libriry.dart';
 import 'package:librarychuv/domain/repository/main_repository.dart';
@@ -21,14 +22,12 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     on<SortSearchEvent>(_onSortSearchEvent);
     on<ShooseLibriryEvent>(_onShooseLibriryEvent);
     on<AddPageNameEvent>(_onAddPageNameEvent);
-    on<AddFirstItemEvent>(_onAddFirstItemEvent);
+    on<AddChooseItemEvent>(_onAddChooseItemEvent);
   }
 
-  Future<void> _onAddFirstItemEvent(
-      AddFirstItemEvent event, Emitter<MainState> emit) async {
-    List<AllModels> items = state.items;
-    items.first = event.item;
-    emit(state.copyWith(items: items));
+  Future<void> _onAddChooseItemEvent(
+      AddChooseItemEvent event, Emitter<MainState> emit) async {
+    emit(state.copyWith(chooseItem: event.item));
   }
 
   Future<void> _onAddPageNameEvent(
@@ -93,7 +92,10 @@ class MainBloc extends Bloc<MainEvent, MainState> {
       AddPageEvent event, Emitter<MainState> emit) async {
     List<SecondPageType> typePages = state.typePages;
     typePages.add(event.typePage);
-    emit(state.copyWith(typePages: typePages, items: event.items));
+    emit(state.copyWith(
+        typePages: typePages,
+        items: event.items,
+        chooseItem: event.chooseItem));
   }
 
   Future<void> _onAddDropEvent(

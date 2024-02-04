@@ -17,7 +17,7 @@ class NewsPage extends StatelessWidget {
       color: AppColor.fon,
       child: SingleChildScrollView(
         child:
-            NewsItem(item: Get.find<MainBloc>().state.items.first, isOne: true),
+            NewsItem(item: Get.find<MainBloc>().state.chooseItem, isOne: true),
       ),
     );
   }

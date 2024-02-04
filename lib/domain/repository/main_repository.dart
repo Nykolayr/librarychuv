@@ -36,6 +36,7 @@ class MainRepository extends GetxController {
   List<String> hystoryZapAds = ['В библиотеку', 'по русскому языку'];
   List<String> hystoryZapNews = ['В библиотеку', 'по русскому языку'];
   List<String> hystoryZapEvents = ['В библиотеку', 'по русскому языку'];
+  List<String> hystoryZapBooks = ['В библиотеку', 'по русскому языку'];
 
   static final MainRepository _instance = MainRepository._internal();
 
@@ -60,7 +61,9 @@ class MainRepository extends GetxController {
     await loadListApi(LocalDataKey.events); // загрузка событий
     await loadListFromLocal(
         LocalDataKey.hystoryZapEvents); // загрузка истории запросов событий
-    await loadListFromLocal(LocalDataKey.myEvents); // загрузка  событий
+    await loadListFromLocal(
+        LocalDataKey.hystoryZapBooks); // загрузка истории запросов событий
+    await loadListFromLocal(LocalDataKey.hystoryZapBooks); // загрузка  событий
   }
 
   /// добавление события в календарь
@@ -159,6 +162,11 @@ class MainRepository extends GetxController {
           myEvents = data.map((item) => MyEvents.fromJson(item)).toList();
         });
         break;
+      case LocalDataKey.hystoryZapBooks:
+        await loadApi(eventsMock, (data) {
+          books = data.map((item) => Book.fromJson(item)).toList();
+        });
+        break;
     }
   }
 
@@ -239,6 +247,9 @@ class MainRepository extends GetxController {
           myEvents = data.map((item) => MyEvents.fromJson(item)).toList();
         });
         break;
+      case LocalDataKey.hystoryZapBooks:
+        await loadListString(hystoryZapBooks);
+        break;
     }
   }
 
@@ -290,6 +301,9 @@ class MainRepository extends GetxController {
         break;
       case LocalDataKey.myEvents:
         await saveListJson(myEvents);
+        break;
+      case LocalDataKey.hystoryZapBooks:
+        await saveListString(hystoryZapBooks);
         break;
     }
   }

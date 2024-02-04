@@ -19,8 +19,8 @@ class AdsItem extends StatelessWidget {
     return GestureDetector(
       onTap: () => isOne
           ? null
-          : Get.find<MainBloc>()
-              .add(AddPageEvent(typePage: SecondPageType.ads, items: [item])),
+          : Get.find<MainBloc>().add(
+              AddPageEvent(typePage: SecondPageType.ads, chooseItem: item)),
       child: Padding(
         padding: const EdgeInsets.only(bottom: 13),
         child: RoundedCardWidget(

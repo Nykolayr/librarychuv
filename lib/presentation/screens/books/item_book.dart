@@ -48,7 +48,11 @@ class BookItem extends StatelessWidget {
             ),
           ),
           const Gap(10),
-          Buttons.buttonPink(onPressed: () {}, text: 'Посмотреть', width: 138)
+          Buttons.buttonPink(
+              onPressed: () => Get.find<MainBloc>().add(AddPageEvent(
+                  typePage: SecondPageType.bookShow, chooseItem: book)),
+              text: 'Посмотреть',
+              width: 138)
         ],
       ),
     );
@@ -92,7 +96,7 @@ class BookItemAll extends StatelessWidget {
         Buttons.buttonPink(
             onPressed: () {
               Get.find<MainBloc>().add(AddPageEvent(
-                  typePage: SecondPageType.bookInfo, items: [book]));
+                  typePage: SecondPageType.bookInfo, chooseItem: book));
             },
             text: 'Посмотреть книгу',
             width: MediaQuery.of(context).size.width / 2 - 30)

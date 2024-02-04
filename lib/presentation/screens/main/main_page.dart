@@ -107,6 +107,9 @@ class MainPageState extends State<MainPage>
                   child: Stack(
                     children: [
                       TabBarView(
+                        physics: state.isSecondPage
+                            ? const NeverScrollableScrollPhysics()
+                            : const ScrollPhysics(),
                         controller: tabController,
                         children: MainPageType.values.map((type) {
                           return state.isSecondPage
@@ -114,12 +117,6 @@ class MainPageState extends State<MainPage>
                               : type.getPage;
                         }).toList(),
                       ),
-                      // Visibility(
-                      //   visible: state.isSecondPage,
-                      //   child: state.isSecondPage
-                      //       ? state.typePages.last.page.page
-                      //       : const SizedBox.shrink(),
-                      // ),
                     ],
                   ),
                 ),

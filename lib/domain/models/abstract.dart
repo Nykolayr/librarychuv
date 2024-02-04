@@ -21,6 +21,7 @@ abstract class AllModels extends ParentModels {
       required this.description,
       required this.pathImage,
       required this.date});
+    
   @override
   Map<String, dynamic> toJson();
 }

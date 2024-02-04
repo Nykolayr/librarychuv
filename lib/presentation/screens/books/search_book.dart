@@ -3,7 +3,7 @@ import 'package:gap/gap.dart';
 
 import 'package:get/get.dart';
 import 'package:librarychuv/data/local_data.dart';
-import 'package:librarychuv/domain/models/events.dart';
+import 'package:librarychuv/domain/models/books.dart';
 import 'package:librarychuv/domain/repository/main_repository.dart';
 import 'package:librarychuv/presentation/screens/main/bloc/main_bloc.dart';
 import 'package:librarychuv/presentation/screens/main/pages.dart';
@@ -11,37 +11,37 @@ import 'package:librarychuv/presentation/theme/theme.dart';
 import 'package:librarychuv/presentation/widgets/buttons.dart';
 import 'package:librarychuv/presentation/widgets/search.dart';
 
-/// страница поиска событий
-class EventsSearchPage extends StatefulWidget {
-  const EventsSearchPage({Key? key}) : super(key: key);
+/// страница поиска книги
+class BooksSearchPage extends StatefulWidget {
+  const BooksSearchPage({Key? key}) : super(key: key);
 
   @override
-  State<EventsSearchPage> createState() => _EventsSearchPageState();
+  State<BooksSearchPage> createState() => _BooksSearchPageState();
 }
 
-class _EventsSearchPageState extends State<EventsSearchPage> {
+class _BooksSearchPageState extends State<BooksSearchPage> {
   TextEditingController searchController = TextEditingController();
   MainBloc bloc = Get.find<MainBloc>();
-  List<String> hystoryZapEvents = Get.find<MainRepository>().hystoryZapEvents;
-  List<EventsLib> events = Get.find<MainRepository>().events;
-  List<EventsLib> newsEvents = [];
+  List<String> hystoryZapBooks = Get.find<MainRepository>().hystoryZapBooks;
+  List<Book> events = Get.find<MainRepository>().books;
+  List<Book> newsBooks = [];
   bool isNotSearch = false;
 
   goSearch(String text, isSearch) {
-    newsEvents = events
+    newsBooks = events
         .where((item) => item.name.toLowerCase().contains(text.toLowerCase()))
         .toList();
-    if (newsEvents.isNotEmpty) {
+    if (newsBooks.isNotEmpty) {
       isNotSearch = false;
-      if (isSearch && !hystoryZapEvents.contains(searchController.text)) {
-        hystoryZapEvents.add(searchController.text);
+      if (isSearch && !hystoryZapBooks.contains(searchController.text)) {
+        hystoryZapBooks.add(searchController.text);
         Get.find<MainRepository>().saveListToLocal(
-          LocalDataKey.hystoryZapEvents,
+          LocalDataKey.hystoryZapBooks,
         );
         searchController.text = '';
       }
-      Get.find<MainBloc>().add(AddPageEvent(
-          typePage: SecondPageType.resultSearchEvents, items: newsEvents));
+      Get.find<MainBloc>().add(
+          AddPageEvent(typePage: SecondPageType.bookResult, items: newsBooks));
     } else {
       isNotSearch = true;
     }
@@ -89,12 +89,12 @@ class _EventsSearchPageState extends State<EventsSearchPage> {
                     goSearch(searchController.text, true);
                   }
                 },
-                text: 'Искать событие'),
+                text: 'Искать книгу'),
             const Gap(20),
-            if (hystoryZapEvents.isNotEmpty)
+            if (hystoryZapBooks.isNotEmpty)
               Text('История запросов:', style: AppText.text12b),
             const Gap(20),
-            ...hystoryZapEvents
+            ...hystoryZapBooks
                 .map(
                   (item) => GestureDetector(
                     onTap: () => goSearch(item, false),
@@ -111,14 +111,13 @@ class _EventsSearchPageState extends State<EventsSearchPage> {
                 )
                 .toList(),
             const Gap(10),
-            if (hystoryZapEvents.isNotEmpty)
+            if (hystoryZapBooks.isNotEmpty)
               GestureDetector(
                 onTap: () {
-                  hystoryZapEvents = [];
+                  hystoryZapBooks = [];
                   Get.find<MainRepository>().hystoryZapNews = [];
-                  Get.find<MainRepository>().saveListToLocal(
-                    LocalDataKey.hystoryZapNews,
-                  );
+                  Get.find<MainRepository>()
+                      .saveListToLocal(LocalDataKey.hystoryZapNews);
                   setState(() {});
                 },
                 child: Center(

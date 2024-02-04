@@ -33,7 +33,7 @@ class _AdsSearchPageState extends State<AdsSearchPage> {
         .toList();
     if (adsSearch.isNotEmpty) {
       isNotSearch = false;
-      if (isSearch) {
+      if (isSearch && !hystoryZapAds.contains(searchController.text)) {
         hystoryZapAds.add(searchController.text);
         Get.find<MainRepository>().saveListToLocal(
           LocalDataKey.hystoryZapAds,

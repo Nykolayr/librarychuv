@@ -16,7 +16,7 @@ class AdsPage extends StatelessWidget {
       color: AppColor.fon,
       child: SingleChildScrollView(
         child:
-            AdsItem(item: Get.find<MainBloc>().state.items.first, isOne: true),
+            AdsItem(item: Get.find<MainBloc>().state.chooseItem, isOne: true),
       ),
     );
   }
