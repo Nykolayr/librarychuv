@@ -3,6 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:librarychuv/domain/models/books.dart';
 import 'package:librarychuv/presentation/screens/account/account_page.dart';
+import 'package:librarychuv/presentation/screens/account/change_pass.dart';
+import 'package:librarychuv/presentation/screens/account/edit_profile.dart';
 import 'package:librarychuv/presentation/screens/account/help.dart';
 import 'package:librarychuv/presentation/screens/account/orders_trash.dart';
 import 'package:librarychuv/presentation/screens/account/ticket.dart';
@@ -140,6 +142,8 @@ enum SecondPageType {
   help,
   ticket,
   orders,
+  editUser,
+  changePass,
   ;
 
   ChoosePage get page {
@@ -253,14 +257,16 @@ enum SecondPageType {
       case SecondPageType.ticket:
         return ChoosePage(
             page: const TicketPage(), appBarTitle: 'Читательский билет');
+      case SecondPageType.changePass:
+        return ChoosePage(
+            page: const ChangePassPage(), appBarTitle: 'Смена пароля');
+      case SecondPageType.editUser:
+        return ChoosePage(
+            page: const EditProfilePage(),
+            appBarTitle: 'Редактирование профиля');
     }
   }
 }
-
-//  shelf,
-//   help,
-//   ticket,
-//   orders,
 
 ///  иконки для AppBar
 Widget iconButtonActions(String path, VoidCallback? onTap) {

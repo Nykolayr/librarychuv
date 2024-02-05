@@ -43,7 +43,7 @@ class _AccountPageState extends State<AccountPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: Column(
                         children: [
-                          UserData(user: user, onTap: () {}),
+                          UserData(user: user),
                           const Gap(20),
                           DataNameUser(
                               title: 'Дата рождения:',

@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:librarychuv/domain/models/user.dart';
 import 'package:librarychuv/presentation/screens/account/image_user.dart';
+import 'package:librarychuv/presentation/screens/main/pages.dart';
 import 'package:librarychuv/presentation/theme/theme.dart';
+
+import '../main/bloc/main_bloc.dart';
 
 /// данные пользователя
 class UserData extends StatelessWidget {
   final User user;
-  final Function()? onTap;
-  const UserData({required this.user, this.onTap, Key? key}) : super(key: key);
+  const UserData({required this.user, Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    MainBloc bloc = Get.find<MainBloc>();
     return Row(
       children: [
         const ImageUser(),
@@ -32,7 +36,9 @@ class UserData extends StatelessWidget {
               ),
               const Gap(10),
               GestureDetector(
-                onTap: () {},
+                onTap: () => bloc.add(
+                  const AddPageEvent(typePage: SecondPageType.changePass),
+                ),
                 child: Text('Изменить пароль', style: AppText.text14r),
               ),
             ],
@@ -40,7 +46,8 @@ class UserData extends StatelessWidget {
         ),
         const Gap(15),
         GestureDetector(
-          onTap: () {},
+          onTap: () =>
+              bloc.add(const AddPageEvent(typePage: SecondPageType.editUser)),
           child: SvgPicture.asset('assets/svg/edit.svg', height: 36),
         ),
       ],
