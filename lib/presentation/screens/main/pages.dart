@@ -3,6 +3,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:librarychuv/domain/models/books.dart';
 import 'package:librarychuv/presentation/screens/account/account_page.dart';
+import 'package:librarychuv/presentation/screens/account/help.dart';
+import 'package:librarychuv/presentation/screens/account/orders_trash.dart';
+import 'package:librarychuv/presentation/screens/account/ticket.dart';
 import 'package:librarychuv/presentation/screens/ads/ads_all.dart';
 import 'package:librarychuv/presentation/screens/ads/ads_page.dart';
 import 'package:librarychuv/presentation/screens/ads/ads_result.dart';
@@ -133,6 +136,10 @@ enum SecondPageType {
   bookSearch,
   bookResult,
   bookOrder,
+  shelf,
+  help,
+  ticket,
+  orders,
   ;
 
   ChoosePage get page {
@@ -225,9 +232,35 @@ enum SecondPageType {
       case SecondPageType.bookOrder:
         return ChoosePage(
             page: const BookOrderPage(), appBarTitle: 'Форма заказа');
+      case SecondPageType.shelf:
+        return ChoosePage(
+          page: const HelpPage(),
+          appBarTitle: 'Персональная полка',
+          actions: [
+            iconButtonActions(
+              'assets/svg/search.svg',
+              () => Get.find<MainBloc>()
+                  .add(const AddPageEvent(typePage: SecondPageType.bookSearch)),
+            ),
+          ],
+        );
+      case SecondPageType.orders:
+        return ChoosePage(
+            page: const OrdersTrashPage(), appBarTitle: 'Корзина заказов');
+      case SecondPageType.help:
+        return ChoosePage(
+            page: const HelpPage(), appBarTitle: 'Виртуальная справка');
+      case SecondPageType.ticket:
+        return ChoosePage(
+            page: const TicketPage(), appBarTitle: 'Читательский билет');
     }
   }
 }
+
+//  shelf,
+//   help,
+//   ticket,
+//   orders,
 
 ///  иконки для AppBar
 Widget iconButtonActions(String path, VoidCallback? onTap) {
