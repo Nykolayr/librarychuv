@@ -8,6 +8,7 @@ import 'package:librarychuv/presentation/screens/ads/ads_page.dart';
 import 'package:librarychuv/presentation/screens/ads/ads_result.dart';
 import 'package:librarychuv/presentation/screens/ads/ads_search.dart';
 import 'package:librarychuv/presentation/screens/books/book_info.dart';
+import 'package:librarychuv/presentation/screens/books/book_order.dart';
 import 'package:librarychuv/presentation/screens/books/book_show.dart';
 import 'package:librarychuv/presentation/screens/books/books_page.dart';
 import 'package:librarychuv/presentation/screens/books/events_results.dart';
@@ -131,6 +132,7 @@ enum SecondPageType {
   bookShow,
   bookSearch,
   bookResult,
+  bookOrder,
   ;
 
   ChoosePage get page {
@@ -175,6 +177,7 @@ enum SecondPageType {
         return ChoosePage(page: const EventsPage(), appBarTitle: 'Назад');
       case SecondPageType.eventsSearch:
         return ChoosePage(page: const EventsSearchPage(), appBarTitle: 'Назад');
+
       case SecondPageType.resultSearchEvents:
         return ChoosePage(
             page: const EventsResultSearchPage(),
@@ -219,6 +222,9 @@ enum SecondPageType {
         return ChoosePage(
             page: const BooksResultSearchPage(),
             appBarTitle: 'Результат поиска');
+      case SecondPageType.bookOrder:
+        return ChoosePage(
+            page: const BookOrderPage(), appBarTitle: 'Форма заказа');
     }
   }
 }

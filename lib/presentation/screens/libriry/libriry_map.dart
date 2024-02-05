@@ -70,7 +70,13 @@ class _LybraryPageState extends State<LybraryPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  if (!bloc.state.isSearch) const DropdownButtons(),
+                  if (!bloc.state.isSearch)
+                    DropdownButtons(
+                      title: 'Выбор региона',
+                      items: bloc.state.dropItems,
+                      onChanged: (value) =>
+                          bloc.add(SortDropEvent(item: value!)),
+                    ),
                   if (!bloc.state.isSearch) const Gap(16),
                   Expanded(
                     child: SearchField(

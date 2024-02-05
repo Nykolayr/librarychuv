@@ -3,6 +3,7 @@
 import 'package:get/get.dart';
 import 'package:librarychuv/data/api.dart';
 import 'package:librarychuv/data/local_data.dart';
+import 'package:librarychuv/data/mock/Issue_address.dart';
 import 'package:librarychuv/data/mock/ads_mock.dart';
 import 'package:librarychuv/data/mock/book_mock.dart';
 import 'package:librarychuv/data/mock/events_mock.dart';
@@ -12,8 +13,10 @@ import 'package:librarychuv/data/mock/region_mock.dart';
 import 'package:librarychuv/data/mock/subject_mock.dart';
 import 'package:librarychuv/domain/models/abstract.dart';
 import 'package:librarychuv/domain/models/ads.dart';
+import 'package:librarychuv/domain/models/book_order.dart';
 import 'package:librarychuv/domain/models/books.dart';
 import 'package:librarychuv/domain/models/events.dart';
+import 'package:librarychuv/domain/models/issue_address.dart';
 import 'package:librarychuv/domain/models/my_events.dart';
 import 'package:librarychuv/domain/models/region.dart';
 import 'package:librarychuv/domain/models/libriry.dart';
@@ -31,6 +34,8 @@ class MainRepository extends GetxController {
   List<SubjectNews> subjectNews = [];
   List<EventsLib> events = [];
   List<MyEvents> myEvents = [];
+  List<IssueAddress> issueAddress = [];
+  List<BookOrder> bookOrders = [];
 
   // TODO: убрать моковые данные из запросов
   List<String> hystoryZapAds = ['В библиотеку', 'по русскому языку'];
@@ -54,6 +59,9 @@ class MainRepository extends GetxController {
     await loadListApi(LocalDataKey.regionies); // загрузка регионов
     await loadListApi(LocalDataKey.ads); // загрузка объявлений
     await loadListApi(LocalDataKey.subjectNews); // загрузка тематик новостей
+    await loadListApi(
+        LocalDataKey.issueAddress); // загрузка адресов получение заказов
+    await loadListApi(LocalDataKey.bookOrders); // загрузка заказов
     await loadListFromLocal(
         LocalDataKey.hystoryZapAds); // загрузка истории запросов объявлений
     await loadListFromLocal(
@@ -64,6 +72,13 @@ class MainRepository extends GetxController {
     await loadListFromLocal(
         LocalDataKey.hystoryZapBooks); // загрузка истории запросов событий
     await loadListFromLocal(LocalDataKey.hystoryZapBooks); // загрузка  событий
+  }
+
+  /// добавление заказа
+  Future<void> addBookOrder(BookOrder item) async {
+    item.id = bookOrders.length + 1;
+    bookOrders.add(item);
+    await saveListToLocal(LocalDataKey.bookOrders);
   }
 
   /// добавление события в календарь
@@ -152,6 +167,12 @@ class MainRepository extends GetxController {
           events = data.map((item) => EventsLib.fromJson(item)).toList();
         });
         break;
+      case LocalDataKey.issueAddress:
+        await loadApi(issueAddressMock, (data) {
+          issueAddress =
+              data.map((item) => IssueAddress.fromJson(item)).toList();
+        });
+        break;
       case LocalDataKey.hystoryZapEvents:
         await loadApi(eventsMock, (data) {
           events = data.map((item) => EventsLib.fromJson(item)).toList();
@@ -165,6 +186,11 @@ class MainRepository extends GetxController {
       case LocalDataKey.hystoryZapBooks:
         await loadApi(eventsMock, (data) {
           books = data.map((item) => Book.fromJson(item)).toList();
+        });
+        break;
+      case LocalDataKey.bookOrders:
+        await loadApi([], (data) {
+          bookOrders = data.map((item) => BookOrder.fromJson(item)).toList();
         });
         break;
     }
@@ -223,6 +249,12 @@ class MainRepository extends GetxController {
           ads = data.map((item) => Ads.fromJson(item)).toList();
         });
         break;
+      case LocalDataKey.issueAddress:
+        await loadListJson(ads, (data) {
+          issueAddress =
+              data.map((item) => IssueAddress.fromJson(item)).toList();
+        });
+        break;
       case LocalDataKey.hystoryZapAds:
         await loadListString(hystoryZapAds);
         break;
@@ -237,6 +269,11 @@ class MainRepository extends GetxController {
       case LocalDataKey.events:
         await loadListJson(events, (data) {
           events = data.map((item) => EventsLib.fromJson(item)).toList();
+        });
+        break;
+      case LocalDataKey.bookOrders:
+        await loadListJson(bookOrders, (data) {
+          bookOrders = data.map((item) => BookOrder.fromJson(item)).toList();
         });
         break;
       case LocalDataKey.hystoryZapEvents:
@@ -304,6 +341,12 @@ class MainRepository extends GetxController {
         break;
       case LocalDataKey.hystoryZapBooks:
         await saveListString(hystoryZapBooks);
+        break;
+      case LocalDataKey.issueAddress:
+        await saveListJson(issueAddress);
+        break;
+      case LocalDataKey.bookOrders:
+        await saveListJson(bookOrders);
         break;
     }
   }

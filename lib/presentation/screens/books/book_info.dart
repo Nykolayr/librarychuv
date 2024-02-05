@@ -97,7 +97,11 @@ class _BookInfoState extends State<BookInfo> {
                                     : 'Добавить в избранное'),
                             Buttons.buttonOut(
                                 width: context.mediaQuerySize.width * 0.35 - 15,
-                                onPressed: () {},
+                                onPressed: () => Get.find<MainBloc>().add(
+                                      AddPageEvent(
+                                          typePage: SecondPageType.bookOrder,
+                                          chooseItem: book),
+                                    ),
                                 text: 'Заказать'),
                           ],
                         ),

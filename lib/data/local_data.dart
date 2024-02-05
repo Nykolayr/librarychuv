@@ -84,4 +84,6 @@ enum LocalDataKey {
   myEvents,
   books,
   hystoryZapBooks,
+  issueAddress,
+  bookOrders
 }
