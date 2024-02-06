@@ -23,12 +23,12 @@ class _BooksSearchPageState extends State<BooksSearchPage> {
   TextEditingController searchController = TextEditingController();
   MainBloc bloc = Get.find<MainBloc>();
   List<String> hystoryZapBooks = Get.find<MainRepository>().hystoryZapBooks;
-  List<Book> events = Get.find<MainRepository>().books;
+  List<Book> books = [];
   List<Book> newsBooks = [];
   bool isNotSearch = false;
 
   goSearch(String text, isSearch) {
-    newsBooks = events
+    newsBooks = books
         .where((item) => item.name.toLowerCase().contains(text.toLowerCase()))
         .toList();
     if (newsBooks.isNotEmpty) {
@@ -50,6 +50,9 @@ class _BooksSearchPageState extends State<BooksSearchPage> {
 
   @override
   void initState() {
+    books = bloc.state.items.isNotEmpty
+        ? bloc.state.items as List<Book>
+        : Get.find<MainRepository>().books;
     super.initState();
   }
 

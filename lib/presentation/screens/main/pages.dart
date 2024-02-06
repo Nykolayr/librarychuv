@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:librarychuv/domain/models/books.dart';
+import 'package:librarychuv/domain/repository/main_repository.dart';
 import 'package:librarychuv/presentation/screens/account/account_page.dart';
 import 'package:librarychuv/presentation/screens/account/change_pass.dart';
 import 'package:librarychuv/presentation/screens/account/edit_profile.dart';
 import 'package:librarychuv/presentation/screens/account/help.dart';
 import 'package:librarychuv/presentation/screens/account/orders_trash.dart';
+import 'package:librarychuv/presentation/screens/account/shelf.dart';
 import 'package:librarychuv/presentation/screens/account/ticket.dart';
 import 'package:librarychuv/presentation/screens/ads/ads_all.dart';
 import 'package:librarychuv/presentation/screens/ads/ads_page.dart';
@@ -108,8 +110,8 @@ enum MainPageType {
         return [
           iconButtonActions(
             'assets/svg/search.svg',
-            () => Get.find<MainBloc>()
-                .add(const AddPageEvent(typePage: SecondPageType.bookSearch)),
+            () => Get.find<MainBloc>().add(const AddPageEvent(
+                typePage: SecondPageType.bookSearch, items: [])),
           ),
         ];
       case MainPageType.account:
@@ -238,14 +240,18 @@ enum SecondPageType {
             page: const BookOrderPage(), appBarTitle: 'Форма заказа');
       case SecondPageType.shelf:
         return ChoosePage(
-          page: const HelpPage(),
+          page: const ShelfPage(),
           appBarTitle: 'Персональная полка',
           actions: [
-            iconButtonActions(
-              'assets/svg/search.svg',
-              () => Get.find<MainBloc>()
-                  .add(const AddPageEvent(typePage: SecondPageType.bookSearch)),
-            ),
+            iconButtonActions('assets/svg/search.svg', () {
+              Get.find<MainBloc>().add(AddPageEvent(
+                typePage: SecondPageType.bookSearch,
+                items: Get.find<MainRepository>()
+                    .books
+                    .where((element) => element.isFavorite == true)
+                    .toList(),
+              ));
+            }),
           ],
         );
       case SecondPageType.orders:

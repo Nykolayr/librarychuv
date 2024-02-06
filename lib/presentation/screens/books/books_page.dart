@@ -17,7 +17,7 @@ class BooksPage extends StatelessWidget {
       width: context.mediaQuerySize.width,
       height: context.mediaQuerySize.height - 220,
       color: AppColor.fon,
-      child: GridView.builder(
+      child:  GridView.builder(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         shrinkWrap: false,
         itemCount: booksAll.length,
