@@ -7,6 +7,12 @@ sealed class MainEvent extends Equatable {
   List<Object> get props => [];
 }
 
+/// смена таба наверху в вопросах
+class ChangeTabEvent extends MainEvent {
+  final bool isHelp;
+  const ChangeTabEvent({required this.isHelp});
+}
+
 /// обновление chooseItem
 class AddChooseItemEvent extends MainEvent {
   final AllModels item;

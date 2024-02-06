@@ -1,3 +1,5 @@
+import 'package:librarychuv/domain/models/ticker.dart';
+
 class User {
   String id;
   String email;
@@ -8,7 +10,8 @@ class User {
   String pathImage;
   DateTime birthDate;
   String role;
-  String ticket;
+  DateTime ticketDate;
+  Ticket ticket;
 
   User({
     required this.id,
@@ -20,6 +23,7 @@ class User {
     required this.pathImage,
     required this.birthDate,
     required this.role,
+    required this.ticketDate,
     required this.ticket,
   });
   factory User.fromJson(Map<String, dynamic> data) => User(
@@ -32,7 +36,8 @@ class User {
         pathImage: data['pathImage'] as String,
         birthDate: DateTime.parse(data['birthDate'] as String),
         role: data['role'] as String,
-        ticket: data['ticket'] as String,
+        ticket: Ticket.fromJson(data['ticket'] as Map<String, dynamic>),
+        ticketDate: DateTime.parse(data['ticketDate'] as String),
       );
 
   factory User.initial() {
@@ -46,7 +51,8 @@ class User {
       pathImage: '',
       birthDate: DateTime.now(),
       role: '',
-      ticket: '',
+      ticket: Ticket.initial(),
+      ticketDate: DateTime.now(),
     );
   }
 
@@ -61,7 +67,8 @@ class User {
       'pathImage': pathImage,
       'birthDate': birthDate.toIso8601String(),
       'role': role,
-      'ticket': ticket,
+      'ticket': ticket.toJson(),
+      'ticketDate': ticketDate.toIso8601String(),
     };
   }
 }

@@ -21,8 +21,6 @@ class OrdersTrashPage extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             for (BookOrder order in ordersAll) OrderItem(order: order),
           ],

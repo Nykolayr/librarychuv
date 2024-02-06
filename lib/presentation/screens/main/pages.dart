@@ -258,8 +258,7 @@ enum SecondPageType {
         return ChoosePage(
             page: const OrdersTrashPage(), appBarTitle: 'Корзина заказов');
       case SecondPageType.help:
-        return ChoosePage(
-            page: const HelpPage(), appBarTitle: 'Виртуальная справка');
+        return ChoosePage(page: const HelpPage(), appBarTitle: '');
       case SecondPageType.ticket:
         return ChoosePage(
             page: const TicketPage(), appBarTitle: 'Читательский билет');

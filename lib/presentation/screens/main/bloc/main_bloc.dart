@@ -23,6 +23,12 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     on<ShooseLibriryEvent>(_onShooseLibriryEvent);
     on<AddPageNameEvent>(_onAddPageNameEvent);
     on<AddChooseItemEvent>(_onAddChooseItemEvent);
+    on<ChangeTabEvent>(_onChangeTabEvent);
+  }
+
+  Future<void> _onChangeTabEvent(
+      ChangeTabEvent event, Emitter<MainState> emit) async {
+    emit(state.copyWith(isHelp: event.isHelp));
   }
 
   Future<void> _onAddChooseItemEvent(

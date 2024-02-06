@@ -50,7 +50,9 @@ class _AccountPageState extends State<AccountPage> {
                               sub: Utils.getFormatDate(user.birthDate)),
                           DataNameUser(title: 'Роль:', sub: user.role),
                           DataNameUser(
-                              title: 'Читательский билет:', sub: user.ticket),
+                              title: 'Читательский билет:',
+                              sub:
+                                  'Активен до ${Utils.getFormatDate(user.ticketDate)}'),
                           // '${user.ticket}'),
                           const Gap(25),
                         ],

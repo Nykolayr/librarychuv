@@ -7,6 +7,7 @@ import 'package:librarychuv/presentation/screens/main/bloc/main_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:librarychuv/presentation/screens/main/pages.dart';
 import 'package:librarychuv/presentation/theme/theme.dart';
+import 'package:librarychuv/presentation/widgets/tab_app.dart';
 
 /// общий класс для AppBar
 class AppBarWithBackButton extends StatelessWidget
@@ -39,10 +40,16 @@ class AppBarWithBackButton extends StatelessWidget
                   }
                 },
                 child: Row(
+                  mainAxisAlignment: title.isNotEmpty
+                      ? MainAxisAlignment.start
+                      : MainAxisAlignment.spaceBetween,
                   children: [
                     SvgPicture.asset('assets/svg/left.svg', width: 15),
                     const Gap(7),
-                    Text(title, style: AppText.text24rCom),
+                    title.isNotEmpty
+                        ? Text(title, style: AppText.text24rCom)
+                        : const TabAppHelp(),
+                    if (title.isEmpty) const Gap(15),
                   ],
                 ),
               )

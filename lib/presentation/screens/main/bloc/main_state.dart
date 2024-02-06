@@ -12,6 +12,7 @@ class MainState {
   final List<AllModels> items;
   final AllModels chooseItem;
   final String tempNamePage;
+  final bool isHelp;
 
   const MainState({
     required this.typePages,
@@ -25,6 +26,7 @@ class MainState {
     required this.items,
     required this.tempNamePage,
     required this.chooseItem,
+    required this.isHelp,
   });
 
   bool get isSecondPage => typePages.isNotEmpty;
@@ -45,6 +47,7 @@ class MainState {
       items: [],
       tempNamePage: '',
       chooseItem: Book.initial(),
+      isHelp: false,
     );
   }
 
@@ -62,6 +65,7 @@ class MainState {
     String? tempNamePage,
     int? indexItem,
     AllModels? chooseItem,
+    bool? isHelp,
   }) {
     return MainState(
       typePages: typePages ?? this.typePages,
@@ -75,6 +79,7 @@ class MainState {
       items: items ?? this.items,
       tempNamePage: tempNamePage ?? this.tempNamePage,
       chooseItem: chooseItem ?? this.chooseItem,
+      isHelp: isHelp ?? this.isHelp,
     );
   }
 }
