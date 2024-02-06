@@ -33,6 +33,7 @@ class AppDif {
       errorBorder: getOutlineBorder(color: AppColor.redMain),
       focusedErrorBorder: getOutlineBorder(color: AppColor.redMain),
       filled: true,
+      contentPadding: const EdgeInsets.only(top: 5, left: 10, right: 10),
       hintStyle: AppText.textHint16,
       hintText: hint,
       fillColor: AppColor.white,

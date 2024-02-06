@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gap/gap.dart';
 import 'package:librarychuv/presentation/theme/different.dart';
 import 'package:librarychuv/presentation/theme/text.dart';
 
@@ -31,6 +32,7 @@ class LibFormField extends StatelessWidget {
   final TextInputAction? textInputAction;
   final String? subText;
   final bool isTitle;
+  final String title;
 
   const LibFormField({
     super.key,
@@ -61,6 +63,7 @@ class LibFormField extends StatelessWidget {
     this.textInputAction,
     this.subText,
     this.isTitle = false,
+    this.title = '',
   });
 
   @override
@@ -68,7 +71,7 @@ class LibFormField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (isTitle)
+        if (isTitle && title.isEmpty)
           Padding(
             padding: const EdgeInsets.only(left: 10, bottom: 3, top: 10),
             child: Text(
@@ -76,9 +79,18 @@ class LibFormField extends StatelessWidget {
               style: AppText.text12g,
             ),
           ),
+        if (title.isNotEmpty) Text(title, style: AppText.captionText14b),
+        if (title.isNotEmpty) const Gap(7),
         SizedBox(
+          height: 45,
           child: TextFormField(
-            onChanged: onChanged,
+            onChanged: onChanged ??
+                (text) {
+                  String newText = text.isNotEmpty && controller != null
+                      ? text[0].toUpperCase() + text.substring(1)
+                      : text;
+                  controller!.text = newText;
+                },
             obscureText: obscureText,
             maxLength: maxLength,
             readOnly: readOnly,

@@ -9,6 +9,12 @@ class Utils {
   //   return sha256.convert(bin).toString();
   // }
 
+/// преобразуем из строки вида 30.07.1990 в дату
+  static DateTime parseDate(String dateString) {
+    final DateFormat formatter = DateFormat('dd.MM.yyyy');
+    return formatter.parse(dateString);
+  }
+
   static String getFormatDate(DateTime date) {
     final DateFormat formatter = DateFormat('dd.MM.yyyy');
     return formatter.format(date);

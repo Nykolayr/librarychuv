@@ -72,7 +72,6 @@ class _AuthPassPageState extends State<AuthPassPage> {
                               controller: passController,
                               hint: 'пароль',
                               obscureText: true,
-                              onChanged: (value) => () {},
                               validator: (value) => Utils.validateNotEmpty(
                                   value, 'Введите пароль'),
                               keyboardType: TextInputType.name,

@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_catches_without_on_clauses
 
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:librarychuv/data/api.dart';
 import 'package:librarychuv/data/local_data.dart';
 import 'package:librarychuv/data/mock/user_mock.dart';
@@ -27,8 +28,29 @@ class UserRepository extends GetxController {
 
   /// Начальная загрузка пользователя из локального хранилища
   Future init() async {
-    // LocalData().clear();
     await loadUserFromLocal();
+  }
+
+  /// загрузка фото пользователя на сервер
+  Future upLoadImage(XFile image) async {
+    // List<int> imageBytes = await image.readAsBytes();
+    /// имитация сохранение на сервере
+    await Future.delayed(const Duration(seconds: 1));
+    await saveUserToLocal();
+  }
+
+  /// обновление пароля
+  Future updatePass() async {
+    /// имитация сохранение на сервере
+    await Future.delayed(const Duration(seconds: 1));
+    await saveUserToLocal();
+  }
+
+  /// сохранение пользователя
+  Future saveUser() async {
+    /// имитация сохранение на сервере
+    await Future.delayed(const Duration(seconds: 1));
+    await saveUserToLocal();
   }
 
   /// Удаление пользователя из локального хранилища и инициализация

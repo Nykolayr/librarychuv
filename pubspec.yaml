@@ -60,6 +60,7 @@ dependencies:
   table_calendar: ^3.0.9 #https://pub.dev/packages/table_calendar
   flutter_cached_pdfview: ^0.4.2 #https://pub.dev/packages/flutter_cached_pdfview
   cached_network_image: ^3.3.1 #https://pub.dev/packages/cached_network_image
+  image_picker: ^1.0.7 #https://pub.dev/packages/image_picker
   
  
 dev_dependencies:
