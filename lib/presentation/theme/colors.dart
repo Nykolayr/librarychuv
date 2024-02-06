@@ -15,4 +15,6 @@ class AppColor {
   static const Color greyCircle = Color(0xFFCACACA);
   static const Color creamy = Color(0xFFEED9C8);
   static const Color green = Color(0xFF1CB358);
+  static const Color darkGreen = Color(0xFF0A6A08);
+  static const Color fonBaner = Color(0xFFF3E5E1);
 }

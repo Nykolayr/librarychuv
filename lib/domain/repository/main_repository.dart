@@ -72,6 +72,43 @@ class MainRepository extends GetxController {
     await loadListFromLocal(
         LocalDataKey.hystoryZapBooks); // загрузка истории запросов событий
     await loadListFromLocal(LocalDataKey.hystoryZapBooks); // загрузка  событий
+    addBookOrderMock();
+  }
+
+  /// добавление моковых заказов
+  // TODO: убрать моковые данные как только подключим API
+  addBookOrderMock() {
+    bookOrders.add(BookOrder(
+      adress: issueAddress[0],
+      book: books[0],
+      id: 0,
+      name: '',
+      comment: '',
+      type: TypeOrder.readyIssued,
+      date: DateTime.now(),
+    ));
+
+    bookOrders.add(BookOrder(
+      adress: issueAddress[1],
+      book: books[1],
+      id: 1,
+      name: '',
+      comment: '',
+      type: TypeOrder.refused,
+      date: DateTime.now(),
+    ));
+    bookOrders.add(
+      BookOrder(
+        adress: issueAddress[2],
+        book: books[2],
+        id: 2,
+        name: '',
+        comment: '',
+        type: TypeOrder.inDelivery,
+        date: DateTime.now(),
+      ),
+    );
+    saveListToLocal(LocalDataKey.bookOrders);
   }
 
   /// добавление заказа

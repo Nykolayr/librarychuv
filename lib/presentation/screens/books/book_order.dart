@@ -93,6 +93,8 @@ class _BookOrderPageState extends State<BookOrderPage> {
                       comment: controller.text,
                       id: 0,
                       name: '',
+                      type: TypeOrder.inProcessing,
+                      date: DateTime.now(),
                     );
                     Get.find<MainRepository>().addBookOrder(bookOrder);
                     await showDialog(
