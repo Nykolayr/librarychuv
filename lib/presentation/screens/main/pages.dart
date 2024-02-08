@@ -4,10 +4,11 @@ import 'package:get/get.dart';
 import 'package:librarychuv/domain/models/books.dart';
 import 'package:librarychuv/domain/repository/main_repository.dart';
 import 'package:librarychuv/presentation/screens/account/account_page.dart';
-import 'package:librarychuv/presentation/screens/account/answer_help.dart';
+import 'package:librarychuv/presentation/screens/help/answer_help.dart';
 import 'package:librarychuv/presentation/screens/account/change_pass.dart';
 import 'package:librarychuv/presentation/screens/account/edit_profile.dart';
-import 'package:librarychuv/presentation/screens/account/help.dart';
+import 'package:librarychuv/presentation/screens/help/answer_my.dart';
+import 'package:librarychuv/presentation/screens/help/help.dart';
 import 'package:librarychuv/presentation/screens/account/orders_trash.dart';
 import 'package:librarychuv/presentation/screens/account/shelf.dart';
 import 'package:librarychuv/presentation/screens/account/ticket.dart';
@@ -148,6 +149,7 @@ enum SecondPageType {
   editUser,
   changePass,
   answerhelp,
+  answerMy,
   ;
 
   ChoosePage get page {
@@ -274,6 +276,9 @@ enum SecondPageType {
       case SecondPageType.answerhelp:
         return ChoosePage(
             page: const AnswerHelpPage(), appBarTitle: 'Справка по вопросу');
+      case SecondPageType.answerMy:
+        return ChoosePage(
+            page: const AnswerMyPage(), appBarTitle: 'Ответ на ваш вопрос');
     }
   }
 }

@@ -7,6 +7,8 @@ class Question extends ParentModels {
   final String email;
   final String answer;
   final String operator;
+  final DateTime date;
+  final TypeQuestion typeQuestion;
 
   Question({
     required super.id,
@@ -15,6 +17,8 @@ class Question extends ParentModels {
     required this.email,
     required this.answer,
     required this.operator,
+    required this.date,
+    this.typeQuestion = TypeQuestion.awaitingRes,
   });
 
   factory Question.fromJson(Map<String, dynamic> data) => Question(
@@ -24,6 +28,10 @@ class Question extends ParentModels {
         email: data['email'],
         answer: data['answer'],
         operator: data['operator'],
+        date: DateTime.parse(data['date']),
+        typeQuestion: TypeQuestion.values.firstWhere(
+          (element) => element.name == data['type'],
+        ),
       );
 
   @override
@@ -33,7 +41,9 @@ class Question extends ParentModels {
         'question': question,
         'email': email,
         'answer': answer,
-        'operator': operator
+        'operator': operator,
+        'date': date.toIso8601String(),
+        'type': typeQuestion.name
       };
 
   factory Question.initial() {
@@ -44,6 +54,8 @@ class Question extends ParentModels {
       email: '',
       answer: '',
       operator: '',
+      date: DateTime.now(),
+      typeQuestion: TypeQuestion.awaitingRes,
     );
   }
 }

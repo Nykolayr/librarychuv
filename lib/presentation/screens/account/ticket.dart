@@ -149,7 +149,6 @@ class _TicketPageState extends State<TicketPage> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: Buttons.buttonFull(
-                width: context.mediaQuerySize.width - 20,
                 onPressed: () async {
                   if (formKey.currentState!.validate()) {
                     user.ticket.fio = fioController.text;
