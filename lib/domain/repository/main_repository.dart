@@ -119,8 +119,19 @@ class MainRepository extends GetxController {
     saveListToLocal(LocalDataKey.bookOrders);
   }
 
+  /// добавление вопроса пользователя
+  Future<void> addQuestion(Question item) async {
+    // имитация api
+    await Future.delayed(const Duration(seconds: 1));
+    item.id = questions.length + 1;
+    questions.add(item);
+    await saveListToLocal(LocalDataKey.questions);
+  }
+
   /// добавление заказа
   Future<void> addBookOrder(BookOrder item) async {
+    // имитация api
+    await Future.delayed(const Duration(seconds: 1));
     item.id = bookOrders.length + 1;
     bookOrders.add(item);
     await saveListToLocal(LocalDataKey.bookOrders);
@@ -128,6 +139,8 @@ class MainRepository extends GetxController {
 
   /// добавление события в календарь
   Future<void> addMyEvents(EventsLib item) async {
+    // имитация api
+    await Future.delayed(const Duration(seconds: 1));
     myEvents
         .add(MyEvents(id: myEvents.length + 1, name: item.name, event: item));
     await saveListToLocal(LocalDataKey.myEvents);
@@ -135,6 +148,8 @@ class MainRepository extends GetxController {
 
   /// удаления события из календарь
   Future<void> deleteMyEvents(EventsLib item) async {
+    // имитация api
+    await Future.delayed(const Duration(seconds: 1));
     myEvents.removeWhere((element) => element.id == item.id);
     await saveListToLocal(LocalDataKey.myEvents);
   }

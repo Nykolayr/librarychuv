@@ -3,12 +3,12 @@ import 'package:librarychuv/domain/models/abstract.dart';
 import 'package:librarychuv/presentation/theme/theme.dart';
 
 class Question extends ParentModels {
-  final String question;
-  final String email;
-  final String answer;
-  final String operator;
-  final DateTime date;
-  final TypeQuestion typeQuestion;
+  String question;
+  String email;
+  String answer;
+  String operator;
+  DateTime date;
+  TypeQuestion typeQuestion;
 
   Question({
     required super.id,

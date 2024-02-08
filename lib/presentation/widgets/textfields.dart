@@ -82,7 +82,7 @@ class LibFormField extends StatelessWidget {
         if (title.isNotEmpty) Text(title, style: AppText.captionText14b),
         if (title.isNotEmpty) const Gap(7),
         SizedBox(
-          height: 45,
+          height: 45 * maxLines.toDouble(),
           child: TextFormField(
             onChanged: onChanged ??
                 (text) {

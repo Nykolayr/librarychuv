@@ -34,6 +34,7 @@ class QuestionHelpItem extends StatelessWidget {
           borderRadius: AppDif.borderRadius10,
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -43,7 +44,7 @@ class QuestionHelpItem extends StatelessWidget {
               ],
             ),
             const Gap(10),
-            Text(item.question, style: AppText.text14b),
+            Text(item.name, style: AppText.text14b),
           ],
         ),
       ),

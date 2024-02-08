@@ -8,6 +8,7 @@ import 'package:librarychuv/presentation/screens/help/answer_help.dart';
 import 'package:librarychuv/presentation/screens/account/change_pass.dart';
 import 'package:librarychuv/presentation/screens/account/edit_profile.dart';
 import 'package:librarychuv/presentation/screens/help/answer_my.dart';
+import 'package:librarychuv/presentation/screens/help/ask_question.dart';
 import 'package:librarychuv/presentation/screens/help/help.dart';
 import 'package:librarychuv/presentation/screens/account/orders_trash.dart';
 import 'package:librarychuv/presentation/screens/account/shelf.dart';
@@ -150,6 +151,7 @@ enum SecondPageType {
   changePass,
   answerhelp,
   answerMy,
+  askQuestion,
   ;
 
   ChoosePage get page {
@@ -279,6 +281,8 @@ enum SecondPageType {
       case SecondPageType.answerMy:
         return ChoosePage(
             page: const AnswerMyPage(), appBarTitle: 'Ответ на ваш вопрос');
+      case SecondPageType.askQuestion:
+        return ChoosePage(page: const AskQuestionPage(), appBarTitle: 'Назад');
     }
   }
 }

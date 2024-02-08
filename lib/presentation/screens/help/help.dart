@@ -7,6 +7,7 @@ import 'package:librarychuv/domain/models/qustion.dart';
 import 'package:librarychuv/domain/repository/main_repository.dart';
 import 'package:librarychuv/presentation/screens/help/item_help.dart';
 import 'package:librarychuv/presentation/screens/help/item_question.dart';
+import 'package:librarychuv/presentation/screens/main/pages.dart';
 import 'package:librarychuv/presentation/theme/theme.dart';
 import 'package:librarychuv/presentation/widgets/buttons.dart';
 import 'package:librarychuv/presentation/widgets/search.dart';
@@ -93,7 +94,9 @@ class _HelpPageState extends State<HelpPage> {
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: Buttons.buttonFull(
                     width: context.mediaQuerySize.width - 20,
-                    onPressed: () async {},
+                    onPressed: () => bloc.add(const AddPageEvent(
+                      typePage: SecondPageType.askQuestion,
+                    )),
                     text: 'Задать вопрос',
                   ),
                 ),
