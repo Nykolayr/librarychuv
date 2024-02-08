@@ -23,9 +23,9 @@ class _TabAppHelpState extends State<TabAppHelp> {
         builder: (context, state) {
           return Row(
             children: [
-              getTab('Справочник', true),
+              getTab('Справочник', false),
               const Gap(20),
-              getTab('Мои вопросы', false),
+              getTab('Мои вопросы', true),
             ],
           );
         });

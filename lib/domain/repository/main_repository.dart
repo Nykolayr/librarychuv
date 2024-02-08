@@ -7,7 +7,9 @@ import 'package:librarychuv/data/mock/Issue_address.dart';
 import 'package:librarychuv/data/mock/ads_mock.dart';
 import 'package:librarychuv/data/mock/book_mock.dart';
 import 'package:librarychuv/data/mock/events_mock.dart';
+import 'package:librarychuv/data/mock/help_mosk.dart';
 import 'package:librarychuv/data/mock/librires_mock.dart';
+import 'package:librarychuv/data/mock/my_answers.dart';
 import 'package:librarychuv/data/mock/news_mock.dart';
 import 'package:librarychuv/data/mock/region_mock.dart';
 import 'package:librarychuv/data/mock/subject_mock.dart';
@@ -16,8 +18,10 @@ import 'package:librarychuv/domain/models/ads.dart';
 import 'package:librarychuv/domain/models/book_order.dart';
 import 'package:librarychuv/domain/models/books.dart';
 import 'package:librarychuv/domain/models/events.dart';
+import 'package:librarychuv/domain/models/help.dart';
 import 'package:librarychuv/domain/models/issue_address.dart';
 import 'package:librarychuv/domain/models/my_events.dart';
+import 'package:librarychuv/domain/models/qustion.dart';
 import 'package:librarychuv/domain/models/region.dart';
 import 'package:librarychuv/domain/models/libriry.dart';
 import 'package:librarychuv/domain/models/news.dart';
@@ -36,6 +40,8 @@ class MainRepository extends GetxController {
   List<MyEvents> myEvents = [];
   List<IssueAddress> issueAddress = [];
   List<BookOrder> bookOrders = [];
+  List<Question> questions = [];
+  List<Help> helps = [];
 
   // TODO: убрать моковые данные из запросов
   List<String> hystoryZapAds = ['В библиотеку', 'по русскому языку'];
@@ -72,6 +78,8 @@ class MainRepository extends GetxController {
     await loadListFromLocal(
         LocalDataKey.hystoryZapBooks); // загрузка истории запросов событий
     await loadListFromLocal(LocalDataKey.hystoryZapBooks); // загрузка  событий
+    await loadListApi(LocalDataKey.helps); // загрузка справочника
+    await loadListApi(LocalDataKey.questions); // загрузка моих вопросов
     addBookOrderMock();
   }
 
@@ -230,6 +238,16 @@ class MainRepository extends GetxController {
           bookOrders = data.map((item) => BookOrder.fromJson(item)).toList();
         });
         break;
+      case LocalDataKey.helps:
+        await loadApi(helpMock, (data) {
+          helps = data.map((item) => Help.fromJson(item)).toList();
+        });
+        break;
+      case LocalDataKey.questions:
+        await loadApi(questionsMock, (data) {
+          questions = data.map((item) => Question.fromJson(item)).toList();
+        });
+        break;
     }
   }
 
@@ -324,6 +342,16 @@ class MainRepository extends GetxController {
       case LocalDataKey.hystoryZapBooks:
         await loadListString(hystoryZapBooks);
         break;
+      case LocalDataKey.helps:
+        await loadListJson(helps, (data) {
+          helps = data.map((item) => Help.fromJson(item)).toList();
+        });
+        break;
+      case LocalDataKey.questions:
+        await loadListJson(questions, (data) {
+          questions = data.map((item) => Question.fromJson(item)).toList();
+        });
+        break;
     }
   }
 
@@ -384,6 +412,12 @@ class MainRepository extends GetxController {
         break;
       case LocalDataKey.bookOrders:
         await saveListJson(bookOrders);
+        break;
+      case LocalDataKey.helps:
+        await saveListJson(helps);
+        break;
+      case LocalDataKey.questions:
+        await saveListJson(questions);
         break;
     }
   }

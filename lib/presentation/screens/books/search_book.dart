@@ -80,7 +80,7 @@ class _BooksSearchPageState extends State<BooksSearchPage> {
             Text('Чувашские символы для поиска: Ӑ ӑ Ӗ ӗ Ӳ ӳ Ҫ ҫ',
                 style: AppText.text12b),
             const Gap(15),
-            SearchFieldSimple(
+            SearchFieldHelp(
               searchController: searchController,
             ),
             const Gap(15),

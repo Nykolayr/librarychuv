@@ -85,5 +85,7 @@ enum LocalDataKey {
   books,
   hystoryZapBooks,
   issueAddress,
-  bookOrders
+  bookOrders,
+  helps,
+  questions,
 }
