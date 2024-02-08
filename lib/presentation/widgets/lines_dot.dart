@@ -15,9 +15,13 @@ class LinesWithDot extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(Icons.circle,
-              size: 6, color: isRed ? AppColor.redMain : AppColor.blackText),
+          Padding(
+            padding: const EdgeInsets.only(top: 5),
+            child: Icon(Icons.circle,
+                size: 6, color: isRed ? AppColor.redMain : AppColor.blackText),
+          ),
           const Gap(10),
           Expanded(
             child: Text(

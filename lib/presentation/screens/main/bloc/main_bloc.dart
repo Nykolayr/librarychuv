@@ -99,9 +99,11 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     List<SecondPageType> typePages = state.typePages;
     typePages.add(event.typePage);
     emit(state.copyWith(
-        typePages: typePages,
-        items: event.items,
-        chooseItem: event.chooseItem));
+      typePages: typePages,
+      items: event.items,
+      chooseItem: event.chooseItem,
+      parentItem: event.parentItem,
+    ));
   }
 
   Future<void> _onAddDropEvent(

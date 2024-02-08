@@ -11,6 +11,7 @@ class MainState {
   final int curLibriryId;
   final List<AllModels> items;
   final AllModels chooseItem;
+  final ParentModels parentItem;
   final String tempNamePage;
   final bool isHelp;
 
@@ -27,6 +28,7 @@ class MainState {
     required this.tempNamePage,
     required this.chooseItem,
     required this.isHelp,
+    required this.parentItem,
   });
 
   bool get isSecondPage => typePages.isNotEmpty;
@@ -48,6 +50,7 @@ class MainState {
       tempNamePage: '',
       chooseItem: Book.initial(),
       isHelp: false,
+      parentItem: Region.initial(),
     );
   }
 
@@ -66,6 +69,7 @@ class MainState {
     int? indexItem,
     AllModels? chooseItem,
     bool? isHelp,
+    ParentModels? parentItem,
   }) {
     return MainState(
       typePages: typePages ?? this.typePages,
@@ -80,6 +84,7 @@ class MainState {
       tempNamePage: tempNamePage ?? this.tempNamePage,
       chooseItem: chooseItem ?? this.chooseItem,
       isHelp: isHelp ?? this.isHelp,
+      parentItem: parentItem ?? this.parentItem,
     );
   }
 }

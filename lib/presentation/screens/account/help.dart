@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:librarychuv/domain/models/help.dart';
-import 'package:librarychuv/domain/models/help_item.dart';
 import 'package:librarychuv/domain/repository/main_repository.dart';
+import 'package:librarychuv/presentation/screens/account/item_help.dart';
 import 'package:librarychuv/presentation/theme/theme.dart';
 import 'package:librarychuv/presentation/widgets/search.dart';
 

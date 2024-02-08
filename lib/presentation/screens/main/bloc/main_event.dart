@@ -30,10 +30,12 @@ class AddPageEvent extends MainEvent {
   final SecondPageType typePage;
   final List<AllModels>? items;
   final AllModels? chooseItem;
+  final ParentModels? parentItem;
   const AddPageEvent({
     required this.typePage,
     this.items,
     this.chooseItem,
+    this.parentItem,
   });
 }
 

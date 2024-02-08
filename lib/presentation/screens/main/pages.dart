@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:librarychuv/domain/models/books.dart';
 import 'package:librarychuv/domain/repository/main_repository.dart';
 import 'package:librarychuv/presentation/screens/account/account_page.dart';
+import 'package:librarychuv/presentation/screens/account/answer_help.dart';
 import 'package:librarychuv/presentation/screens/account/change_pass.dart';
 import 'package:librarychuv/presentation/screens/account/edit_profile.dart';
 import 'package:librarychuv/presentation/screens/account/help.dart';
@@ -146,6 +147,7 @@ enum SecondPageType {
   orders,
   editUser,
   changePass,
+  answerhelp,
   ;
 
   ChoosePage get page {
@@ -269,6 +271,9 @@ enum SecondPageType {
         return ChoosePage(
             page: const EditProfilePage(),
             appBarTitle: 'Редактирование профиля');
+      case SecondPageType.answerhelp:
+        return ChoosePage(
+            page: const AnswerHelpPage(), appBarTitle: 'Справка по вопросу');
     }
   }
 }

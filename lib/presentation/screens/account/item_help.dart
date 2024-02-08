@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:librarychuv/domain/models/help.dart';
+import 'package:librarychuv/presentation/screens/main/bloc/main_bloc.dart';
+import 'package:librarychuv/presentation/screens/main/pages.dart';
 import 'package:librarychuv/presentation/theme/theme.dart';
 import 'package:librarychuv/presentation/widgets/lines_dot.dart';
 
@@ -10,10 +13,13 @@ class HelpItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MainBloc bloc = Get.find<MainBloc>();
     return GestureDetector(
-      onTap: () {},
+      onTap: () => bloc.add(AddPageEvent(
+        typePage: SecondPageType.answerhelp,
+        parentItem: item,
+      )),
       child: Container(
-        height: 40,
         decoration: const BoxDecoration(
           border: Border(
               top: BorderSide(
