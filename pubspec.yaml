@@ -1,27 +1,23 @@
 name: librarychuv
 description: "Библиотеки Чувашской республики"
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 # изменить имя
 # AndroidManifest.xml (located at android/app/src/main
-# <application android:label="App Name" ...> 
+# <application android:label="App Name" ...>
 # info.plist (located at ios/Runner)
 # <key>CFBundleDisplayName</key>
 # <string>App Name</string>
 
-
-
 environment:
-  sdk: '>=3.2.3 <4.0.0'
-
+  sdk: ">=3.2.3 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  flutter_localizations: 
-    sdk: flutter    
-
+  flutter_localizations:
+    sdk: flutter
 
   surf_lint_rules: ^3.0.0 #https://pub.dev/packages/surf_lint_rules
   surf_logger: ^1.1.0 #https://pub.dev/packages/surf_logger
@@ -46,7 +42,7 @@ dependencies:
   mask_text_input_formatter: ^2.7.0 #https://pub.dev/packages/mask_text_input_formatter
   # rl_launcher: ^6.2.2 #https://pub.dev/packages/url_launcher
   #responsive_builder: ^0.7.0 #https://pub.dev/packages/responsive_builder
-  gap: ^3.0.1  #https://pub.dev/packages/gap
+  gap: ^3.0.1 #https://pub.dev/packages/gap
   #extended_image: ^8.2.0 #https://pub.dev/packages/extended_image
   google_fonts: ^6.1.0 #https://pub.dev/packages/google_fonts
   calendar_date_picker2: ^0.5.3 #https://pub.dev/packages/calendar_date_picker2
@@ -61,14 +57,13 @@ dependencies:
   flutter_cached_pdfview: ^0.4.2 #https://pub.dev/packages/flutter_cached_pdfview
   cached_network_image: ^3.3.1 #https://pub.dev/packages/cached_network_image
   image_picker: ^1.0.7 #https://pub.dev/packages/image_picker
-  
- 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-# dart run flutter_native_splash:create
-# dart pub run flutter_launcher_icons:main  
+  # dart run flutter_native_splash:create
+  # dart pub run flutter_launcher_icons:main
 
   flutter_lints: ^2.0.0
 flutter_launcher_icons:
@@ -76,19 +71,14 @@ flutter_launcher_icons:
   ios: true
   remove_alpha_ios: true
   image_path: assets/logo.png
- 
-
-
-    
 
 flutter:
-
   uses-material-design: true
   assets:
-   - assets/
-   - assets/icons/
-   - assets/images/
-   - assets/images/news/
-   - assets/images/books/
-   - assets/images/events/
-   - assets/svg/  
+    - assets/
+    - assets/icons/
+    - assets/images/
+    - assets/images/news/
+    - assets/images/books/
+    - assets/images/events/
+    - assets/svg/

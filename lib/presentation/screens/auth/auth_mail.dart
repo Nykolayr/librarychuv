@@ -83,12 +83,12 @@ class _AuthMailPageState extends State<AuthMailPage> {
                           GestureDetector(
                             onTap: () {},
                             child:
-                                Text('Забыли пароль?', style: AppText.text16r),
+                                Text('Забыли пароль?', style: AppText.text14r),
                           ),
                           const Gap(20),
                           GestureDetector(
                             onTap: () {},
-                            child: Text('Восстановить', style: AppText.text16r),
+                            child: Text('Восстановить', style: AppText.text14r),
                           ),
                         ],
                       ),

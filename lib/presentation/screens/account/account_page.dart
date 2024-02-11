@@ -86,6 +86,7 @@ class _AccountPageState extends State<AccountPage> {
                         onPressed: () => bloc.add(const AddPageEvent(
                             typePage: SecondPageType.orders)),
                       ),
+                      const Gap(85),
                     ]),
                   ]),
             ),
