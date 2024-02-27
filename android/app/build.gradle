@@ -67,7 +67,7 @@ flutter {
 }
 
 dependencies {
-    implementation 'com.yandex.android:maps.mobile:4.2.2-full'
+    implementation 'com.yandex.android:maps.mobile:4.4.0-full'
     implementation 'com.android.support:multidex:2.0.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }

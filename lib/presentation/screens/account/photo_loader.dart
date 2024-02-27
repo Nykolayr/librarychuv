@@ -21,6 +21,7 @@ class PhotoUploaderState extends State<PhotoUploader> {
         _image = image;
       });
     } catch (e) {
+      // ignore: avoid_print
       print('Error picking image: $e');
     }
   }
@@ -29,18 +30,18 @@ class PhotoUploaderState extends State<PhotoUploader> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Photo Uploader'),
+        title: const Text('Photo Uploader'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             _image == null
-                ? Text('Выберите фото')
+                ? const Text('Выберите фото')
                 : Image.file(File(_image!.path)),
             ElevatedButton(
               onPressed: _getImage,
-              child: Text('Выбрать фото'),
+              child: const Text('Выбрать фото'),
             ),
           ],
         ),
@@ -48,5 +49,3 @@ class PhotoUploaderState extends State<PhotoUploader> {
     );
   }
 }
-
-

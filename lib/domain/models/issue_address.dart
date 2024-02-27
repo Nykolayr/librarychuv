@@ -15,6 +15,7 @@ class IssueAddress extends ParentModels {
         adress: data['adress'],
         name: data['name'],
       );
+  @override
   Map<String, dynamic> toJson() => {
         'id': id,
         'adress': adress,

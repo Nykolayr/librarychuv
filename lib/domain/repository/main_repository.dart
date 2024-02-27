@@ -1,9 +1,10 @@
 // ignore_for_file: avoid_catches_without_on_clauses
 
 import 'package:get/get.dart';
-import 'package:librarychuv/data/api.dart';
+import 'package:librarychuv/data/api/api.dart';
+import 'package:librarychuv/data/api/response_api.dart';
 import 'package:librarychuv/data/local_data.dart';
-import 'package:librarychuv/data/mock/Issue_address.dart';
+import 'package:librarychuv/data/mock/issue_address.dart';
 import 'package:librarychuv/data/mock/ads_mock.dart';
 import 'package:librarychuv/data/mock/book_mock.dart';
 import 'package:librarychuv/data/mock/events_mock.dart';
@@ -159,14 +160,13 @@ class MainRepository extends GetxController {
       List<Map<String, dynamic>> mock,
       Function(List<Map<String, dynamic>> data) getList,
     ) async {
-      List<Map<String, dynamic>> answer = [{}];
       if (isMock) {
         getList(mock);
         await saveListToLocal(key);
       } else {
-        answer = await Api().getListMainRepository(key);
-        if (answer.first['error'] != null) {
-          getList(answer);
+        final answer = await Api().getListMainRepository(key);
+        if (answer is ResSuccess) {
+          getList(answer.data);
           await saveListToLocal(key);
         } else {
           await loadListFromLocal(key);

@@ -156,10 +156,12 @@ class _MapScreenState extends State<MapScreen> {
 
     mapObjects.addAll(temp);
     await controller.moveCamera(
-      CameraUpdate.newBounds(
-        BoundingBox(
-          southWest: Point(latitude: minLat - 0.2, longitude: minLon - 0.2),
-          northEast: Point(latitude: maxLat + 0.2, longitude: maxLon + 0.2),
+      CameraUpdate.newGeometry(
+        Geometry.fromBoundingBox(
+          BoundingBox(
+            southWest: Point(latitude: minLat - 0.2, longitude: minLon - 0.2),
+            northEast: Point(latitude: maxLat + 0.2, longitude: maxLon + 0.2),
+          ),
         ),
       ),
     );

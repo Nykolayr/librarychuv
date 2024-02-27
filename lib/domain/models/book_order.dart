@@ -32,6 +32,7 @@ class BookOrder extends ParentModels {
         date: DateTime.parse(data['date']),
       );
 
+  @override
   Map<String, dynamic> toJson() => {
         'id': id,
         'adress': adress.toJson(),

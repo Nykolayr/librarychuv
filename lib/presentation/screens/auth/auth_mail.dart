@@ -70,8 +70,8 @@ class _AuthMailPageState extends State<AuthMailPage> {
                       Buttons.buttonFull(
                           onPressed: () {
                             if (formKey.currentState!.validate()) {
-                              authBloc.add(
-                                  AuthLoginEvent(login: loginController.text));
+                              authBloc.add(AuthLoginEvent(
+                                  login: loginController.text.toLowerCase()));
                               context.goNamed('Авторизация пароль');
                             }
                           },

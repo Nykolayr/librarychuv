@@ -2,7 +2,8 @@
 
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:librarychuv/data/api.dart';
+import 'package:librarychuv/data/api/api.dart';
+import 'package:librarychuv/data/api/response_api.dart';
 import 'package:librarychuv/data/local_data.dart';
 import 'package:librarychuv/data/mock/user_mock.dart';
 import 'package:librarychuv/domain/models/user.dart';
@@ -11,7 +12,7 @@ import 'package:librarychuv/main.dart';
 /// репо для юзера
 class UserRepository extends GetxController {
   User user = User.initial();
-
+  String get token => user.token;
   static final UserRepository _instance = UserRepository._internal();
 
   UserRepository._internal();
@@ -86,12 +87,14 @@ class UserRepository extends GetxController {
         login: email,
         pass: password,
       );
-      if (answer['error'] == null) {
-        user = User.fromJson(answer);
+      if (answer is ResSuccess) {
+        user = User.fromJson(answer.data);
+        await saveUserToLocal();
         return '';
-      } else {
-        return answer['error'];
+      } else if (answer is ResError) {
+        return answer.errorMessage;
       }
+      return '';
     }
   }
 
