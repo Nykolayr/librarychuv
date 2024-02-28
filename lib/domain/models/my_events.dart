@@ -14,7 +14,7 @@ class MyEvents extends ParentModels {
   factory MyEvents.fromJson(Map<String, dynamic> data) {
     EventsLib event = EventsLib.fromJson(data['event']);
     return MyEvents(
-      id: data['id'] as int,
+      id: data['id'] as String,
       name: event.name,
       event: event,
     );
@@ -26,6 +26,6 @@ class MyEvents extends ParentModels {
   }
 
   factory MyEvents.inicial() {
-    return MyEvents(id: 0, event: EventsLib.initial(), name: '');
+    return MyEvents(id: '0', event: EventsLib.initial(), name: '');
   }
 }

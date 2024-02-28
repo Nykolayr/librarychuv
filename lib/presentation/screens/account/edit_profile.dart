@@ -10,7 +10,7 @@ import 'package:librarychuv/presentation/screens/main/bloc/main_bloc.dart';
 import 'package:librarychuv/presentation/theme/theme.dart';
 import 'package:librarychuv/presentation/widgets/buttons.dart';
 import 'package:librarychuv/presentation/widgets/textfields.dart';
-import 'package:surf_logger/surf_logger.dart';
+import 'package:flutter_easylogger/flutter_logger.dart';
 
 /// Редактирование профиля
 class EditProfilePage extends StatefulWidget {

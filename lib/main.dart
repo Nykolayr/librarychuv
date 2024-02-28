@@ -6,10 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:librarychuv/domain/injects.dart';
 import 'package:librarychuv/domain/routers/routers.dart';
 import 'package:librarychuv/presentation/theme/theme.dart';
-import 'package:surf_logger/surf_logger.dart';
 
 bool isMock = true;
-String error = '';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
@@ -44,8 +42,6 @@ class MyApp extends StatelessWidget {
       ],
       locale: const Locale('ru', ''),
       builder: (context, child) {
-        // добавил логирование для отладки
-        Logger.addStrategy(DebugLogStrategy());
         final mq = MediaQuery.of(context);
         final fontScale =
             mq.textScaler.clamp(minScaleFactor: 0.9, maxScaleFactor: 1.1);

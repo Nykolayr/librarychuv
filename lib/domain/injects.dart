@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_easylogger/flutter_logger.dart';
 import 'package:librarychuv/data/api/api.dart';
 import 'package:librarychuv/data/api/dio_client.dart';
 import 'package:librarychuv/domain/repository/main_repository.dart';
 import 'package:librarychuv/domain/repository/user_repository.dart';
 import 'package:get/get.dart';
-import 'package:librarychuv/main.dart';
 import 'package:librarychuv/presentation/screens/auth/bloc/auth_bloc.dart';
 import 'package:librarychuv/presentation/screens/main/bloc/main_bloc.dart';
 
@@ -23,10 +23,9 @@ Future initMain() async {
       await mainRepository.init();
       return mainRepository;
     });
-
     Get.put<MainBloc>(MainBloc());
     Get.put<AuthBloc>(AuthBloc());
   } on Exception catch (e) {
-    error = e.toString();
+    Logger.e('ошибка в initMain: $e');
   }
 }

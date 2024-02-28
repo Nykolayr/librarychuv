@@ -133,7 +133,8 @@ class _LybraryPageState extends State<LybraryPage> {
 Widget getLinesLibrary(Libriry libriry) {
   return GestureDetector(
     onTap: () {
-      Get.find<MainBloc>().add(ShooseLibriryEvent(index: libriry.id));
+      Get.find<MainBloc>()
+          .add(ShooseLibriryEvent(index: int.parse(libriry.id)));
     },
     child: LinesWithDot(text: libriry.name),
   );

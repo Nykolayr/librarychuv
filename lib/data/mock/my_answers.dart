@@ -1,6 +1,6 @@
 List<Map<String, dynamic>> questionsMock = [
   {
-    "id": 1,
+    "id": '1',
     "name": "Как зарегистрироваться в приложении?",
     "question":
         "Добрый день! Скажите пожалуйста, как зарегистрироваться в мобильном приложении?",
@@ -12,7 +12,7 @@ List<Map<String, dynamic>> questionsMock = [
     "type": "awaitingRes",
   },
   {
-    "id": 2,
+    "id": '2',
     "name": "Как найти книгу",
     "question": "Добрый день! Скажите пожалуйста, как найти книгу",
     "answer":
@@ -23,7 +23,7 @@ List<Map<String, dynamic>> questionsMock = [
     "type": "resRecive",
   },
   {
-    "id": 3,
+    "id": '3',
     "name": "Как зарегистрироваться на мероприятие",
     "question": "Добрый день! Скажите пожалуйста, как найти книгу",
     "answer": "",

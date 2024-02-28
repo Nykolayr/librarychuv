@@ -1,5 +1,5 @@
 abstract class ParentModels {
-  int id;
+  String id;
   String name;
 
   ParentModels({
@@ -21,7 +21,7 @@ abstract class AllModels extends ParentModels {
       required this.description,
       required this.pathImage,
       required this.date});
-    
+
   @override
   Map<String, dynamic> toJson();
 }

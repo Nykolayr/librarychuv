@@ -23,6 +23,6 @@ class IssueAddress extends ParentModels {
       };
 
   factory IssueAddress.initial() {
-    return IssueAddress(id: 0, adress: '', name: '');
+    return IssueAddress(id: '0', adress: '', name: '');
   }
 }

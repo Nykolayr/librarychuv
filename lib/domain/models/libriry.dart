@@ -20,7 +20,7 @@ class Libriry extends ParentModels {
   });
 
   factory Libriry.fromJson(Map<String, dynamic> data) => Libriry(
-        id: data['id'] as int,
+        id: data['id'] as String,
         name: data['name'] as String,
         address: data['adress'] as String,
         phone: data['phone'] as String,
@@ -44,7 +44,7 @@ class Libriry extends ParentModels {
 
   factory Libriry.initial() {
     return Libriry(
-      id: 0,
+      id: '0',
       name: '',
       address: '',
       phone: '',

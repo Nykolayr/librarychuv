@@ -55,7 +55,7 @@ class _MapScreenState extends State<MapScreen> {
     deleteOldPoint(int index) {
       if (index != -1) {
         Libriry libriry = bloc.state.searchLibriryItems
-            .where((element) => element.id == index)
+            .where((element) => element.id == index.toString())
             .first;
 
         mapObjects.removeWhere(
@@ -66,7 +66,7 @@ class _MapScreenState extends State<MapScreen> {
     addPoint(int index, bool isChoose) {
       if (index != -1) {
         Libriry libriry = bloc.state.searchLibriryItems
-            .where((element) => element.id == index)
+            .where((element) => element.id == index.toString())
             .first;
         mapObjects.add(getPoint(libriry, isChoose: isChoose));
       }
@@ -116,7 +116,8 @@ class _MapScreenState extends State<MapScreen> {
                               Text(
                                   state.searchLibriryItems
                                       .where((element) =>
-                                          element.id == state.curLibriryId)
+                                          element.id ==
+                                          state.curLibriryId.toString())
                                       .first
                                       .name,
                                   style: AppText.text14b
@@ -124,7 +125,7 @@ class _MapScreenState extends State<MapScreen> {
                                   textAlign: TextAlign.center),
                               const Gap(10),
                               Text(
-                                  '${state.searchLibriryItems.where((element) => element.id == state.curLibriryId).first.address}\n${state.searchLibriryItems.where((element) => element.id == state.curLibriryId).first.phone}',
+                                  '${state.searchLibriryItems.where((element) => element.id == state.curLibriryId.toString()).first.address}\n${state.searchLibriryItems.where((element) => element.id == state.curLibriryId.toString()).first.phone}',
                                   style: AppText.text14b,
                                   textAlign: TextAlign.center),
                             ]),
@@ -192,8 +193,8 @@ class _MapScreenState extends State<MapScreen> {
           scale: 3,
         ),
       ),
-      onTap: (_, __) =>
-          Get.find<MainBloc>().add(ShooseLibriryEvent(index: libriry.id)),
+      onTap: (_, __) => Get.find<MainBloc>()
+          .add(ShooseLibriryEvent(index: int.parse(libriry.id))),
     );
   }
 }

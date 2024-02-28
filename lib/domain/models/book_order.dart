@@ -46,7 +46,7 @@ class BookOrder extends ParentModels {
     return BookOrder(
       adress: IssueAddress.initial(),
       book: Book.initial(),
-      id: 0,
+      id: '0',
       name: '',
       comment: '',
       type: TypeOrder.inProcessing,

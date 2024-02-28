@@ -15,7 +15,7 @@ class EventsLib extends AllModels {
   });
 
   factory EventsLib.fromJson(Map<String, dynamic> data) => EventsLib(
-        id: data['id'] as int,
+        id: data['id'] as String,
         name: data['name'] as String,
         description: data['description'] as String,
         pathImage: data['pathImage'] as String,
@@ -40,7 +40,7 @@ class EventsLib extends AllModels {
 
   factory EventsLib.initial() {
     return EventsLib(
-      id: 0,
+      id: '0',
       name: '',
       description: '',
       pathImage: '',

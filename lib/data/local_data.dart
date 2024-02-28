@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:surf_logger/surf_logger.dart';
+import 'package:flutter_easylogger/flutter_logger.dart';
 
 ///сохранение и загрузка в shared_preferences
 class LocalData {
@@ -87,5 +87,26 @@ enum LocalDataKey {
   issueAddress,
   bookOrders,
   helps,
-  questions,
+  questions;
+
+  String get url => switch (this) {
+        LocalDataKey.user => 'user',
+        LocalDataKey.news => '/news.php?PAGEN_',
+        LocalDataKey.recomend => 'recomend',
+        LocalDataKey.libriry => 'libriry',
+        LocalDataKey.regionies => 'regionies',
+        LocalDataKey.ads => 'ads',
+        LocalDataKey.hystoryZapAds => 'hystoryZapAds',
+        LocalDataKey.hystoryZapNews => 'hystoryZapNews',
+        LocalDataKey.hystoryZapEvents => 'hystoryZapEvents',
+        LocalDataKey.subjectNews => 'subjectNews',
+        LocalDataKey.events => 'events',
+        LocalDataKey.myEvents => 'myEvents',
+        LocalDataKey.books => 'books',
+        LocalDataKey.hystoryZapBooks => 'hystoryZapBooks',
+        LocalDataKey.issueAddress => 'issueAddress',
+        LocalDataKey.bookOrders => 'bookOrders',
+        LocalDataKey.helps => 'helps',
+        LocalDataKey.questions => 'questions'
+      };
 }

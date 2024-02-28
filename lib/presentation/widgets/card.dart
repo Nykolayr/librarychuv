@@ -39,7 +39,7 @@ class RoundedCardWidget extends StatelessWidget {
                 if (pathImage.isNotEmpty)
                   ClipRRect(
                     borderRadius: AppDif.borderRadius10,
-                    child: Image.asset(
+                    child: Image.network(
                       pathImage,
                       width: context.mediaQuery.size.width - 20,
                       fit: BoxFit.fitWidth,

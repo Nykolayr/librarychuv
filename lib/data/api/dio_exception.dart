@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:librarychuv/presentation/theme/theme.dart';
-import 'package:surf_logger/surf_logger.dart';
+import 'package:flutter_easylogger/flutter_logger.dart';
 
 class DioExceptions implements Exception {
   late String errorText;

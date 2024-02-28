@@ -37,6 +37,7 @@ class DioClient {
         cancelToken: cancelToken,
         onReceiveProgress: onReceiveProgress,
       );
+
       return processResponse(response.data, url);
     } catch (e) {
       return errorHandling(e);
@@ -124,8 +125,8 @@ ResponseApi errorHandling(Object e) {
 }
 
 ResponseApi processResponse(Map<String, dynamic> res, String path) {
-  if (res['success'] == true) {
-    ResSuccess resSuccess = ResSuccess(res['base']);
+  if (res['Items'] != null) {
+    ResSuccess resSuccess = ResSuccess(res['Items']);
     resSuccess.consoleRes(path);
     return resSuccess;
   } else {

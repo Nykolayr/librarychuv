@@ -9,7 +9,7 @@ class Ads extends AllModels {
       required super.date});
 
   factory Ads.fromJson(Map<String, dynamic> data) => Ads(
-        id: data['id'] as int,
+        id: data['id'] as String,
         name: data['name'] as String,
         description: data['description'] as String,
         pathImage: data['pathImage'] as String,
@@ -29,7 +29,7 @@ class Ads extends AllModels {
 
   factory Ads.initial() {
     return Ads(
-      id: 0,
+      id: '0',
       name: '',
       description: '',
       pathImage: '',

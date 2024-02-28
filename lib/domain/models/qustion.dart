@@ -48,7 +48,7 @@ class Question extends ParentModels {
 
   factory Question.initial() {
     return Question(
-      id: 0,
+      id: '0',
       name: '',
       question: '',
       email: '',

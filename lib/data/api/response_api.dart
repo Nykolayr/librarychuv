@@ -1,4 +1,5 @@
-import 'package:surf_logger/surf_logger.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_easylogger/flutter_logger.dart';
 
 /// общий класс для ответов из Api
 class ResponseApi {
@@ -29,7 +30,9 @@ class ResSuccess<T> extends ResponseApi {
   ResSuccess(this.data);
   @override
   consoleRes(String path) {
-    Logger.d('path: $path ResponseApi: $data');
+    if (kDebugMode) {
+      print('path: $path ResponseApi: $data');
+    }
   }
 
   @override

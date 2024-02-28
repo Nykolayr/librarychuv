@@ -24,7 +24,7 @@ class Help extends ParentModels {
 
   factory Help.initial() {
     return Help(
-      id: 0,
+      id: '0',
       name: '',
       answer: '',
       isRed: false,

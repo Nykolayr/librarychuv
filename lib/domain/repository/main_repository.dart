@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_catches_without_on_clauses
 
+import 'package:flutter_easylogger/flutter_logger.dart';
 import 'package:get/get.dart';
 import 'package:librarychuv/data/api/api.dart';
 import 'package:librarychuv/data/api/response_api.dart';
@@ -44,11 +45,10 @@ class MainRepository extends GetxController {
   List<Question> questions = [];
   List<Help> helps = [];
 
-  // TODO: убрать моковые данные из запросов
-  List<String> hystoryZapAds = ['В библиотеку', 'по русскому языку'];
-  List<String> hystoryZapNews = ['В библиотеку', 'по русскому языку'];
-  List<String> hystoryZapEvents = ['В библиотеку', 'по русскому языку'];
-  List<String> hystoryZapBooks = ['В библиотеку', 'по русскому языку'];
+  List<String> hystoryZapAds = [''];
+  List<String> hystoryZapNews = [''];
+  List<String> hystoryZapEvents = [''];
+  List<String> hystoryZapBooks = [''];
 
   static final MainRepository _instance = MainRepository._internal();
 
@@ -85,12 +85,11 @@ class MainRepository extends GetxController {
   }
 
   /// добавление моковых заказов
-  // TODO: убрать моковые данные как только подключим API
   addBookOrderMock() {
     bookOrders.add(BookOrder(
       adress: issueAddress[0],
       book: books[0],
-      id: 0,
+      id: '0',
       name: '',
       comment: '',
       type: TypeOrder.readyIssued,
@@ -100,7 +99,7 @@ class MainRepository extends GetxController {
     bookOrders.add(BookOrder(
       adress: issueAddress[1],
       book: books[1],
-      id: 1,
+      id: '1',
       name: '',
       comment: '',
       type: TypeOrder.refused,
@@ -110,7 +109,7 @@ class MainRepository extends GetxController {
       BookOrder(
         adress: issueAddress[2],
         book: books[2],
-        id: 2,
+        id: '2',
         name: '',
         comment: '',
         type: TypeOrder.inDelivery,
@@ -124,7 +123,7 @@ class MainRepository extends GetxController {
   Future<void> addQuestion(Question item) async {
     // имитация api
     await Future.delayed(const Duration(seconds: 1));
-    item.id = questions.length + 1;
+    item.id = (questions.length + 1).toString();
     questions.add(item);
     await saveListToLocal(LocalDataKey.questions);
   }
@@ -133,7 +132,7 @@ class MainRepository extends GetxController {
   Future<void> addBookOrder(BookOrder item) async {
     // имитация api
     await Future.delayed(const Duration(seconds: 1));
-    item.id = bookOrders.length + 1;
+    item.id = (bookOrders.length + 1).toString();
     bookOrders.add(item);
     await saveListToLocal(LocalDataKey.bookOrders);
   }
@@ -142,8 +141,8 @@ class MainRepository extends GetxController {
   Future<void> addMyEvents(EventsLib item) async {
     // имитация api
     await Future.delayed(const Duration(seconds: 1));
-    myEvents
-        .add(MyEvents(id: myEvents.length + 1, name: item.name, event: item));
+    myEvents.add(MyEvents(
+        id: (myEvents.length + 1).toString(), name: item.name, event: item));
     await saveListToLocal(LocalDataKey.myEvents);
   }
 
@@ -160,15 +159,18 @@ class MainRepository extends GetxController {
       List<Map<String, dynamic>> mock,
       Function(List<Map<String, dynamic>> data) getList,
     ) async {
-      if (isMock) {
+      if (isMock && key != LocalDataKey.news) {
         getList(mock);
         await saveListToLocal(key);
       } else {
-        final answer = await Api().getListMainRepository(key);
+        final answer = await Api().getListApi(key);
+
         if (answer is ResSuccess) {
-          getList(answer.data);
+          List<Map<String, dynamic>> mappedList =
+              List<Map<String, dynamic>>.from(answer.data);
+          getList(mappedList);
           await saveListToLocal(key);
-        } else {
+        } else if (answer is ResError) {
           await loadListFromLocal(key);
         }
       }
@@ -179,7 +181,7 @@ class MainRepository extends GetxController {
         break;
       case LocalDataKey.news:
         await loadApi(newsMock, (data) {
-          news = data.map((item) => News.fromJson(item)).toList();
+          news = data.map((item) => News.fromJsonApi(item)).toList();
         });
         break;
       case LocalDataKey.books:

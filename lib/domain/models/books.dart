@@ -15,7 +15,7 @@ class Book extends AllModels {
     required this.preface,
   });
   factory Book.fromJson(Map<String, dynamic> data) => Book(
-        id: data['id'] as int,
+        id: data['id'] as String,
         name: data['name'] as String,
         description: data['description'] as String,
         pathImage: data['pathImage'] as String,
@@ -41,7 +41,7 @@ class Book extends AllModels {
 
   factory Book.initial() {
     return Book(
-      id: 0,
+      id: '0',
       name: '',
       description: '',
       pathImage: '',

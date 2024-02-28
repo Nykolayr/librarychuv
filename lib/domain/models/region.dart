@@ -5,7 +5,7 @@ class Region extends ParentModels {
 
   factory Region.fromJson(Map<String, dynamic> data) {
     return Region(
-      id: data['id'] as int,
+      id: data['id'] as String,
       name: data['name'] as String,
     );
   }
@@ -16,7 +16,7 @@ class Region extends ParentModels {
 
   factory Region.initial() {
     return Region(
-      id: 0,
+      id: '0',
       name: '',
     );
   }

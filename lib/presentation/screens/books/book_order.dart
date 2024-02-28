@@ -91,7 +91,7 @@ class _BookOrderPageState extends State<BookOrderPage> {
                       adress: issueAddress!,
                       book: book,
                       comment: controller.text,
-                      id: 0,
+                      id: '0',
                       name: '',
                       type: TypeOrder.inProcessing,
                       date: DateTime.now(),
