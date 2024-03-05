@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:librarychuv/domain/models/libriry.dart';
+import 'package:librarychuv/presentation/screens/libriry/clusterized_icon_painter.dart';
 import 'package:librarychuv/presentation/screens/main/bloc/main_bloc.dart';
 import 'package:librarychuv/presentation/theme/different.dart';
 import 'package:librarychuv/presentation/theme/text.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
+import 'package:yandex_mapkit/yandex_mapkit.dart' as ymaps;
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -19,7 +20,9 @@ class _MapScreenState extends State<MapScreen> {
   MainBloc bloc = Get.find<MainBloc>();
   late final YandexMapController mapController;
   List<MapObject> mapObjects = [];
+  late final ymaps.ClusterizedPlacemarkCollection collection;
   int previusIndex = -1;
+  var mapZoom = 15.0;
 
   @override
   initState() {
@@ -35,6 +38,11 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     YandexMap map = YandexMap(
+      onCameraPositionChanged: (cameraPosition, _, __) {
+        setState(() {
+          mapZoom = cameraPosition.zoom;
+        });
+      },
       onMapCreated: (controller) async {
         mapController = controller;
         await mapController.moveCamera(
@@ -44,7 +52,7 @@ class _MapScreenState extends State<MapScreen> {
                 latitude: bloc.state.searchLibriryItems.first.latitude,
                 longitude: bloc.state.searchLibriryItems.first.longitude,
               ),
-              zoom: 8,
+              zoom: mapZoom,
             ),
           ),
         );
@@ -68,6 +76,7 @@ class _MapScreenState extends State<MapScreen> {
         Libriry libriry = bloc.state.searchLibriryItems
             .where((element) => element.id == index.toString())
             .first;
+
         mapObjects.add(getPoint(libriry, isChoose: isChoose));
       }
     }
@@ -123,9 +132,8 @@ class _MapScreenState extends State<MapScreen> {
                                   style: AppText.text14b
                                       .copyWith(fontWeight: FontWeight.w600),
                                   textAlign: TextAlign.center),
-                              const Gap(10),
                               Text(
-                                  '${state.searchLibriryItems.where((element) => element.id == state.curLibriryId.toString()).first.address}\n${state.searchLibriryItems.where((element) => element.id == state.curLibriryId.toString()).first.phone}',
+                                  '${state.searchLibriryItems.where((element) => element.id == state.curLibriryId.toString()).first.address} ${state.searchLibriryItems.where((element) => element.id == state.curLibriryId.toString()).first.phone}',
                                   style: AppText.text14b,
                                   textAlign: TextAlign.center),
                             ]),
@@ -154,8 +162,14 @@ class _MapScreenState extends State<MapScreen> {
     double maxLon = temp
         .map((point) => point.point.longitude)
         .reduce((a, b) => a > b ? a : b);
-
-    mapObjects.addAll(temp);
+    if (temp.length > 1) {
+      mapObjects = [
+        getClusterizedCollection(
+          placemarks: temp,
+        ),
+      ];
+    }
+    // mapObjects.addAll(temp);
     await controller.moveCamera(
       CameraUpdate.newGeometry(
         Geometry.fromBoundingBox(
@@ -180,21 +194,70 @@ class _MapScreenState extends State<MapScreen> {
   /// Метод для генерации одного объекта маркера для отображения на карте
   PlacemarkMapObject getPoint(Libriry libriry, {bool isChoose = false}) {
     return PlacemarkMapObject(
-      mapId: MapObjectId(libriry.id.toString()),
-      point: Point(latitude: libriry.latitude, longitude: libriry.longitude),
-      opacity: 1,
-      icon: PlacemarkIcon.single(
-        PlacemarkIconStyle(
-          image: BitmapDescriptor.fromAssetImage(
-            isChoose
-                ? 'assets/icons/map_point_choose.png'
-                : 'assets/icons/map_point.png',
+        mapId: MapObjectId(libriry.id.toString()),
+        point: Point(latitude: libriry.latitude, longitude: libriry.longitude),
+        opacity: 1,
+        icon: PlacemarkIcon.single(
+          PlacemarkIconStyle(
+            image: BitmapDescriptor.fromAssetImage(
+              isChoose
+                  ? 'assets/icons/map_point_choose.png'
+                  : 'assets/icons/map_point.png',
+            ),
+            scale: 3,
           ),
-          scale: 3,
+        ),
+        onTap: (_, __) {
+          incrementZoom(
+            Point(latitude: libriry.latitude, longitude: libriry.longitude),
+          );
+
+          Get.find<MainBloc>()
+              .add(ShooseLibriryEvent(index: int.parse(libriry.id)));
+        });
+  }
+
+  /// Метод для получения коллекции кластеризованных маркеров
+  ClusterizedPlacemarkCollection getClusterizedCollection(
+      {required List<PlacemarkMapObject> placemarks}) {
+    return ClusterizedPlacemarkCollection(
+        mapId: const MapObjectId('clusterized-1'),
+        placemarks: placemarks,
+        radius: 50,
+        minZoom: 15,
+        onClusterAdded: (self, cluster) async {
+          return cluster.copyWith(
+            appearance: cluster.appearance.copyWith(
+              opacity: 1.0,
+              icon: PlacemarkIcon.single(
+                PlacemarkIconStyle(
+                  image: BitmapDescriptor.fromBytes(
+                    await ClusterIconPainter(cluster.size)
+                        .getClusterIconBytes(),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+        onClusterTap: (self, cluster) async {
+          return incrementZoom(
+            cluster.placemarks.first.point,
+          );
+        });
+  }
+
+  incrementZoom(Point target) async {
+    mapZoom++;
+    return await mapController.moveCamera(
+      animation:
+          const MapAnimation(type: MapAnimationType.linear, duration: 0.3),
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: target,
+          zoom: mapZoom,
         ),
       ),
-      onTap: (_, __) => Get.find<MainBloc>()
-          .add(ShooseLibriryEvent(index: int.parse(libriry.id))),
     );
   }
 }

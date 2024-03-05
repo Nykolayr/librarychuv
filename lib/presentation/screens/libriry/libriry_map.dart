@@ -66,7 +66,7 @@ class _LybraryPageState extends State<LybraryPage> {
                 pathImage: 'assets/svg/map_sign.svg',
                 onPressed: () {},
               ),
-              const Gap(20),
+              const Gap(10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -74,8 +74,9 @@ class _LybraryPageState extends State<LybraryPage> {
                     DropdownButtons(
                       title: 'Выбор региона',
                       items: bloc.state.dropItems,
-                      onChanged: (value) =>
-                          bloc.add(SortDropEvent(item: value!)),
+                      onChanged: (value) => bloc.add(
+                        SortDropEvent(item: value!),
+                      ),
                     ),
                   if (!bloc.state.isSearch) const Gap(16),
                   Expanded(
@@ -85,7 +86,7 @@ class _LybraryPageState extends State<LybraryPage> {
                   )
                 ],
               ),
-              const Gap(20),
+              const Gap(10),
               RoundedCardWidget(
                 subChild: bloc.state.isSearch &&
                         searchController.text.isNotEmpty
@@ -112,7 +113,7 @@ class _LybraryPageState extends State<LybraryPage> {
                           style: AppText.text14r,
                         ),
                       ),
-                    const Gap(40),
+                    const Gap(30),
                   ],
                 ),
               ),
@@ -123,7 +124,7 @@ class _LybraryPageState extends State<LybraryPage> {
               ),
               const Gap(10),
               const Expanded(child: MapScreen()),
-              const Gap(50),
+              const Gap(70),
             ]),
           );
         });

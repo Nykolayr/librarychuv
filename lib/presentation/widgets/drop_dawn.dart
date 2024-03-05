@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easylogger/flutter_logger.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:librarychuv/presentation/screens/main/bloc/main_bloc.dart';
@@ -73,14 +74,17 @@ class _DropdownButtonsState extends State<DropdownButtons> {
               onChanged: (String? newValue) {
                 if (newValue != null) {
                   selectedValue = newValue;
-                  widget.onChanged?.call(selectedValue);
+                  Logger.e('selectedValue == $selectedValue');
+                  // widget.onChanged?.call(selectedValue);
                 } else {
                   selectedValue = null;
                 }
                 setState(() {});
               },
               underline: const SizedBox.shrink(),
-              items: widget.items.map<DropdownMenuItem<String>>((String item) {
+              items: widget.items
+                  .toSet()
+                  .map<DropdownMenuItem<String>>((String item) {
                 return DropdownMenuItem<String>(
                   value: item,
                   child: Text(item,

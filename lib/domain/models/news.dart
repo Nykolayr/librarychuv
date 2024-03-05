@@ -41,8 +41,6 @@ class News extends AllModels {
   }
 
   factory News.fromJsonApi(Map<String, dynamic> data) {
-    Logger.i('data == $data');
-
     Map<String, dynamic> fields = data['Fields'] as Map<String, dynamic>;
     Map<String, dynamic> properties =
         data['Properties'] as Map<String, dynamic>;
@@ -51,7 +49,6 @@ class News extends AllModels {
     dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
     DateTime dateActive = dateFormat.parse(fields['ACTIVE_FROM_X']);
     String pathImage = url + fields['PREVIEW_PICTURE'];
-    Logger.i('path = $pathImage');
 
     return News(
       id: fields['ID'] as String,

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_easylogger/flutter_logger.dart';
 import 'package:get/get.dart';
 import 'package:librarychuv/common/constants.dart';
 import 'package:librarychuv/data/api/dio_exception.dart';
@@ -37,7 +38,6 @@ class DioClient {
         cancelToken: cancelToken,
         onReceiveProgress: onReceiveProgress,
       );
-
       return processResponse(response.data, url);
     } catch (e) {
       return errorHandling(e);
@@ -125,8 +125,13 @@ ResponseApi errorHandling(Object e) {
 }
 
 ResponseApi processResponse(Map<String, dynamic> res, String path) {
+  Logger.i(res);
   if (res['Items'] != null) {
     ResSuccess resSuccess = ResSuccess(res['Items']);
+    resSuccess.consoleRes(path);
+    return resSuccess;
+  } else if (res['error'] == null) {
+    ResSuccess resSuccess = ResSuccess(res);
     resSuccess.consoleRes(path);
     return resSuccess;
   } else {

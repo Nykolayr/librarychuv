@@ -48,10 +48,12 @@ class _CaruselState extends State<Carusel> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
+                            alignment: Alignment.center,
                             decoration: const BoxDecoration(
                               borderRadius: AppDif.borderRadius10,
                             ),
-                            child: Image.asset(item.pathImage)),
+                            child: Image.network(item.pathImage,
+                                height: 150, fit: BoxFit.fitWidth)),
                         Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20.0, vertical: 15),

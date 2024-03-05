@@ -18,7 +18,7 @@ class RoundedCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: context.mediaQuery.size.width - 20,
-      height: isFix ? 240 : null,
+      height: isFix ? 220 : null,
       decoration: BoxDecoration(
         color: AppColor.white,
         borderRadius: AppDif.borderRadius10,

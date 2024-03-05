@@ -34,7 +34,7 @@ class MainState {
   bool get isSecondPage => typePages.isNotEmpty;
 
   factory MainState.initial() {
-    List<Region> regions = Get.find<MainRepository>().regionies;
+    List<Region> regions = Get.find<MainRepository>().regions;
     List<Libriry> libriries = Get.find<MainRepository>().libriries;
     List<String> regionsNames = regions.map((e) => e.name).toList();
     return MainState(

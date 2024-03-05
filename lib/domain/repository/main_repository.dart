@@ -1,5 +1,4 @@
 // ignore_for_file: avoid_catches_without_on_clauses
-
 import 'package:flutter_easylogger/flutter_logger.dart';
 import 'package:get/get.dart';
 import 'package:librarychuv/data/api/api.dart';
@@ -13,7 +12,6 @@ import 'package:librarychuv/data/mock/help_mosk.dart';
 import 'package:librarychuv/data/mock/librires_mock.dart';
 import 'package:librarychuv/data/mock/my_answers.dart';
 import 'package:librarychuv/data/mock/news_mock.dart';
-import 'package:librarychuv/data/mock/region_mock.dart';
 import 'package:librarychuv/data/mock/subject_mock.dart';
 import 'package:librarychuv/domain/models/abstract.dart';
 import 'package:librarychuv/domain/models/ads.dart';
@@ -35,7 +33,7 @@ class MainRepository extends GetxController {
   List<Book> recommendations = [];
   List<Book> books = [];
   List<Libriry> libriries = [];
-  List<Region> regionies = [];
+  List<Region> regions = [];
   List<Ads> ads = [];
   List<SubjectNews> subjectNews = [];
   List<EventsLib> events = [];
@@ -63,7 +61,13 @@ class MainRepository extends GetxController {
     await loadListApi(LocalDataKey.recomend); // загрузка рекомендованных
     await loadListApi(LocalDataKey.books); // загрузка книг
     await loadListApi(LocalDataKey.libriry); // загрузка библиотек
-    await loadListApi(LocalDataKey.regionies); // загрузка регионов
+    for (int k = 0; k < libriries.length; k++) {
+      bool regionExists =
+          regions.any((region) => region.id == libriries[k].region);
+      if (!regionExists) {
+        regions.add(Region(id: k.toString(), name: libriries[k].region));
+      }
+    }
     await loadListApi(LocalDataKey.ads); // загрузка объявлений
     await loadListApi(LocalDataKey.subjectNews); // загрузка тематик новостей
     await loadListApi(
@@ -159,18 +163,29 @@ class MainRepository extends GetxController {
       List<Map<String, dynamic>> mock,
       Function(List<Map<String, dynamic>> data) getList,
     ) async {
-      if (isMock && key != LocalDataKey.news) {
+      if (isMock && key != LocalDataKey.news && key != LocalDataKey.libriry) {
         getList(mock);
         await saveListToLocal(key);
       } else {
         final answer = await Api().getListApi(key);
-
         if (answer is ResSuccess) {
-          List<Map<String, dynamic>> mappedList =
-              List<Map<String, dynamic>>.from(answer.data);
+          if (key == LocalDataKey.libriry) Logger.i('answer == ${answer.data}');
+          List<Map<String, dynamic>> mappedList = [];
+          if (key == LocalDataKey.libriry) {
+            answer.data.forEach((id, data) {
+              Map<String, dynamic> item = Map.from(data);
+              item['id'] = id;
+              if (data['COORDINATES'] != null && data['COORDINATES'] != '') {
+                mappedList.add(item);
+              }
+            });
+          } else {
+            mappedList = List<Map<String, dynamic>>.from(answer.data);
+          }
           getList(mappedList);
           await saveListToLocal(key);
         } else if (answer is ResError) {
+          Logger.e('answer error == ${answer.errorMessage}');
           await loadListFromLocal(key);
         }
       }
@@ -197,11 +212,6 @@ class MainRepository extends GetxController {
       case LocalDataKey.libriry:
         await loadApi(libririesMock, (data) {
           libriries = data.map((item) => Libriry.fromJson(item)).toList();
-        });
-        break;
-      case LocalDataKey.regionies:
-        await loadApi(regionsMock, (data) {
-          regionies = data.map((item) => Region.fromJson(item)).toList();
         });
         break;
       case LocalDataKey.ads:
@@ -311,11 +321,6 @@ class MainRepository extends GetxController {
           libriries = data.map((item) => Libriry.fromJson(item)).toList();
         });
         break;
-      case LocalDataKey.regionies:
-        await loadListJson(regionies, (data) {
-          regionies = data.map((item) => Region.fromJson(item)).toList();
-        });
-        break;
       case LocalDataKey.ads:
         await loadListJson(ads, (data) {
           ads = data.map((item) => Ads.fromJson(item)).toList();
@@ -396,9 +401,6 @@ class MainRepository extends GetxController {
         break;
       case LocalDataKey.libriry:
         await saveListJson(libriries);
-        break;
-      case LocalDataKey.regionies:
-        await saveListJson(regionies);
         break;
       case LocalDataKey.ads:
         await saveListJson(ads);
