@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_easylogger/flutter_logger.dart';
 import 'package:get/get.dart';
@@ -116,6 +118,7 @@ class DioClient {
 }
 
 ResponseApi errorHandling(Object e) {
+  Logger.e('error: $e');
   if (e is DioException) {
     DioExceptions dioException = DioExceptions.fromDioError(e);
     return ResError(errorMessage: dioException.errorText);
@@ -124,8 +127,29 @@ ResponseApi errorHandling(Object e) {
   }
 }
 
-ResponseApi processResponse(Map<String, dynamic> res, String path) {
-  Logger.i(res);
+ResponseApi processResponse(dynamic resOut, String path) {
+  Map res = {};
+  if (resOut is String) {
+    res = jsonDecode(resOut);
+  } else {
+    res = resOut;
+  }
+
+  /// для входа в систему при авторизации юзера
+  if (res['status'] != null) {
+    if (res['status'] == "success") {
+      ResSuccess resSuccess = ResSuccess(res['data']);
+      resSuccess.consoleRes(path);
+      return resSuccess;
+    } else {
+      ResError resError =
+          ResError(errorMessage: 'path == $path  ${res['message']}');
+      resError.consoleRes(path);
+      return resError;
+    }
+  }
+
+  /// для остальных запросов
   if (res['Items'] != null) {
     ResSuccess resSuccess = ResSuccess(res['Items']);
     resSuccess.consoleRes(path);
@@ -135,7 +159,9 @@ ResponseApi processResponse(Map<String, dynamic> res, String path) {
     resSuccess.consoleRes(path);
     return resSuccess;
   } else {
-    ResError resError = ResError(errorMessage: res['message']);
+    Logger.e('res $res');
+    ResError resError =
+        ResError(errorMessage: 'path == $path ${res['message']}');
     resError.consoleRes(path);
     return resError;
   }

@@ -5,9 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:librarychuv/data/api/api.dart';
 import 'package:librarychuv/data/api/response_api.dart';
 import 'package:librarychuv/data/local_data.dart';
-import 'package:librarychuv/data/mock/user_mock.dart';
 import 'package:librarychuv/domain/models/user.dart';
-import 'package:librarychuv/main.dart';
 
 /// репо для юзера
 class UserRepository extends GetxController {
@@ -66,36 +64,18 @@ class UserRepository extends GetxController {
     required String email,
     required String password,
   }) async {
-    if (isMock) {
-      await Future.delayed(const Duration(seconds: 1));
-      Map<String, dynamic> userAuth = {};
-      for (Map<String, dynamic> item in userMock) {
-        if (item['password'] == password && item['email'] == email) {
-          userAuth = item;
-          break;
-        }
-      }
-      if (userAuth.isEmpty) {
-        return 'Неверный логин или пароль';
-      } else {
-        user = User.fromJson(userAuth);
-        await saveUserToLocal();
-        return '';
-      }
-    } else {
-      final answer = await Api().authUser(
-        login: email,
-        pass: password,
-      );
-      if (answer is ResSuccess) {
-        user = User.fromJson(answer.data);
-        await saveUserToLocal();
-        return '';
-      } else if (answer is ResError) {
-        return answer.errorMessage;
-      }
+    final answer = await Api().authUser(
+      login: email,
+      pass: password,
+    );
+    if (answer is ResSuccess) {
+      user = User.fromJson(answer.data);
+      await saveUserToLocal();
       return '';
+    } else if (answer is ResError) {
+      return answer.errorMessage;
     }
+    return '';
   }
 
   Future<bool> userEdit() async {

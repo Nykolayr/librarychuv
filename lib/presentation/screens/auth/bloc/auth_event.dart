@@ -15,6 +15,5 @@ class AuthLoginEvent extends AuthEvent {
 
 class AuthPassEvent extends AuthEvent {
   final String pass;
-
   const AuthPassEvent({required this.pass});
 }

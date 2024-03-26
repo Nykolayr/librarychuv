@@ -64,7 +64,7 @@ class _AuthMailPageState extends State<AuthMailPage> {
                         onChanged: (value) => () {},
                         validator: (value) => Utils.validateEmail(
                             value, 'Введите правильный логин'),
-                        keyboardType: TextInputType.name,
+                        keyboardType: TextInputType.emailAddress,
                       ),
                       const Gap(20),
                       Buttons.buttonFull(

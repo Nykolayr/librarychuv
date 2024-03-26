@@ -43,7 +43,10 @@ class _AuthPassPageState extends State<AuthPassPage> {
         body: BlocBuilder<AuthBloc, AuthState>(
             bloc: authBloc,
             buildWhen: (previous, current) {
-              if (current.isSucsess) context.goNamed('Основная');
+              if (previous.isSucsess != current.isSucsess &&
+                  current.isSucsess) {
+                context.goNamed('Основная');
+              }
 
               return true;
             },

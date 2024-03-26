@@ -158,7 +158,7 @@ class MainRepository extends GetxController {
     await saveListToLocal(LocalDataKey.myEvents);
   }
 
-  Future<void> loadListApi(LocalDataKey key) async {
+  Future<void> loadListApi(LocalDataKey key, {int page = 1}) async {
     Future<void> loadApi(
       List<Map<String, dynamic>> mock,
       Function(List<Map<String, dynamic>> data) getList,
@@ -171,7 +171,7 @@ class MainRepository extends GetxController {
         await saveListToLocal(key);
       } else {
         Logger.w('loadListApi $key');
-        final answer = await Api().getListApi(key);
+        final answer = await Api().getListApi(key, page);
         if (answer is ResSuccess) {
           if (key == LocalDataKey.libriry) Logger.i('answer == ${answer.data}');
           List<Map<String, dynamic>> mappedList = [];

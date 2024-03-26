@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:librarychuv/common/utils.dart';
 import 'package:librarychuv/domain/models/user.dart';
 import 'package:librarychuv/domain/repository/user_repository.dart';
@@ -85,6 +86,18 @@ class _AccountPageState extends State<AccountPage> {
                         pathImage: 'assets/svg/orders.svg',
                         onPressed: () => bloc.add(const AddPageEvent(
                             typePage: SecondPageType.orders)),
+                      ),
+                      const Gap(30),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 70),
+                        child: Buttons.buttonOut(
+                            onPressed: () async {
+                              await Get.find<UserRepository>().clearUser();
+                              if (context.mounted) {
+                                context.goNamed('Авторизация');
+                              }
+                            },
+                            text: 'Выход'),
                       ),
                       const Gap(85),
                     ]),

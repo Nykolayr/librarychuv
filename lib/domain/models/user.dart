@@ -1,3 +1,5 @@
+import 'package:flutter_easylogger/flutter_logger.dart';
+import 'package:intl/intl.dart';
 import 'package:librarychuv/domain/models/ticker.dart';
 
 class User {
@@ -26,19 +28,29 @@ class User {
     required this.ticketDate,
     required this.ticket,
   });
-  factory User.fromJson(Map<String, dynamic> data) => User(
-        id: data['id'] as String,
-        email: data['email'] as String,
-        password: data['password'] as String,
-        token: data['token'] as String,
-        firstName: data['firstName'] as String,
-        lastName: data['lastName'] as String,
-        pathImage: data['pathImage'] as String,
-        birthDate: DateTime.parse(data['birthDate'] as String),
-        role: data['role'] as String,
-        ticket: Ticket.fromJson(data['ticket'] as Map<String, dynamic>),
-        ticketDate: DateTime.parse(data['ticketDate'] as String),
-      );
+  factory User.fromJson(Map<String, dynamic> data) {
+    Logger.w('data == $data');
+    DateFormat formatter = DateFormat('dd.MM.yyyy');
+    return User(
+      id: data['ID'] ?? '',
+      email: data['LOGIN'] ?? '',
+      password: data['password'] ?? '',
+      token: data['token'] ?? 'test',
+      firstName: data['NAME'] ?? '',
+      lastName: data['LAST_NAME'] ?? '',
+      pathImage: data['pathImage'] ?? '',
+      birthDate: data['PERSONAL_BIRTHDAY'] == null
+          ? DateTime.now()
+          : formatter.parse(data['PERSONAL_BIRTHDAY']),
+      role: data['role'] ?? '',
+      ticket: data['ticket'] == null
+          ? Ticket.initial()
+          : Ticket.fromJson(data['ticket']),
+      ticketDate: data['ticketDate'] == null
+          ? DateTime.now()
+          : DateTime.parse(data['ticketDate']),
+    );
+  }
 
   factory User.initial() {
     return User(
