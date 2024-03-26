@@ -163,10 +163,14 @@ class MainRepository extends GetxController {
       List<Map<String, dynamic>> mock,
       Function(List<Map<String, dynamic>> data) getList,
     ) async {
-      if (isMock && key != LocalDataKey.news && key != LocalDataKey.libriry) {
+      if (isMock &&
+          key != LocalDataKey.news &&
+          key != LocalDataKey.libriry &&
+          key != LocalDataKey.events) {
         getList(mock);
         await saveListToLocal(key);
       } else {
+        Logger.w('loadListApi $key');
         final answer = await Api().getListApi(key);
         if (answer is ResSuccess) {
           if (key == LocalDataKey.libriry) Logger.i('answer == ${answer.data}');
@@ -236,7 +240,7 @@ class MainRepository extends GetxController {
         break;
       case LocalDataKey.events:
         await loadApi(eventsMock, (data) {
-          events = data.map((item) => EventsLib.fromJson(item)).toList();
+          events = data.map((item) => EventsLib.fromJsonApi(item)).toList();
         });
         break;
       case LocalDataKey.issueAddress:

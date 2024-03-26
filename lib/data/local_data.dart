@@ -98,7 +98,7 @@ enum LocalDataKey {
         LocalDataKey.hystoryZapNews => 'hystoryZapNews',
         LocalDataKey.hystoryZapEvents => 'hystoryZapEvents',
         LocalDataKey.subjectNews => 'subjectNews',
-        LocalDataKey.events => 'events',
+        LocalDataKey.events => '/events.php?PAGEN=',
         LocalDataKey.myEvents => 'myEvents',
         LocalDataKey.books => 'books',
         LocalDataKey.hystoryZapBooks => 'hystoryZapBooks',

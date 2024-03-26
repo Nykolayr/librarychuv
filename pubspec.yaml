@@ -9,6 +9,9 @@ version: 1.0.0+1
 # info.plist (located at ios/Runner)
 # <key>CFBundleDisplayName</key>
 # <string>App Name</string>
+#обязательно для удаления очищения данных 
+# <application android:allowBackup="false"
+# в файле AndroidManifest.xml
 
 environment:
   sdk: ">=3.2.3 <4.0.0"

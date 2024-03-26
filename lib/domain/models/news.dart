@@ -1,4 +1,3 @@
-import 'package:flutter_easylogger/flutter_logger.dart';
 import 'package:intl/intl.dart';
 import 'package:librarychuv/common/constants.dart';
 import 'package:librarychuv/domain/models/abstract.dart';
@@ -42,8 +41,8 @@ class News extends AllModels {
 
   factory News.fromJsonApi(Map<String, dynamic> data) {
     Map<String, dynamic> fields = data['Fields'] as Map<String, dynamic>;
-    Map<String, dynamic> properties =
-        data['Properties'] as Map<String, dynamic>;
+    // Map<String, dynamic> properties =
+    //     data['Properties'] as Map<String, dynamic>;
     DateFormat dateFormat = DateFormat("dd.MM.yyyy HH:mm:ss");
     DateTime dateTime = dateFormat.parse(fields['DATE_ACTIVE_FROM']);
     dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
