@@ -24,9 +24,9 @@ class _EventsAllPageState extends State<EventsAllPage> {
   bool isMyEvents = false;
   ScrollController controller = ScrollController();
   int indexEvents = 0;
-  List<EventsLib> events = Get.find<MainRepository>().events;
+  List<EventsLib> events = Get.find<MainRepository>().events.events;
   List<MyEvents> myEvents = Get.find<MainRepository>().myEvents;
-  List<EventsLib> filteredList = Get.find<MainRepository>().events;
+  List<EventsLib> filteredList = Get.find<MainRepository>().events.events;
   MainBloc bloc = Get.find<MainBloc>();
   TypeEvents type = TypeEvents.all;
   EventsLib nearestEvents = EventsLib.initial();

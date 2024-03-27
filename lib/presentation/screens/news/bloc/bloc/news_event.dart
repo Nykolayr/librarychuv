@@ -6,3 +6,5 @@ sealed class NewsEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class LoadNewsEvent extends NewsEvent {}

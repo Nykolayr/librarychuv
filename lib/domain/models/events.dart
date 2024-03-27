@@ -1,6 +1,62 @@
 import 'package:intl/intl.dart';
 import 'package:librarychuv/common/constants.dart';
 import 'package:librarychuv/domain/models/abstract.dart';
+import 'package:librarychuv/domain/models/pagination.dart';
+
+/// класс новостей для страницы
+class EventsLibPage {
+  List<EventsLib> events;
+  Pagination pagination;
+  EventsLibPage({
+    required this.events,
+    required this.pagination,
+  });
+
+  /// конечная ли страница
+  bool get isLastPage => pagination.currentPage == pagination.pageCount;
+
+  factory EventsLibPage.fromJsonApi(
+      Map<String, dynamic> json, EventsLibPage event) {
+    List<dynamic> items = (json)['Items'];
+    List<Map<String, dynamic>> mappedList = items.map((item) {
+      return Map<String, dynamic>.from(item);
+    }).toList();
+    List<EventsLib> nextEvents =
+        mappedList.map((item) => EventsLib.fromJsonApi(item)).toList();
+    return EventsLibPage(
+      events: [...event.events, ...nextEvents],
+      pagination: json['pagination'] == null
+          ? Pagination.init()
+          : Pagination.fromJson(json['pagination']),
+    );
+  }
+
+  factory EventsLibPage.fromJson(Map<String, dynamic> json) {
+    return EventsLibPage(
+      events: json['data'] == null
+          ? []
+          : (json['data'] as List)
+              .map((e) => EventsLib.fromJson(e as Map<String, dynamic>))
+              .toList(),
+      pagination: json['pagination'] == null
+          ? Pagination.init()
+          : Pagination.fromJson(json['pagination']),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['data'] = events.map((v) => v.toJson()).toList();
+    data['pagination'] = pagination.toJson();
+
+    return data;
+  }
+
+  factory EventsLibPage.init() => EventsLibPage(
+        events: [],
+        pagination: Pagination.init(),
+      );
+}
 
 /// класс событий
 class EventsLib extends AllModels {

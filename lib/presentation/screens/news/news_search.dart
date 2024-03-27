@@ -23,7 +23,7 @@ class _NewsSearchPageState extends State<NewsSearchPage> {
   TextEditingController searchController = TextEditingController();
   MainBloc bloc = Get.find<MainBloc>();
   List<String> hystoryZapNews = Get.find<MainRepository>().hystoryZapNews;
-  List<News> news = Get.find<MainRepository>().news;
+  List<News> news = Get.find<MainRepository>().news.news;
   List<News> newsSearch = [];
   bool isNotSearch = false;
 

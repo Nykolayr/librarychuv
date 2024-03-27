@@ -23,7 +23,7 @@ class _EventsSearchPageState extends State<EventsSearchPage> {
   TextEditingController searchController = TextEditingController();
   MainBloc bloc = Get.find<MainBloc>();
   List<String> hystoryZapEvents = Get.find<MainRepository>().hystoryZapEvents;
-  List<EventsLib> events = Get.find<MainRepository>().events;
+  List<EventsLib> events = Get.find<MainRepository>().events.events;
   List<EventsLib> newsEvents = [];
   bool isNotSearch = false;
 

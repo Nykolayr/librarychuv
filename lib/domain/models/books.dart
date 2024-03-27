@@ -1,5 +1,46 @@
 import 'package:librarychuv/domain/models/abstract.dart';
+import 'package:librarychuv/domain/models/pagination.dart';
 
+/// класс книг для страницы
+class BooksForPage {
+  List<Book> books;
+  Pagination pagination;
+  int currentPage;
+  BooksForPage(
+      {required this.books,
+      required this.pagination,
+      required this.currentPage});
+
+  factory BooksForPage.fromJson(Map<String, dynamic> json) {
+    return BooksForPage(
+      books: json['data'] == null
+          ? []
+          : (json['data'] as List)
+              .map((e) => Book.fromJson(e as Map<String, dynamic>))
+              .toList(),
+      pagination: json['pagination'] == null
+          ? Pagination.init()
+          : Pagination.fromJson(json['pagination']),
+      currentPage: json['currentPage'] ?? 1,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['data'] = books.map((v) => v.toJson()).toList();
+    data['pagination'] = pagination.toJson();
+    data['currentPage'] = currentPage;
+    return data;
+  }
+
+  factory BooksForPage.init() => BooksForPage(
+        books: [],
+        pagination: Pagination.init(),
+        currentPage: 1,
+      );
+}
+
+/// класс книг
 class Book extends AllModels {
   String url;
   bool isFavorite;

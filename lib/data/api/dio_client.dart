@@ -135,6 +135,25 @@ ResponseApi processResponse(dynamic resOut, String path) {
     res = resOut;
   }
 
+  /// для news, events, ads
+  if (path.contains('/news') || path.contains('/events')
+      //  || path.contains('/ads')
+      ) {
+    if (res['error'] == null) {
+      ResSuccess resSuccess = ResSuccess({
+        "Items": res['Items'],
+        "pagination": res['Pagination'],
+      });
+      resSuccess.consoleRes(path);
+      return resSuccess;
+    } else {
+      ResError resError =
+          ResError(errorMessage: 'path == $path ${res['message']}');
+      resError.consoleRes(path);
+      return resError;
+    }
+  }
+
   /// для входа в систему при авторизации юзера
   if (res['status'] != null) {
     if (res['status'] == "success") {
@@ -159,7 +178,6 @@ ResponseApi processResponse(dynamic resOut, String path) {
     resSuccess.consoleRes(path);
     return resSuccess;
   } else {
-    Logger.e('res $res');
     ResError resError =
         ResError(errorMessage: 'path == $path ${res['message']}');
     resError.consoleRes(path);

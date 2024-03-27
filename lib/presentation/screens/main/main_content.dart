@@ -20,7 +20,7 @@ class MainContent extends StatefulWidget {
 
 class _MainContentState extends State<MainContent> {
   int maxNews = 5; // максимальное количество новостей
-  List<News> newsAll = Get.find<MainRepository>().news;
+  List<News> newsAll = Get.find<MainRepository>().news.news;
   List<News> news = [];
   List<Book> recommendationsAll = Get.find<MainRepository>().recommendations;
   List<Book> recommendations = [];

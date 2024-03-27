@@ -11,6 +11,7 @@ class Api {
 
   /// загрузка  списка новостей,
   Future<ResponseApi> getListApi(LocalDataKey key, int page) async {
+    page = 20;
     final path = '${key.url}$page&token=$token';
     return await dio.get(path);
   }

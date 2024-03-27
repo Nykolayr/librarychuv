@@ -7,11 +7,9 @@ import 'package:librarychuv/data/local_data.dart';
 import 'package:librarychuv/data/mock/issue_address.dart';
 import 'package:librarychuv/data/mock/ads_mock.dart';
 import 'package:librarychuv/data/mock/book_mock.dart';
-import 'package:librarychuv/data/mock/events_mock.dart';
 import 'package:librarychuv/data/mock/help_mosk.dart';
 import 'package:librarychuv/data/mock/librires_mock.dart';
 import 'package:librarychuv/data/mock/my_answers.dart';
-import 'package:librarychuv/data/mock/news_mock.dart';
 import 'package:librarychuv/data/mock/subject_mock.dart';
 import 'package:librarychuv/domain/models/abstract.dart';
 import 'package:librarychuv/domain/models/ads.dart';
@@ -29,14 +27,15 @@ import 'package:librarychuv/main.dart';
 
 /// репо для различных сущностей
 class MainRepository extends GetxController {
-  List<News> news = [];
+  NewsForPage news = NewsForPage.init();
+  EventsLibPage events = EventsLibPage.init();
   List<Book> recommendations = [];
   List<Book> books = [];
   List<Libriry> libriries = [];
   List<Region> regions = [];
   List<Ads> ads = [];
   List<SubjectNews> subjectNews = [];
-  List<EventsLib> events = [];
+
   List<MyEvents> myEvents = [];
   List<IssueAddress> issueAddress = [];
   List<BookOrder> bookOrders = [];
@@ -158,8 +157,25 @@ class MainRepository extends GetxController {
     await saveListToLocal(LocalDataKey.myEvents);
   }
 
-  Future<void> loadListApi(LocalDataKey key, {int page = 1}) async {
-    Future<void> loadApi(
+  Future<String> loadListApi(LocalDataKey key, {int page = 1}) async {
+    Future<String> loadDataApi(
+      Function(Map<String, dynamic> data) getList,
+    ) async {
+      final answer = await Api().getListApi(key, page);
+      if (answer is ResSuccess) {
+        getList(answer.data);
+        await saveListToLocal(key);
+        return '';
+      } else if (answer is ResError) {
+        String error = 'answer error == ${answer.errorMessage}';
+        Logger.e(error);
+        await loadListFromLocal(key);
+        return error;
+      }
+      return '';
+    }
+
+    Future<String> loadApi(
       List<Map<String, dynamic>> mock,
       Function(List<Map<String, dynamic>> data) getList,
     ) async {
@@ -170,10 +186,8 @@ class MainRepository extends GetxController {
         getList(mock);
         await saveListToLocal(key);
       } else {
-        Logger.w('loadListApi $key');
         final answer = await Api().getListApi(key, page);
         if (answer is ResSuccess) {
-          if (key == LocalDataKey.libriry) Logger.i('answer == ${answer.data}');
           List<Map<String, dynamic>> mappedList = [];
           if (key == LocalDataKey.libriry) {
             answer.data.forEach((id, data) {
@@ -188,98 +202,92 @@ class MainRepository extends GetxController {
           }
           getList(mappedList);
           await saveListToLocal(key);
+          return '';
         } else if (answer is ResError) {
-          Logger.e('answer error == ${answer.errorMessage}');
+          String error = 'answer error == ${answer.errorMessage}';
+          Logger.e(error);
           await loadListFromLocal(key);
+          return error;
         }
       }
+      return '';
     }
 
     switch (key) {
       case LocalDataKey.user:
         break;
       case LocalDataKey.news:
-        await loadApi(newsMock, (data) {
-          news = data.map((item) => News.fromJsonApi(item)).toList();
+        return await loadDataApi((data) {
+          news = NewsForPage.fromJsonApi(data, news);
         });
-        break;
+      case LocalDataKey.events:
+        return await loadDataApi((data) {
+          events = EventsLibPage.fromJsonApi(data, events);
+        });
+
       case LocalDataKey.books:
-        await loadApi(recommendationsMock, (data) {
+        return await loadApi(recommendationsMock, (data) {
           books = data.map((item) => Book.fromJson(item)).toList();
         });
-        break;
       case LocalDataKey.recomend:
-        await loadApi(recommendationsMock, (data) {
+        return await loadApi(recommendationsMock, (data) {
           recommendations = data.map((item) => Book.fromJson(item)).toList();
         });
-        break;
+
       case LocalDataKey.libriry:
-        await loadApi(libririesMock, (data) {
+        return await loadApi(libririesMock, (data) {
           libriries = data.map((item) => Libriry.fromJson(item)).toList();
         });
-        break;
+
       case LocalDataKey.ads:
-        await loadApi(adsMock, (data) {
+        return await loadApi(adsMock, (data) {
           ads = data.map((item) => Ads.fromJson(item)).toList();
         });
-        break;
+
       case LocalDataKey.hystoryZapAds:
-        await loadApi(adsMock, (data) {
+        return await loadApi(adsMock, (data) {
           ads = data.map((item) => Ads.fromJson(item)).toList();
         });
-        break;
+
       case LocalDataKey.hystoryZapNews:
-        await loadApi(newsMock, (data) {
-          news = data.map((item) => News.fromJson(item)).toList();
+        return await loadDataApi((data) {
+          news = NewsForPage.fromJsonApi(data, news);
         });
-        break;
+
       case LocalDataKey.subjectNews:
-        await loadApi(subjectNewsMock, (data) {
+        return await loadApi(subjectNewsMock, (data) {
           subjectNews = data.map((item) => SubjectNews.fromJson(item)).toList();
         });
-        break;
-      case LocalDataKey.events:
-        await loadApi(eventsMock, (data) {
-          events = data.map((item) => EventsLib.fromJsonApi(item)).toList();
-        });
-        break;
+
       case LocalDataKey.issueAddress:
-        await loadApi(issueAddressMock, (data) {
+        return await loadApi(issueAddressMock, (data) {
           issueAddress =
               data.map((item) => IssueAddress.fromJson(item)).toList();
         });
-        break;
+      case LocalDataKey.hystoryZapBooks:
       case LocalDataKey.hystoryZapEvents:
-        await loadApi(eventsMock, (data) {
-          events = data.map((item) => EventsLib.fromJson(item)).toList();
-        });
         break;
       case LocalDataKey.myEvents:
-        await loadApi([], (data) {
+        return await loadApi([], (data) {
           myEvents = data.map((item) => MyEvents.fromJson(item)).toList();
         });
-        break;
-      case LocalDataKey.hystoryZapBooks:
-        await loadApi(eventsMock, (data) {
-          books = data.map((item) => Book.fromJson(item)).toList();
-        });
-        break;
+
       case LocalDataKey.bookOrders:
-        await loadApi([], (data) {
+        return await loadApi([], (data) {
           bookOrders = data.map((item) => BookOrder.fromJson(item)).toList();
         });
-        break;
+
       case LocalDataKey.helps:
-        await loadApi(helpMock, (data) {
+        return await loadApi(helpMock, (data) {
           helps = data.map((item) => Help.fromJson(item)).toList();
         });
-        break;
+
       case LocalDataKey.questions:
-        await loadApi(questionsMock, (data) {
+        return await loadApi(questionsMock, (data) {
           questions = data.map((item) => Question.fromJson(item)).toList();
         });
-        break;
     }
+    return '';
   }
 
   Future<void> loadListFromLocal(LocalDataKey key) async {
@@ -296,19 +304,15 @@ class MainRepository extends GetxController {
       }
     }
 
-    Future loadListString(List<String> list) async {
-      final List<String> data =
-          await LocalData.loadListString(key: LocalDataKey.news);
+    Future loadListString(List<String> list, LocalDataKey key) async {
+      final List<String> data = await LocalData.loadListString(key: key);
       list = data;
     }
 
     switch (key) {
       case LocalDataKey.user:
-        break;
       case LocalDataKey.news:
-        await loadListJson(news, (data) {
-          news = data.map((item) => News.fromJson(item)).toList();
-        });
+      case LocalDataKey.events:
         break;
       case LocalDataKey.recomend:
         await loadListJson(recommendations, (data) {
@@ -337,19 +341,14 @@ class MainRepository extends GetxController {
         });
         break;
       case LocalDataKey.hystoryZapAds:
-        await loadListString(hystoryZapAds);
+        await loadListString(hystoryZapAds, LocalDataKey.hystoryZapAds);
         break;
       case LocalDataKey.hystoryZapNews:
-        await loadListString(hystoryZapNews);
+        await loadListString(hystoryZapNews, LocalDataKey.hystoryZapNews);
         break;
       case LocalDataKey.subjectNews:
         await loadListJson(subjectNews, (data) {
           subjectNews = data.map((item) => SubjectNews.fromJson(item)).toList();
-        });
-        break;
-      case LocalDataKey.events:
-        await loadListJson(events, (data) {
-          events = data.map((item) => EventsLib.fromJson(item)).toList();
         });
         break;
       case LocalDataKey.bookOrders:
@@ -358,7 +357,7 @@ class MainRepository extends GetxController {
         });
         break;
       case LocalDataKey.hystoryZapEvents:
-        await loadListString(hystoryZapEvents);
+        await loadListString(hystoryZapEvents, LocalDataKey.hystoryZapEvents);
         break;
       case LocalDataKey.myEvents:
         await loadListJson(myEvents, (data) {
@@ -366,7 +365,7 @@ class MainRepository extends GetxController {
         });
         break;
       case LocalDataKey.hystoryZapBooks:
-        await loadListString(hystoryZapBooks);
+        await loadListString(hystoryZapBooks, LocalDataKey.hystoryZapBooks);
         break;
       case LocalDataKey.helps:
         await loadListJson(helps, (data) {
@@ -395,7 +394,10 @@ class MainRepository extends GetxController {
       case LocalDataKey.user:
         break;
       case LocalDataKey.news:
-        await saveListJson(news);
+        await LocalData.saveJson(json: news.toJson(), key: LocalDataKey.news);
+        break;
+      case LocalDataKey.events:
+        await LocalData.saveJson(json: events.toJson(), key: LocalDataKey.news);
         break;
       case LocalDataKey.recomend:
         await saveListJson(recommendations);
@@ -418,9 +420,7 @@ class MainRepository extends GetxController {
       case LocalDataKey.subjectNews:
         await saveListJson(subjectNews);
         break;
-      case LocalDataKey.events:
-        await saveListJson(events);
-        break;
+
       case LocalDataKey.hystoryZapEvents:
         await saveListString(hystoryZapEvents);
         break;
