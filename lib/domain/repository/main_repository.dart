@@ -163,7 +163,10 @@ class MainRepository extends GetxController {
     ) async {
       final answer = await Api().getListApi(key, page);
       if (answer is ResSuccess) {
+        Logger.w('pagination ${key.name} ${answer.data['pagination']} ');
+
         getList(answer.data);
+
         await saveListToLocal(key);
         return '';
       } else if (answer is ResError) {

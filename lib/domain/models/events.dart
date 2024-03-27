@@ -1,3 +1,4 @@
+import 'package:flutter_easylogger/flutter_logger.dart';
 import 'package:intl/intl.dart';
 import 'package:librarychuv/common/constants.dart';
 import 'package:librarychuv/domain/models/abstract.dart';
@@ -23,6 +24,7 @@ class EventsLibPage {
     }).toList();
     List<EventsLib> nextEvents =
         mappedList.map((item) => EventsLib.fromJsonApi(item)).toList();
+    Logger.e('length  ${event.events.length} ${nextEvents.length}');
     return EventsLibPage(
       events: [...event.events, ...nextEvents],
       pagination: json['pagination'] == null
@@ -90,7 +92,9 @@ class EventsLib extends AllModels {
     DateFormat dateFormat = DateFormat("dd.MM.yyyy HH:mm:ss");
     dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
     DateTime dateActive = dateFormat.parse(fields['ACTIVE_FROM_X']);
-    String pathImage = url + fields['PREVIEW_PICTURE'];
+    String pathImage = fields['PREVIEW_PICTURE'] == null
+        ? ''
+        : url + fields['PREVIEW_PICTURE'];
     return EventsLib(
       id: fields['ID'] ?? '0',
       iBlocId: fields['IBLOCK_ID'] ?? '0',

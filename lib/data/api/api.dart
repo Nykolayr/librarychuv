@@ -1,3 +1,4 @@
+import 'package:flutter_easylogger/flutter_logger.dart';
 import 'package:get/get.dart';
 import 'package:librarychuv/common/constants.dart';
 import 'package:librarychuv/data/api/response_api.dart';
@@ -11,8 +12,8 @@ class Api {
 
   /// загрузка  списка новостей,
   Future<ResponseApi> getListApi(LocalDataKey key, int page) async {
-    page = 20;
     final path = '${key.url}$page&token=$token';
+    Logger.e('loadListApi ${key.name} $page == $path');
     return await dio.get(path);
   }
 

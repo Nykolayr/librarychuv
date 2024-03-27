@@ -90,7 +90,7 @@ enum LocalDataKey {
 
   String get url => switch (this) {
         LocalDataKey.user => 'user',
-        LocalDataKey.news => '/news.php?PAGEN=',
+        LocalDataKey.news => '/news.php?PAGEN_',
         LocalDataKey.recomend => 'recomend',
         LocalDataKey.libriry => '/map_biblio.php?PAGEN=',
         LocalDataKey.ads => 'ads',
@@ -98,7 +98,7 @@ enum LocalDataKey {
         LocalDataKey.hystoryZapNews => 'hystoryZapNews',
         LocalDataKey.hystoryZapEvents => 'hystoryZapEvents',
         LocalDataKey.subjectNews => 'subjectNews',
-        LocalDataKey.events => '/events.php?PAGEN=',
+        LocalDataKey.events => '/events.php?PAGEN_',
         LocalDataKey.myEvents => 'myEvents',
         LocalDataKey.books => 'books',
         LocalDataKey.hystoryZapBooks => 'hystoryZapBooks',

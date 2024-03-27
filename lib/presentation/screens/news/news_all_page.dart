@@ -16,6 +16,7 @@ class NewsAllPage extends StatefulWidget {
 }
 
 class _NewsAllPageState extends State<NewsAllPage> {
+  bool isNext = true;
   final ScrollController scrollController = ScrollController();
   NewsBloc newsBloc = NewsBloc();
   @override
@@ -26,34 +27,50 @@ class _NewsAllPageState extends State<NewsAllPage> {
 
   void scrollListener() {
     if (scrollController.position.extentAfter < 500) {
-      Get.find<NewsBloc>().add(LoadNewsEvent());
+      if (isNext) {
+        newsBloc.add(LoadNewsEvent());
+        isNext = false;
+        Future.delayed(const Duration(seconds: 2), () {
+          isNext = true;
+        });
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<NewsBloc, NewsState>(
-        bloc: newsBloc,
-        builder: (context, state) => Container(
-              alignment: Alignment.topCenter,
-              width: context.mediaQuerySize.width,
-              height: context.mediaQuerySize.height - 120,
-              color: AppColor.fon,
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ...Get.find<MainRepository>()
-                        .news
-                        .news
-                        .map(
-                          (item) => NewsItem(item: item),
-                        )
-                        .toList(),
-                    const Gap(75),
-                  ],
-                ),
+      bloc: newsBloc,
+      builder: (context, state) => Stack(
+        children: [
+          Container(
+            alignment: Alignment.topCenter,
+            width: context.mediaQuerySize.width,
+            height: context.mediaQuerySize.height - 120,
+            color: AppColor.fon,
+            child: SingleChildScrollView(
+              controller: scrollController,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ...Get.find<MainRepository>()
+                      .news
+                      .news
+                      .map(
+                        (item) => NewsItem(item: item),
+                      )
+                      .toList(),
+                  const Gap(75),
+                ],
               ),
-            ));
+            ),
+          ),
+          if (state.isLoading)
+            const Center(
+              child: CircularProgressIndicator(),
+            )
+        ],
+      ),
+    );
   }
 }
