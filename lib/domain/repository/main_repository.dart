@@ -29,6 +29,8 @@ import 'package:librarychuv/main.dart';
 class MainRepository extends GetxController {
   NewsForPage news = NewsForPage.init();
   EventsLibPage events = EventsLibPage.init();
+  NewsForPage searchNews = NewsForPage.init();
+  EventsLibPage searchEvents = EventsLibPage.init();
   List<Book> recommendations = [];
   List<Book> books = [];
   List<Libriry> libriries = [];
@@ -157,16 +159,16 @@ class MainRepository extends GetxController {
     await saveListToLocal(LocalDataKey.myEvents);
   }
 
-  Future<String> loadListApi(LocalDataKey key, {int page = 1}) async {
+  Future<String> loadListApi(LocalDataKey key,
+      {int page = 1, String search = ''}) async {
     Future<String> loadDataApi(
       Function(Map<String, dynamic> data) getList,
     ) async {
-      final answer = await Api().getListApi(key, page);
+      final answer = await Api().getListApi(key, page, search: search);
       if (answer is ResSuccess) {
         Logger.w('pagination ${key.name} ${answer.data['pagination']} ');
 
         getList(answer.data);
-
         await saveListToLocal(key);
         return '';
       } else if (answer is ResError) {
@@ -226,6 +228,15 @@ class MainRepository extends GetxController {
       case LocalDataKey.events:
         return await loadDataApi((data) {
           events = EventsLibPage.fromJsonApi(data, events);
+        });
+
+      case LocalDataKey.searchNews:
+        return await loadDataApi((data) {
+          searchNews = NewsForPage.fromJsonApi(data, searchNews);
+        });
+      case LocalDataKey.searchEvents:
+        return await loadDataApi((data) {
+          searchEvents = EventsLibPage.fromJsonApi(data, searchEvents);
         });
 
       case LocalDataKey.books:
@@ -316,6 +327,8 @@ class MainRepository extends GetxController {
       case LocalDataKey.user:
       case LocalDataKey.news:
       case LocalDataKey.events:
+      case LocalDataKey.searchNews:
+      case LocalDataKey.searchEvents:
         break;
       case LocalDataKey.recomend:
         await loadListJson(recommendations, (data) {
@@ -395,6 +408,8 @@ class MainRepository extends GetxController {
 
     switch (key) {
       case LocalDataKey.user:
+      case LocalDataKey.searchNews:
+      case LocalDataKey.searchEvents:
         break;
       case LocalDataKey.news:
         await LocalData.saveJson(json: news.toJson(), key: LocalDataKey.news);

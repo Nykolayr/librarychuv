@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
 import 'package:get/get.dart';
 import 'package:librarychuv/data/local_data.dart';
 import 'package:librarychuv/domain/models/events.dart';
 import 'package:librarychuv/domain/repository/main_repository.dart';
+import 'package:librarychuv/presentation/screens/events_pages/bloc/bloc/events_bloc.dart';
 import 'package:librarychuv/presentation/screens/main/bloc/main_bloc.dart';
 import 'package:librarychuv/presentation/screens/main/pages.dart';
 import 'package:librarychuv/presentation/theme/theme.dart';
@@ -22,30 +24,22 @@ class EventsSearchPage extends StatefulWidget {
 class _EventsSearchPageState extends State<EventsSearchPage> {
   TextEditingController searchController = TextEditingController();
   MainBloc bloc = Get.find<MainBloc>();
+  EventsBloc eventsBloc = Get.find<EventsBloc>();
   List<String> hystoryZapEvents = Get.find<MainRepository>().hystoryZapEvents;
   List<EventsLib> events = Get.find<MainRepository>().events.events;
-  List<EventsLib> newsEvents = [];
-  bool isNotSearch = false;
 
   goSearch(String text, isSearch) {
-    newsEvents = events
-        .where((item) => item.name.toLowerCase().contains(text.toLowerCase()))
-        .toList();
-    if (newsEvents.isNotEmpty) {
-      isNotSearch = false;
-      if (isSearch && !hystoryZapEvents.contains(searchController.text)) {
-        hystoryZapEvents.add(searchController.text);
-        Get.find<MainRepository>().saveListToLocal(
-          LocalDataKey.hystoryZapEvents,
-        );
-        searchController.text = '';
-      }
-      Get.find<MainBloc>().add(AddPageEvent(
-          typePage: SecondPageType.resultSearchEvents, items: newsEvents));
-    } else {
-      isNotSearch = true;
+    Get.find<MainRepository>().searchEvents.events.clear();
+    Get.find<MainRepository>().searchEvents.pagination.currentPage = 0;
+    eventsBloc.add(AddSearchTextEvent(searchText: text));
+    eventsBloc.add(LoadNewsSearchEvent());
+    if (isSearch && !hystoryZapEvents.contains(searchController.text)) {
+      hystoryZapEvents.add(searchController.text);
+      Get.find<MainRepository>().saveListToLocal(
+        LocalDataKey.hystoryZapEvents,
+      );
+      searchController.text = '';
     }
-    setState(() {});
   }
 
   @override
@@ -61,74 +55,96 @@ class _EventsSearchPageState extends State<EventsSearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: context.mediaQuerySize.width,
-      height: context.mediaQuerySize.height - 120,
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      decoration: const BoxDecoration(
-        color: AppColor.white,
-        borderRadius: AppDif.borderRadius10,
-      ),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Gap(20),
-            Text('Чувашские символы для поиска: Ӑ ӑ Ӗ ӗ Ӳ ӳ Ҫ ҫ',
-                style: AppText.text12b),
-            const Gap(15),
-            SearchFieldHelp(
-              searchController: searchController,
+    return BlocBuilder<EventsBloc, EventsState>(
+      bloc: eventsBloc,
+      buildWhen: (previous, current) {
+        if (previous.searchEvents != current.searchEvents) {
+          if (current.searchEvents.events.isNotEmpty) {
+            Get.find<MainBloc>().add(AddPageEvent(
+                typePage: SecondPageType.resultSearchEvents,
+                items: current.searchEvents.events));
+          }
+        }
+        return true;
+      },
+      builder: (context, state) => Stack(
+        children: [
+          Container(
+            width: context.mediaQuerySize.width,
+            height: context.mediaQuerySize.height - 120,
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            decoration: const BoxDecoration(
+              color: AppColor.white,
+              borderRadius: AppDif.borderRadius10,
             ),
-            const Gap(15),
-            if (isNotSearch) Text('Ничего не найдено', style: AppText.text12r),
-            if (isNotSearch) const Gap(15),
-            Buttons.buttonFull(
-                onPressed: () {
-                  if (searchController.text.isNotEmpty) {
-                    goSearch(searchController.text, true);
-                  }
-                },
-                text: 'Искать событие'),
-            const Gap(20),
-            if (hystoryZapEvents.isNotEmpty)
-              Text('История запросов:', style: AppText.text12b),
-            const Gap(20),
-            ...hystoryZapEvents
-                .map(
-                  (item) => GestureDetector(
-                    onTap: () => goSearch(item, false),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: Text(
-                        item,
-                        style: AppText.text12r,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Gap(20),
+                  Text('Чувашские символы для поиска: Ӑ ӑ Ӗ ӗ Ӳ ӳ Ҫ ҫ',
+                      style: AppText.text12b),
+                  const Gap(15),
+                  SearchFieldHelp(
+                    searchController: searchController,
+                  ),
+                  const Gap(15),
+                  if (state.error.isNotEmpty)
+                    Text('Ничего не найдено', style: AppText.text12r),
+                  if (state.error.isNotEmpty) const Gap(15),
+                  Buttons.buttonFull(
+                      onPressed: () {
+                        if (searchController.text.isNotEmpty) {
+                          goSearch(searchController.text, true);
+                        }
+                      },
+                      text: 'Искать событие'),
+                  const Gap(20),
+                  if (hystoryZapEvents.isNotEmpty)
+                    Text('История запросов:', style: AppText.text12b),
+                  const Gap(20),
+                  ...hystoryZapEvents
+                      .map(
+                        (item) => GestureDetector(
+                          onTap: () => goSearch(item, false),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            child: Text(
+                              item,
+                              style: AppText.text12r,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                  const Gap(10),
+                  if (hystoryZapEvents.isNotEmpty)
+                    GestureDetector(
+                      onTap: () {
+                        hystoryZapEvents = [];
+                        Get.find<MainRepository>().hystoryZapNews = [];
+                        Get.find<MainRepository>().saveListToLocal(
+                          LocalDataKey.hystoryZapNews,
+                        );
+                        setState(() {});
+                      },
+                      child: Center(
+                        child: AppText.textUnder('Очистить историю поиска',
+                            isSearch: true),
                       ),
                     ),
-                  ),
-                )
-                .toList(),
-            const Gap(10),
-            if (hystoryZapEvents.isNotEmpty)
-              GestureDetector(
-                onTap: () {
-                  hystoryZapEvents = [];
-                  Get.find<MainRepository>().hystoryZapNews = [];
-                  Get.find<MainRepository>().saveListToLocal(
-                    LocalDataKey.hystoryZapNews,
-                  );
-                  setState(() {});
-                },
-                child: Center(
-                  child: AppText.textUnder('Очистить историю поиска',
-                      isSearch: true),
-                ),
+                  const Gap(70),
+                ],
               ),
-            const Gap(70),
-          ],
-        ),
+            ),
+          ),
+          if (state.isLoading)
+            const Center(
+              child: CircularProgressIndicator(),
+            )
+        ],
       ),
     );
   }

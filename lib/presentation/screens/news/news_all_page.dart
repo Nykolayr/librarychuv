@@ -18,7 +18,7 @@ class NewsAllPage extends StatefulWidget {
 class _NewsAllPageState extends State<NewsAllPage> {
   bool isNext = true;
   final ScrollController scrollController = ScrollController();
-  NewsBloc newsBloc = NewsBloc();
+  NewsBloc newsBloc = Get.find<NewsBloc>();
   @override
   void initState() {
     super.initState();

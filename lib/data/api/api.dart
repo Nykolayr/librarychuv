@@ -11,8 +11,9 @@ class Api {
   final DioClient dio = Get.find<DioClient>();
 
   /// загрузка  списка новостей,
-  Future<ResponseApi> getListApi(LocalDataKey key, int page) async {
-    final path = '${key.url}$page&token=$token';
+  Future<ResponseApi> getListApi(LocalDataKey key, int page,
+      {String search = ''}) async {
+    final path = '${key.url}$page&token=$token&SEARCH=$search';
     Logger.e('loadListApi ${key.name} $page == $path');
     return await dio.get(path);
   }

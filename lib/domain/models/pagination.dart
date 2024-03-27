@@ -9,8 +9,8 @@ class Pagination {
       required this.recordCount});
 
   factory Pagination.fromJson(Map<String, dynamic> json) {
-    int currentPage = 1;
-    int pageCount = 0;
+    int currentPage = 0;
+    int pageCount = 1;
     int recordCount = 10;
     if (json['CurrentPage'] != null) {
       if (json['CurrentPage'] is String) {
@@ -51,6 +51,6 @@ class Pagination {
   }
 
   factory Pagination.init() {
-    return Pagination(currentPage: 1, pageCount: 0, recordCount: 0);
+    return Pagination(currentPage: 0, pageCount: 1, recordCount: 0);
   }
 }

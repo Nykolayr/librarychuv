@@ -25,7 +25,7 @@ class EventsAllPage extends StatefulWidget {
 class _EventsAllPageState extends State<EventsAllPage> {
   bool isNext = true;
 
-  EventsBloc eventBloc = EventsBloc();
+  EventsBloc eventBloc = Get.find<EventsBloc>();
   bool isMyEvents = false;
   ScrollController eventsController = ScrollController();
   ScrollController controller = ScrollController();
