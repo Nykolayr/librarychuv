@@ -49,7 +49,7 @@ dependencies:
   #extended_image: ^8.2.0 #https://pub.dev/packages/extended_image
   google_fonts: ^6.1.0 #https://pub.dev/packages/google_fonts
   calendar_date_picker2: ^0.5.3 #https://pub.dev/packages/calendar_date_picker2
-  intl: ^0.18.1
+  intl: ^0.19.0
   webview_flutter: ^4.4.2 #https://pub.dev/packages/webview_flutter
   carousel_slider: ^4.2.1 #https://pub.dev/packages/carousel_slider
   dots_indicator: ^3.0.0 #https://pub.dev/packages/dots_indicator
